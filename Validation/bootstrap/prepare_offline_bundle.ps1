@@ -37,6 +37,7 @@ $routerReq = Join-Path $ProjectRoot "Validation\Data_Router\requirements.txt"
 $consoleReq = Join-Path $ProjectRoot "Validation\Web_Console\requirements.txt"
 
 python -m pip download --dest $PackageDir --platform manylinux_2_17_x86_64 --python-version 3.14 --implementation cp --only-binary=:all: -r $requirements -r $forwarderReq -r $routerReq -r $consoleReq
+if ($LASTEXITCODE -ne 0) { throw "Offline wheel download failed. No deployment bundle was produced." }
 
 Write-Host "[OK] Offline package bundle prepared." -ForegroundColor Green
 Write-Host "Runtime: $PythonArchive"
