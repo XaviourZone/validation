@@ -5,6 +5,7 @@ import logging
 import os
 import signal
 import sys
+import threading
 from pathlib import Path
 import yaml
 
@@ -120,19 +121,39 @@ def main():
         logger=logger,
     )
 
+    shutdown_event = threading.Event()
+    shutting_down = threading.Event()
+
     def handle_signal(sig, frame):
+        if shutting_down.is_set():
+            return
+        shutting_down.set()
         logger.info(f"Signal {sig} received, shutting down gracefully...")
-        server.shutdown()
-        sys.exit(0)
+        try:
+            server.shutdown()
+        except Exception as exc:
+            logger.warning(f"Web Console shutdown warning: {exc}")
+        shutdown_event.set()
 
     signal.signal(signal.SIGINT, handle_signal)
-    signal.signal(signal.SIGTERM, handle_signal)
+    if hasattr(signal, "SIGTERM"):
+        signal.signal(signal.SIGTERM, handle_signal)
+
     logger.info(f"Starting Validation Web Console on http://{host}:{port}")
+    server_thread = threading.Thread(target=server.start, name="WebConsole-HTTP", daemon=True)
+    server_thread.start()
+
     try:
-        server.start()
-    except Exception as e:
-        logger.error(f"Server exited with error: {e}")
-        sys.exit(1)
+        shutdown_event.wait()
+    except (KeyboardInterrupt, SystemExit):
+        handle_signal(signal.SIGINT, None)
+    finally:
+        try:
+            server.shutdown()
+        except Exception:
+            pass
+        server_thread.join(timeout=5)
+        logger.info("Validation Web Console stopped")
 
 
 if __name__ == "__main__":
