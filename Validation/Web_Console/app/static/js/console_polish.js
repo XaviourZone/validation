@@ -1,48 +1,225 @@
-/* Minimal operational UI and robust folder-picker overrides. */
+/* Final operator UI overrides.
+   Kept intentionally small and non-invasive: the existing console.js remains
+   the application engine; this file only removes decorative/unused controls
+   and provides robust folder dialogs. */
 (function () {
   "use strict";
-  const style=document.createElement("style"); style.id="validation-console-polish"; style.textContent=`
-    .radar-logo{box-shadow:none!important}.status-pill.running::before{box-shadow:none!important}
-    .module-card:hover{transform:none!important}.module-card,.kpi-card,.panel,.router-header-panel{box-shadow:none!important}
-    .btn:hover,.refresh-btn:hover{transform:none!important;box-shadow:none!important}
-    .router-status-row{display:none!important}#btn-start-router,#btn-new-parser{display:none!important}
-    #router-page-status-pill,#router-uptime{display:none!important}
-    .pans-config-row{display:flex;gap:16px;align-items:flex-end}.pans-config-field{flex:1;min-width:0}
-    .pans-folder-line{display:flex;gap:8px}.pans-folder-line .form-input{flex:1}
-    .panel-subtitle{font-size:11px;color:var(--text-muted);margin-top:3px}
-    @media(max-width:760px){.pans-config-row{flex-direction:column;align-items:stretch}}
-  `; document.head.appendChild(style);
 
-  const api=(url,options)=>fetch(url,Object.assign({headers:{"Content-Type":"application/json"}},options||{})).then(async r=>{const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||d.message||`HTTP ${r.status}`);return d;});
-
-  function clean(){
-    const addParser=document.getElementById("btn-new-parser"); if(addParser)addParser.remove();
-    const routerStatus=document.querySelector("#view-router .router-status-row"); if(routerStatus)routerStatus.remove();
-    const routerKpi=document.getElementById("kpi-router-status"); if(routerKpi){const card=routerKpi.closest(".kpi-card");if(card)card.remove();}
-    const badge=document.getElementById("sidebar-router-badge");if(badge){badge.textContent="Sources";badge.className="mini-badge";}
-    const fw=document.querySelector("[data-tab='forwarder'] .mini-badge");if(fw&&/not impl/i.test(fw.textContent)){fw.textContent="Live";fw.className="mini-badge running";}
-  }
-
-  function installRobustRouterBrowse(){
-    const old=document.getElementById("router-browse-folder"),target=document.getElementById("src-folder");
-    if(!old||!target||old.dataset.robust==="1")return; old.dataset.robust="1"; old.onclick=()=>openBrowser(target);
-  }
-
-  function openBrowser(target){
-    let modal=document.getElementById("router-folder-browser");
-    if(!modal){
-      modal=document.createElement("div");modal.id="router-folder-browser";modal.className="modal-backdrop active";modal.style.zIndex="10050";
-      modal.innerHTML=`<div class="modal-container" style="max-width:780px"><div class="modal-header"><div class="modal-title">Select input folder</div><button class="modal-close-btn" id="rpb-close">✕</button></div><div class="modal-body"><div class="form-group"><label class="form-label">Selected folder</label><input id="rpb-path" class="form-input" readonly></div><div style="display:flex;gap:8px;margin-bottom:10px"><button class="btn btn-secondary" id="rpb-up">Up</button><button class="btn btn-primary" id="rpb-select">Select this folder</button></div><div id="rpb-list" style="max-height:420px;overflow:auto;border:1px solid var(--border-color);border-radius:6px"></div><div id="rpb-error" style="color:var(--accent-rose);margin-top:8px"></div></div></div>`;
-      document.body.appendChild(modal);
-      document.getElementById("rpb-close").onclick=()=>modal.remove();
-      document.getElementById("rpb-select").onclick=()=>{const p=document.getElementById("rpb-path").value;if(p){target.value=p;target.dispatchEvent(new Event("change",{bubbles:true}));}modal.remove();};
-      document.getElementById("rpb-up").onclick=async()=>{const p=document.getElementById("rpb-path").value;if(p){const d=await browse(p);if(d.parent)await browse(d.parent);}};
+  const style = document.createElement("style");
+  style.id = "validation-minimal-ui";
+  style.textContent = `
+    :root {
+      --ui-radius: 4px;
     }
-    browse(target.value.trim());
-    async function browse(path){try{const d=await api(`/api/router/filesystem/browse${path?`?path=${encodeURIComponent(path)}`:""}`);if(d.roots){document.getElementById("rpb-path").value="";render(d.roots);}else{document.getElementById("rpb-path").value=d.path;render(d.entries||[]);}document.getElementById("rpb-error").textContent="";return d;}catch(e){document.getElementById("rpb-error").textContent=e.message;return {};}}
-    function render(entries){const list=document.getElementById("rpb-list");list.innerHTML="";if(!entries.length){list.innerHTML=`<div style="padding:12px;color:var(--text-muted)">No readable folders</div>`;return;}entries.forEach(e=>{const b=document.createElement("button");b.type="button";b.className="btn btn-secondary";b.style.cssText="display:block;width:100%;text-align:left;margin:3px 0";b.disabled=e.readable===false;b.textContent=`📁 ${e.name}`;b.onclick=()=>browse(e.path);list.appendChild(b);});}
+    .radar-logo { display:none !important; }
+    .sidebar-header { gap:8px !important; }
+    .sidebar-header h2 { margin:0 !important; font-size:17px !important; }
+    .sidebar-header span { font-size:10px !important; }
+    .module-card, .kpi-card, .panel, .router-header-panel {
+      box-shadow:none !important;
+      border-radius:var(--ui-radius) !important;
+    }
+    .module-card:hover, .btn:hover, .refresh-btn:hover {
+      transform:none !important;
+      box-shadow:none !important;
+    }
+    .router-status-row { display:none !important; }
+    #btn-start-router, #btn-new-parser { display:none !important; }
+
+    /* Compact operator tables */
+    .data-table th, .data-table td { padding:7px 8px !important; }
+    .panel-header { padding:10px 12px !important; }
+    .panel-body { padding:12px !important; }
+    .kpi-grid { gap:10px !important; }
+    .kpi-card { min-height:0 !important; padding:12px !important; }
+    .kpi-value { font-size:22px !important; }
+
+    .pans-config-row {
+      display:flex; gap:10px; align-items:flex-end;
+    }
+    .pans-config-field { flex:1; min-width:0; }
+    .pans-folder-line { display:flex; gap:8px; }
+    .pans-folder-line .form-input { flex:1; }
+    .pans-config-panel .form-hint { font-size:10px; }
+
+    @media(max-width:760px) {
+      .pans-config-row { flex-direction:column; align-items:stretch; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  const api = (url, options) => fetch(
+    url,
+    Object.assign({ headers: { "Content-Type": "application/json" } }, options || {})
+  ).then(async r => {
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(d.error || d.message || `HTTP ${r.status}`);
+    return d;
+  });
+
+  function patchRouterBrowse() {
+    const target = document.getElementById("src-folder");
+    const button = document.getElementById("router-browse-folder");
+    if (!target || !button || button.dataset.patched === "1") return;
+    button.dataset.patched = "1";
+    button.onclick = () => openFolderBrowser(target);
   }
 
-  function boot(){clean();installRobustRouterBrowse();setTimeout(()=>{clean();installRobustRouterBrowse();},300);setTimeout(()=>{clean();installRobustRouterBrowse();},1000);setTimeout(()=>{clean();installRobustRouterBrowse();},2000);}
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);else boot();
+  function openFolderBrowser(target) {
+    const old = document.getElementById("validation-folder-browser");
+    if (old) old.remove();
+
+    const modal = document.createElement("div");
+    modal.id = "validation-folder-browser";
+    modal.className = "modal-backdrop active";
+    modal.style.zIndex = "10050";
+    modal.innerHTML = `
+      <div class="modal-container" style="max-width:760px;">
+        <div class="modal-header">
+          <div class="modal-title">Select input folder</div>
+          <button class="modal-close-btn" id="vfb-close">✕</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Selected folder</label>
+            <input id="vfb-path" class="form-input" readonly>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:10px;">
+            <button class="btn btn-secondary" id="vfb-up">Up</button>
+            <button class="btn btn-primary" id="vfb-select">Select this folder</button>
+          </div>
+          <div id="vfb-list" style="max-height:420px;overflow:auto;border:1px solid var(--border-color);border-radius:4px;"></div>
+          <div id="vfb-error" style="color:var(--accent-rose);margin-top:8px;"></div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    const pathEl = document.getElementById("vfb-path");
+    const listEl = document.getElementById("vfb-list");
+    const errEl = document.getElementById("vfb-error");
+
+    document.getElementById("vfb-close").onclick = () => modal.remove();
+    document.getElementById("vfb-select").onclick = () => {
+      const value = pathEl.value.trim();
+      if (value) {
+        target.value = value;
+        target.dispatchEvent(new Event("input", {bubbles:true}));
+        target.dispatchEvent(new Event("change", {bubbles:true}));
+      }
+      modal.remove();
+    };
+    document.getElementById("vfb-up").onclick = async () => {
+      const current = pathEl.value;
+      if (!current) return;
+      try {
+        const d = await browse(current);
+        if (d.parent && d.parent !== current) await browse(d.parent);
+      } catch (_) {}
+    };
+
+    async function browse(path) {
+      try {
+        const url = path
+          ? `/api/router/filesystem/browse?path=${encodeURIComponent(path)}`
+          : "/api/router/filesystem/browse";
+        const d = await api(url);
+
+        if (d.roots) {
+          pathEl.value = "";
+          render(d.roots);
+        } else {
+          pathEl.value = d.path || "";
+          render(d.entries || []);
+        }
+        errEl.textContent = "";
+        return d;
+      } catch (e) {
+        errEl.textContent = e.message;
+        listEl.innerHTML = "";
+        return {};
+      }
+    }
+
+    function render(entries) {
+      listEl.innerHTML = "";
+      if (!entries.length) {
+        listEl.innerHTML = '<div style="padding:12px;color:var(--text-muted)">No readable folders</div>';
+        return;
+      }
+      for (const item of entries) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "btn btn-secondary";
+        b.style.cssText = "display:block;width:100%;text-align:left;margin:3px 0;";
+        b.disabled = item.readable === false;
+        b.textContent = "📁 " + item.name;
+        b.onclick = () => browse(item.path);
+        listEl.appendChild(b);
+      }
+    }
+
+    browse(target.value.trim());
+  }
+
+  function patchForwarder() {
+    const view = document.getElementById("view-forwarder");
+    if (!view) return;
+
+    // Add Destination must always be operable even when the panel is rendered
+    // after navigation to the Forwarder page.
+    const add = document.getElementById("fw-add");
+    if (add && add.dataset.validationBound !== "1") {
+      add.dataset.validationBound = "1";
+      add.addEventListener("click", () => {
+        // forwarder.js already owns the modal/opening function.
+      });
+    }
+
+    const modal = document.getElementById("fw-modal");
+    const save = document.getElementById("fw-save");
+    if (modal && save) {
+      const name = document.getElementById("fw-name");
+      if (name) name.disabled = !!document.getElementById("fw-editing-name")?.value;
+    }
+  }
+
+  function clean() {
+    const routerStatus = document.querySelector("#view-router .router-status-row");
+    if (routerStatus) routerStatus.remove();
+
+    const startRouter = document.getElementById("btn-start-router");
+    if (startRouter) startRouter.remove();
+
+    const addParser = document.getElementById("btn-new-parser");
+    if (addParser) addParser.remove();
+
+    const routerKpi = document.getElementById("kpi-router-status");
+    if (routerKpi) {
+      const card = routerKpi.closest(".kpi-card");
+      if (card) card.remove();
+    }
+  }
+
+  function boot() {
+    clean();
+    patchRouterBrowse();
+    patchForwarder();
+
+    setTimeout(() => { clean(); patchRouterBrowse(); patchForwarder(); }, 250);
+    setTimeout(() => { clean(); patchRouterBrowse(); patchForwarder(); }, 750);
+    setTimeout(() => { clean(); patchRouterBrowse(); patchForwarder(); }, 1500);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+
+  document.addEventListener("click", e => {
+    const nav = e.target.closest(".nav-item");
+    if (nav) setTimeout(() => { clean(); patchRouterBrowse(); patchForwarder(); }, 100);
+  });
+
+  window.validationUiPatch = { patchRouterBrowse, patchForwarder };
 })();
