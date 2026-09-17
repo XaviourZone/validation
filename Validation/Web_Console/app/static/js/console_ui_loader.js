@@ -1,41 +1,47 @@
-/* Deterministic UI loader. Core console.js owns lifecycle/navigation;
-   these extensions provide Router/Forwarder/PANS operator features. */
+/* Deterministic Validation UI extension loader.
+   The core console engine is intentionally kept separate from operator UI
+   extensions. Extensions are loaded after console.js and after DOM exists. */
 (function () {
   "use strict";
 
-  const files = [
+  const extensions = [
     ["/static/js/forwarder.js", "forwarder"],
     ["/static/js/router_admin.js", "router-admin"],
     ["/static/js/database_admin.js", "database-admin"],
     ["/static/js/console_polish.js", "minimal-ui"]
   ];
 
-  function loadOne(url, key) {
+  function loadExtension(url, key) {
     window.__validationLoadedScripts = window.__validationLoadedScripts || {};
-    if (window.__validationLoadedScripts[key]) return Promise.resolve();
+    if (window.__validationLoadedScripts[key]) {
+      return Promise.resolve();
+    }
 
     return new Promise(resolve => {
-      const s = document.createElement("script");
-      s.src = url + "?v=20260918-r2";
-      s.async = false;
-      s.dataset.validationExtension = key;
-      s.onload = () => { window.__validationLoadedScripts[key] = true; resolve(); };
-      s.onerror = () => {
+      const script = document.createElement("script");
+      script.src = url + "?v=20260918-r4";
+      script.async = false;
+      script.dataset.validationExtension = key;
+      script.onload = () => {
+        window.__validationLoadedScripts[key] = true;
+        resolve();
+      };
+      script.onerror = () => {
         console.error("Validation UI extension failed:", url);
         resolve();
       };
-      document.body.appendChild(s);
+      document.head.appendChild(script);
     });
   }
 
   async function boot() {
-    for (const [url, key] of files) {
-      await loadOne(url, key);
+    for (const [url, key] of extensions) {
+      await loadExtension(url, key);
     }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot, {once:true});
+    document.addEventListener("DOMContentLoaded", boot, {once: true});
   } else {
     boot();
   }
