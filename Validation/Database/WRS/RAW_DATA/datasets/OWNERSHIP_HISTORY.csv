@@ -1,0 +1,26 @@
+VESSEL ID,RELATIONSHIP TYPE,CURRENT IND,COMPANY ID,COMPANY NAME,START DATE,START QUALIFIER,END DATE,END QUALIFIER,RECORD LAST UPDATED
+11069910,ISM Manager,,244153,Well Chain Shipping Company Limited,08/12/2013,B,19/04/2026,B,20/04/2026
+14293441,Commercial Operator,Y,9413,MISC Berhad,01/07/2024,M,,,11/06/2026
+47154,Beneficial Owner,,12225,Pacific International Lines (Private) Limited,01/01/1972,,24/11/1990,,11/06/2026
+47154,Commercial Operator,,12225,Pacific International Lines (Private) Limited,01/01/1972,,24/11/1990,,11/06/2026
+47154,Beneficial Owner,,14819,PT Salam Pacific Indonesia Lines (SPIL),24/11/1990,,01/02/1993,,26/06/2026
+47154,Commercial Operator,,14819,PT Salam Pacific Indonesia Lines (SPIL),24/11/1990,,01/02/1993,,26/06/2026
+47154,Beneficial Owner,,44691,Shing Li Shipping Private Limited,01/02/1993,A,30/06/1994,,28/06/2000
+47154,Commercial Operator,,44691,Shing Li Shipping Private Limited,01/02/1993,A,30/06/1994,,28/06/2000
+47154,Technical Manager,,12225,Pacific International Lines (Private) Limited,01/01/1972,,24/11/1990,,11/06/2026
+47154,Technical Manager,,14819,PT Salam Pacific Indonesia Lines (SPIL),24/11/1990,,01/02/1993,,26/06/2026
+225553,Beneficial Owner,,10752,Nisa Navegacion S.A.,09/03/1991,,30/04/2002,,03/06/2005
+47154,Technical Manager,,44691,Shing Li Shipping Private Limited,01/02/1993,A,30/06/1994,,28/06/2000
+51130,Registered Owner,,13418,Ratu Shipping Company S.A.,01/01/1983,A,04/10/1991,,04/10/1991
+51130,Registered Owner,,14819,PT Salam Pacific Indonesia Lines (SPIL),25/06/1992,A,31/12/1997,,09/06/1999
+51130,Registered Owner,,139486,PT Pelayaran Mana Lagi,03/05/1999,,12/12/1999,,12/05/2022
+261172,Registered Owner,,35695,Nordholm I/S,01/01/1994,B,01/01/1995,B,28/03/2024
+120425,Registered Owner,Y,17874,Pescas Jose Maria Vilarinho S.A.,01/01/1974,,,,08/12/2009
+261172,Registered Owner,,11423,Dampskibsselskabet 'Norden' A/S (Steamship Company 'Norden' Limited) A/S,02/01/1995,B,05/07/1999,B,28/03/2024
+261172,Registered Owner,,121099,Pearl Sea Carriers Incorporated,06/07/1999,B,21/10/2008,B,28/03/2024
+261172,Registered Owner,,259126,Guodian Shipping (Hong Kong) Company Limited,22/10/2008,B,31/12/2010,B,28/03/2024
+51130,Registered Owner,,119309,P.T. Alur Kapuas Duta Bahari,01/01/1998,,02/05/1999,,26/07/1999
+51130,Registered Owner,,119309,P.T. Alur Kapuas Duta Bahari,13/12/1999,B,24/05/2002,B,12/05/2022
+51130,Registered Owner,,39092,Loswin Shipping Company S.A.,04/10/1991,,25/06/1992,,18/05/1993
+51130,Technical Manager,Y,70717,P.T. Pelayaran Sejahtera Bahtera Agung,25/05/2002,B,,,12/05/2022
+51130,ISM Manager,Y,70717,P.T. Pelayaran Sejahtera Bahtera Agung,25/05/2002,B,,,12/05/2022

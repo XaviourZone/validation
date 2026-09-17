@@ -1,0 +1,217 @@
+VALIDATION — DATA PARSER DESIGN
+Version: 0.1
+Status: Living Design Document
+
+1. PURPOSE
+The Data Parser is the processing service immediately after Data Router. It converts source-specific input into a common, structured representation suitable for normalization, validation, correlation, reference enrichment and fusion.
+
+Pipeline boundary:
+DATA ROUTER -> DATA PARSER -> NORMALIZATION/VALIDATION
+
+The Parser understands source formats. The Router does not.
+
+2. AUTHORITATIVE REFERENCES
+SAMPLE_DATA contains uploaded samples for SAIS, MSIS, LRIT, VATMS, NAIS, PANS and WRS. These are to be inspected before implementing source-specific parsing.
+
+Do not invent fields, delimiters, protocols, data types or mappings when an uploaded sample establishes them.
+
+3. SOURCE-SPECIFIC PARSERS
+SAIS_IOR + SAIS_GLOBAL:
+- Input is raw NMEA AIS in CSV files.
+- Decode/parse NMEA/AIS messages.
+- Preserve source as SAIS_IOR or SAIS_GLOBAL.
+- Do not treat IOR and GLOBAL as identical provenance even if they share the same decoding implementation.
+
+MSIS:
+- Input is already-decoded AIS data.
+- Do not run NMEA decoding.
+- Parse actual MSIS columns/types from samples.
+
+LRIT:
+- Use a dedicated LRIT parser.
+- Parse actual LRIT structure from samples.
+
+VATMS_EAST + VATMS_WEST:
+- Receive routed network data.
+- Use a VATMS parser based on the actual feed protocol.
+- Preserve East/West source identity.
+
+NAIS:
+- Use a separate NAIS parser unless samples/specification establish reusable protocol/logic.
+- Do not assume it is identical to VATMS.
+
+4. PARSER ENDPOINTS
+Initial logical endpoints:
+SAIS  -> :10001
+MSIS  -> :10002
+LRIT  -> :10003
+VATMS -> :10004
+NAIS  -> :10005
+
+The endpoint protocol must support source/provenance metadata and message acknowledgement.
+
+5. PARSING FLOW
+Input envelope
+-> source-specific parser
+-> decode/field extraction where required
+-> source-specific type conversion
+-> common internal model
+-> normalization handoff
+-> validation handoff
+
+Parsing must remain distinct from later business decisions.
+
+6. COMMON INTERNAL MODEL
+All sources should ultimately be represented in a common vessel/event structure while retaining source provenance.
+
+Potential data areas include:
+- source
+- message/event timestamp
+- vessel identifiers such as MMSI, IMO, callsign where available
+- vessel name
+- position
+- course
+- heading
+- speed
+- vessel type/cargo
+- destination
+- source-specific fields
+- quality/status metadata
+
+Exact field names must come from the project schema/sample data. Do not invent final schema names.
+
+7. DATA QUALITY AT PARSER BOUNDARY
+The parser may identify malformed source records and parsing failures, but comprehensive business validation belongs to the Validation Engine.
+Parser errors must include source, message/file identity and reason.
+Malformed input must not be silently discarded.
+
+8. NORMALIZATION
+Normalization converts different source representations into the project's common representation.
+Examples may include:
+- consistent timestamp representation
+- numeric conversion
+- coordinate representation
+- identifier formatting
+- missing-value representation
+
+Exact transformations must be established from project requirements and samples.
+
+9. CORRELATION HANDOFF
+Correlation will later use identifiers and other attributes such as MMSI, IMO, callsign, vessel name, position and time.
+Do not implement correlation rules inside the basic parser unless explicitly assigned later.
+
+10. REFERENCE DATA
+PANS, WRS and NSC are reference/enrichment sources for later processing.
+PANS live XML data is expected to be mapped/validated/normalized/upserted, with refresh requirements established by project requirements.
+WRS is a monthly reference dataset.
+NSC is periodically collated/loaded.
+These belong to reference/enrichment services, not source parsing.
+
+11. DATABASE
+PostgreSQL is planned as the central repository for processed/reference information.
+The parser should use a clean interface to the downstream storage/processing layer rather than embedding business-specific database logic into every source parser.
+Database schemas and exact mappings must follow the established project design and actual samples.
+
+12. XML
+The parser is not the final XML generator.
+The future XML stage will create the required XTrack XML structure (project requirements have referred to a 41-tag/related XTrack output; use the latest explicit project specification when finalizing the exact tag count).
+Each final XML value must be traceable to source data, PostgreSQL/reference data, a calculation, or an explicit fallback/default rule.
+
+13. ERROR HANDLING
+Handle:
+- malformed NMEA
+- invalid/unknown message types
+- malformed CSV
+- missing columns
+- unexpected data types
+- invalid coordinates/timestamps
+- duplicate records
+- parser protocol errors
+- unknown source
+- downstream unavailable
+
+Preserve rejection reasons.
+
+14. PERFORMANCE
+Parser must support high-volume maritime feeds.
+Avoid unnecessary data copies.
+Use batching where appropriate.
+Keep source-specific parsing isolated so one problematic feed does not stop others.
+Measure records/sec, CPU, memory and downstream database throughput before adding concurrency complexity.
+
+15. TESTING
+Use uploaded sample data as fixtures.
+Test normal, malformed, missing, boundary, duplicate, conflicting and high-volume inputs.
+Test each source independently and then through the common model.
+
+16. IMPLEMENTATION STATUS (ACTIVE)
+The Data Parser service has been implemented and validated against real sample data in parallel with the Web Console.
+The parser maintains strict architectural separation:
+- Router: Ingestion, provenance tagging, queuing, delivery.
+- Parser: Router envelope unwrapping, source decoding, conversion to CommonVesselRecord, acknowledgement.
+- Validation, correlation, reference enrichment, fusion, and XML generation remain strictly downstream.
+
+17. DECODING ENGINES & REAL-SAMPLE BENCHMARKS
+All decoders use Python standard library and pure bitwise AIS arithmetic (zero external C-extensions, 100% air-gapped / offline):
+- SAISParser (SAIS_IOR & SAIS_GLOBAL):
+  - Decodes IEC 61162 Tag Blocks (`\s:...,c:...*CS\`) extracting UNIX epoch timestamps.
+  - Decodes 6-bit armored ASCII payloads for AIS Message Types 1, 2, 3, 5, 18, 19, 24.
+  - Real Sample Validation:
+    - EarthIOR_2026-06-25-14-21-28.csv: 9,611 records parsed, 0 rejected, 0 errors.
+    - EarthGLOBAL_2026-06-25-14-21-39.csv: 9,862 records parsed, 0 rejected, 0 errors.
+    - Strict provenance preservation between IOR and GLOBAL feeds.
+- MSISParser:
+  - Parses 20-column tabular CSV with headers.
+  - Real Sample Validation:
+    - nc3in_20260604_120020.csv: 116 records parsed, 0 rejected, 0 errors.
+- LRITParser:
+  - Parses 20-column headerless CSV and handles periodic 0-byte cron polling files.
+  - Real Sample Validation:
+    - LRIT_03062026_093001.csv: 297 records parsed, 0 rejected, 0 errors.
+    - Empty 0-byte files: 0 records parsed, successfully acknowledged without error.
+- VATMSParser:
+  - VATMS_EAST: Decodes NMEA !WSVDM encapsulated sentences (248 records parsed from vatms_east.txt, 0 errors).
+  - VATMS_WEST: Decodes Transas Marine $TMVTD sentences, extracting coordinates (deg+min/60), COG, SOG, MMSI, IMO, and dimensions (1,523 records parsed from vatms_west.txt, 0 errors).
+- NAISParser:
+  - Decodes National AIS !ABVDM and !ABVDO sentences (918 records parsed from Nais.txt, 0 errors).
+
+18. TCP ENDPOINTS & WIRE PROTOCOL
+Each endpoint listens on a dedicated TCP port for NDJSON-framed Router envelopes:
+- SAIS  -> 127.0.0.1:10001
+- MSIS  -> 127.0.0.1:10002
+- LRIT  -> 127.0.0.1:10003
+- VATMS -> 127.0.0.1:10004
+- NAIS  -> 127.0.0.1:10005
+Upon receiving and parsing an envelope, the endpoint writes back an immediate JSON ACK/NACK:
+{
+  "status": "ACK",
+  "message_id": "file:sais_ior:...",
+  "parser": "SAIS",
+  "source": "SAIS_IOR",
+  "records_parsed": 9611,
+  "records_rejected": 0,
+  "error_count": 0,
+  "timestamp": "2026-09-17T09:40:00Z"
+}
+
+19. HTTP METRICS & TELEMETRY API (:8081)
+- GET /health  : Basic liveness probe (status: HEALTHY, uptime).
+- GET /status  : Composite service operational state and list of active endpoints.
+- GET /metrics : Real counters (messages received, messages parsed, rejected, total records, throughput rec/s, source distribution).
+
+20. WEB CONSOLE INTEGRATION
+The Validation Web Console queries the Parser API via ParserClient.
+The Data Parser tab in Web Console displays:
+- Parser service status (RUNNING / STOPPED)
+- Total messages received and records produced
+- Processing rate (records/sec)
+- Rejection and error tracking
+- Ingestion port status (:10001-:10005)
+- Source distribution breakdown table
+
+21. UBUNTU DEPLOYMENT
+- Systemd unit: `Validation/Data_Parser/systemd/validation-parser.service`
+- Config file: `Validation/Data_Parser/config/parser.yaml`
+- Environment: `VALIDATION_HOME`
+- Requirements: `pyyaml` (Python standard library for all parsing and networking)
+

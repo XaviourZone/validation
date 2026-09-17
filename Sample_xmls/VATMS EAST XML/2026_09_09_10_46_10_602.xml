@@ -1,0 +1,930 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002012</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002012</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>0</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.navStatus</id>
+            <sv>UNDER WAY USING ENGINE</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002012</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lat</id>
+            <qv u="rad">0.2889061255006942</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lon</id>
+            <qv u="rad">1.4416023431732958</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.speed</id>
+            <qv u="m/s">1.0803324</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.course.true</id>
+            <qv u="rad">0.3665191429188092</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.heading.true</id>
+            <qv u="rad">0.3665191429188092</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970602</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970602</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T1</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002012</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002012</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.typeAndCargo</id>
+            <sv>TUG</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToBow</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToPort</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToStarboard</id>
+            <qv u="m">19.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToStern</id>
+            <qv u="m">57.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.draft</id>
+            <qv u="m">2.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002012</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.name</id>
+            <sv>MAT VEGA</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.callsign</id>
+            <sv>ATDF2</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.imo</id>
+            <iv>0</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>voyage.destination</id>
+            <sv>B</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970603</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970603</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T5</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T5</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002013</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002013</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>0</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.navStatus</id>
+            <sv>UNDER WAY USING ENGINE</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002013</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lat</id>
+            <qv u="rad">0.2956339043459985</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lon</id>
+            <qv u="rad">1.435610046074782</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.speed</id>
+            <qv u="m/s">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.course.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.heading.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970604</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970604</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T1</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002013</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002013</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.typeAndCargo</id>
+            <sv>TUG</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToBow</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToPort</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToStarboard</id>
+            <qv u="m">10.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToStern</id>
+            <qv u="m">28.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.draft</id>
+            <qv u="m">2.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002013</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.name</id>
+            <sv>MAT NOVA</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.callsign</id>
+            <sv>ATDG2</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.imo</id>
+            <iv>0</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>voyage.destination</id>
+            <sv>B</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970605</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970605</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T5</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T5</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002115</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002115</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>0</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.navStatus</id>
+            <sv>UNDER WAY USING ENGINE</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002115</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lat</id>
+            <qv u="rad">0.2963640046609286</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lon</id>
+            <qv u="rad">1.4360655770095525</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.speed</id>
+            <qv u="m/s">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.course.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.heading.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970606</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970606</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T1</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002115</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002115</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.typeAndCargo</id>
+            <sv>TUG</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToBow</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToPort</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToStarboard</id>
+            <qv u="m">13.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToStern</id>
+            <qv u="m">30.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.draft</id>
+            <qv u="m">4.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002115</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.name</id>
+            <sv>HANUMA</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.callsign</id>
+            <sv>ATHD2</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.imo</id>
+            <iv>0</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>voyage.destination</id>
+            <sv>B</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970607</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970607</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T5</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T5</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002122</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002122</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>0</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.navStatus</id>
+            <sv>UNDER WAY USING ENGINE</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002122</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lat</id>
+            <qv u="rad">0.2962141099670032</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lon</id>
+            <qv u="rad">1.436549033212355</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.speed</id>
+            <qv u="m/s">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.course.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.heading.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970608</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970608</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T1</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002122</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002122</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.typeAndCargo</id>
+            <sv>UNDEFINED</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToBow</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToPort</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToStarboard</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToStern</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.draft</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002122</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.name</id>
+            <sv>M419002122</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.callsign</id>
+            <sv></sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.imo</id>
+            <iv>0</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>voyage.destination</id>
+            <sv>B</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970609</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970609</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T5</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T5</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002173</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002173</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>0</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.navStatus</id>
+            <sv>UNDER WAY USING ENGINE</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002173</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lat</id>
+            <qv u="rad">0.2963640628385703</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.pos.lla.lon</id>
+            <qv u="rad">1.4360646752561057</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.speed</id>
+            <qv u="m/s">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.course.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.heading.true</id>
+            <qv u="rad">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970610</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970610</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T1</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A>
+            <id>sys.source.id</id>
+            <iv>223</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>sys.track.number</id>
+            <iv>419002173</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>foreign.track.number</id>
+            <sv>419002173</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>app.message.id</id>
+            <sv>1</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.flag.active</id>
+            <bv>true</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>kinematic.flag.3d</id>
+            <bv>false</bv>
+        </ns2:A>
+        <ns2:A>
+            <id>track.quality</id>
+            <iv>15</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.category</id>
+            <sv>Surface</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.identity</id>
+            <sv>Unknown</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.typeAndCargo</id>
+            <sv>SAILING VESSEL</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToBow</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToPort</id>
+            <qv u="m">0.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.widthToStarboard</id>
+            <qv u="m">12.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>ais.lenToStern</id>
+            <qv u="m">32.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.draft</id>
+            <qv u="m">4.0</qv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.mmsi</id>
+            <iv>419002173</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.name</id>
+            <sv>GARUDA</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.callsign</id>
+            <sv>ATJL2</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>id.imo</id>
+            <iv>0</iv>
+        </ns2:A>
+        <ns2:A>
+            <id>voyage.destination</id>
+            <sv>B</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.source</id>
+            <tv>1788930970628</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>timestamp.receipt</id>
+            <tv>1788930970628</tv>
+        </ns2:A>
+        <ns2:A>
+            <id>vessel.remarks</id>
+            <sv>T5</sv>
+        </ns2:A>
+        <ns2:A>
+            <id>cat.annotation</id>
+            <sv>T5</sv>
+        </ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>

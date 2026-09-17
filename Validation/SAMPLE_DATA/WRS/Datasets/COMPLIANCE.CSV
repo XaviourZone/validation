@@ -1,0 +1,26 @@
+VESSEL_ID,IMO,Name,MMSI,Call Sign,Flag,Status,Built,Vessel_Main_Type,Vessel_SubType,Vessel_Type,Class,Sanction Status,Total_Risk,Flag_Risk,Ownership_Risk,STS_Transfer_Risk,AIS_Gaps_Risk,Abnormal_Movement_Risk,Ais_Manipulation_Risk,Loitering_Risk,Ais_Spoofing_Risk
+1125,7326752,Ocean King,,,Unknown,Live,1973,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+1164,6505002,Shams Ddin 3,,,Unknown,Live,1965,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+1223,6807046,Vitim,273444950,UARR,Russian Federation,Live,1968,Tanker,Chemical tanker,Combined chemical and oil tanker,,N,red,red,amber,green,green,green,green,green,green
+1226,7361453,Jin Sheng 168,412352140,BHVK,People's Republic of China,Live,1974,Tanker,Chemical tanker,Combined chemical and oil tanker,,N,red,green,,green,red,green,green,green,green
+1306,7119434,Forester,,,Unknown,Live,1971,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+1311,6924052,Soyana,,,Unknown,Live,1969,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+1314,7119460,Volgograd,273310320,UICD,Russian Federation,Live,1971,Dry cargo,General cargo,general cargo,,N,red,red,amber,green,green,green,green,green,green
+1326,7024897,Savalan,273424140,UDSV,Russian Federation,Live,1969,Dry cargo,General cargo,general cargo,,N,red,red,amber,green,green,green,green,green,green
+1366,6518308,Sesili,,,Unknown,Live,1965,Dry cargo,General cargo,general cargo,Shipping Register of Ukraine (SRU),N,red,red,,green,green,green,green,green,green
+1400,7211907,Abdulrahman King,630001074,J5AI9,Guinea-Bissau,Live,1972,Dry cargo,General cargo,general cargo with container capacity,International Naval Surveys Bureau,N,amber,green,green,green,amber,green,green,green,green
+1433,7363566,Lugela,,C9TP,Mozambique,Live,1974,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+1742,7214492,Barin,,,Unknown,Live,1972,Tanker,Chemical tanker,Combined chemical and oil tanker,,N,red,red,green,green,green,green,green,green,green
+2362,7021390,Zafer-F,,,Unknown,Live,1970,Dry cargo,General cargo,general cargo,,N,red,red,,green,green,green,green,green,green
+2370,7326726,Ekaraj Dragon,,,Unknown,Live,1973,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+2566,7104336,Mykonos I,240524000,SY6646,Greece,Live,1971,Dry cargo,General cargo,general cargo with container capacity,,N,red,green,green,green,green,green,green,red,green
+2635,7406784,Ebano,,,Unknown,Live,1975,Dry cargo,General cargo,general cargo,,Y,red,red,green,green,green,green,green,green,green
+3002,6725133,Al-Shebli Reefer,,,Unknown,Live,1967,Dry cargo,Refrigerated bulk,reefer,,N,red,red,green,green,green,green,green,green,green
+3162,5020861,One Love,,,Unknown,Live,1957,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+3223,6622202,Shad 1,,EPQR,Iran,Live,1967,Dry cargo,General cargo,general cargo,ASIA Classification Society,N,red,red,,green,green,green,green,green,green
+3543,5162839,Munie Chandra,,,Unknown,Live,1961,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+3561,5130264,Maria,570179000,A3CT9,Tonga,Live,1963,Dry cargo,General cargo,general cargo,,N,red,red,,green,green,green,green,green,green
+3656,5057084,Ag. Nektarios,,,Unknown,Live,1958,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+3773,6701101,Baltic Sky,,,Unknown,Live,1966,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green
+3775,7364314,Halim Savas,,,Unknown,Live,1975,Dry cargo,General cargo,general cargo,Phoenix Register of Shipping,N,red,red,green,green,green,green,green,green,green
+4000,6617960,Krishna P.,,,Unknown,Live,1966,Dry cargo,General cargo,general cargo,,N,red,red,green,green,green,green,green,green,green

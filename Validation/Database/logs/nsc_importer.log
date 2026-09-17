@@ -1,0 +1,6 @@
+2026-09-17T15:32:01 [INFO] [nsc_importer] Using fallback directory E:\IMAC-Validation\Sample data\NSC EAST and WEST
+2026-09-17T15:32:01 [INFO] [nsc_importer] Discovered 1 EAST files and 1 WEST files.
+2026-09-17T15:32:01 [INFO] [nsc_importer] Loaded NSC_EAST.xlsx (EAST): 85 rows in 0.02s
+2026-09-17T15:32:01 [INFO] [nsc_importer] Loaded NSC_WEST.xlsx (WEST): 216 rows in 0.02s
+2026-09-17T15:32:01 [INFO] [nsc_importer] Import successful. Replacing active database...
+2026-09-17T15:32:01 [INFO] [nsc_importer] Active database updated. Loaded 2 files, 301 rows.

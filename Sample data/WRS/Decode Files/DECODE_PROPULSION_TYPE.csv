@@ -1,0 +1,11 @@
+PROPULSION TYPE,PROPULSION TYPE DECODE
+GD,Gas Turbine / Diesel Electric
+GT,Gas Turbine
+LN,LNG
+MA,Motor Auxiliary
+ME,Diesel Electric
+MO,Motor
+NP,Non Propelled
+SN,Steam Nuclear
+ST,Steam
+TE,Turbo Electric

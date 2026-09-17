@@ -1,0 +1,26 @@
+ID,DESCRIPTION
+2,WIG 
+20,WIG 
+21,"WIG Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category A"
+22,"WIG Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category B"
+23,"WIG Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category C"
+24,"WIG Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category D"
+25,WIG
+26,WIG
+27,WIG
+28,WIG
+29,WIG - No Additional information
+3,Fishing
+30,Fishing
+31,Towing
+32,Towing and length of the tow exceeds 200m or breadth exceeds 25m
+33,Engaged in dredging or underwater operations
+34,Engaged in diving operations
+35,Engaged in military operations
+36,Sailing
+37,Pleasure Craft
+4,HSC
+40,HSC
+41,"HSC Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category A"
+42,"HSC Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category B"
+43,"HSC Carrying Dangerous Goods, Harmful Substances or Marine Pollutant, IMO hazard or pollutant category C"

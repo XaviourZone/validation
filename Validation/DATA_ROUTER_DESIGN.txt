@@ -1,0 +1,264 @@
+VALIDATION — DATA ROUTER DESIGN
+Version: 0.1
+Status: Living Design Document
+
+1. PURPOSE
+The Data Router is the first runtime service in the Validation pipeline. Its responsibility is to receive data from configured maritime sources, preserve source/provenance, buffer it reliably, and deliver it to the correct Data Parser endpoint.
+
+Pipeline boundary:
+INPUT SOURCES -> DATA ROUTER -> DATA PARSER
+
+The Router is a transport/routing service, not a parser, decoder, validator, correlation or fusion engine.
+
+2. CURRENT INPUT SOURCES
+File based:
+- SAIS_IOR: CSV files containing raw NMEA AIS messages, delivered to the folder through an existing cron-based transfer mechanism.
+- SAIS_GLOBAL: CSV files containing raw NMEA AIS messages, delivered similarly.
+- MSIS: CSV files containing already-decoded AIS data.
+- LRIT: file/CSV based LRIT vessel data.
+
+Network based:
+- VATMS_EAST: remote IP + port.
+- VATMS_WEST: remote IP + port.
+- NAIS: remote IP + port.
+
+Uploaded SAMPLE_DATA is the authoritative reference when actual sample formats are required. Do not invent a feed format when a sample exists.
+
+3. INITIAL ROUTING
+SAIS_IOR    -> SAIS parser -> 127.0.0.1:10001
+SAIS_GLOBAL -> SAIS parser -> 127.0.0.1:10001
+MSIS        -> MSIS parser -> 127.0.0.1:10002
+LRIT        -> LRIT parser -> 127.0.0.1:10003
+VATMS_EAST  -> VATMS parser -> 127.0.0.1:10004
+VATMS_WEST  -> VATMS parser -> 127.0.0.1:10004
+NAIS        -> NAIS parser -> 127.0.0.1:10005
+
+Ports and remote source addresses are configuration, not hard-coded application logic.
+
+4. DESIGN PRINCIPLES
+- Configuration driven.
+- New file or TCP sources should be addable without rewriting the routing core.
+- Preserve source identity throughout routing.
+- Do not interpret vessel fields.
+- Do not decode NMEA.
+- Do not perform database enrichment.
+- Do not perform validation/correlation/fusion.
+- Do not generate XML.
+- Do not perform final downstream forwarding.
+- One source failure must not stop unrelated sources.
+- Do not silently discard input.
+
+5. FILE INPUT
+Monitor configured source folders.
+Detect new files.
+Ensure a file is stable before processing so a file being copied is not read prematurely.
+Record file identity/state.
+Queue the file/data.
+Route to the configured parser endpoint.
+Use acknowledgement where defined.
+On success, record processed state.
+On temporary failure, retry.
+On permanent/exhausted failure, retain and mark failed.
+Never delete input silently.
+
+A file state model may include:
+DISCOVERED, WAITING_FOR_STABILITY, READY, QUEUED, SENDING, ACKNOWLEDGED, PROCESSED, RETRYING, FAILED.
+
+6. TCP INPUT
+Maintain independent receivers for VATMS East, VATMS West and NAIS.
+Handle connect, receive, buffering, disconnect, timeout and reconnect.
+Do not assume one TCP recv() equals one application message.
+Actual message framing must follow the feed protocol/sample specification.
+If framing is not established, mark it PENDING SPECIFICATION rather than inventing it.
+
+7. ROUTING ENVELOPE
+The router should attach transport/provenance metadata without altering the source payload unnecessarily.
+
+Conceptual fields:
+message_id
+source
+input_type
+filename (for file inputs)
+received_at
+payload
+
+For example:
+source=SAIS_IOR, input_type=FILE, filename=..., payload=original file/data
+
+The envelope/wire protocol must be documented and versionable.
+
+8. QUEUE AND DELIVERY
+Use a bounded queue between ingestion and delivery.
+Keep input collection independent from parser delivery.
+Use controlled worker concurrency.
+Implement backpressure.
+Do not introduce Kafka/RabbitMQ/Redis without a demonstrated requirement.
+
+9. ACKNOWLEDGEMENT
+A parser connection being established is not equivalent to successful acceptance.
+Where the parser interface supports it, require an ACK associated with message_id.
+Persist enough state to recover after restart.
+
+10. RETRY AND RECOVERY
+Use configurable retry count and backoff.
+Reconnect to unavailable parser endpoints.
+Reconnect network source feeds after disconnection.
+Keep unrelated sources operating.
+Persist operational state so restart does not blindly duplicate acknowledged file deliveries.
+
+11. OPERATIONAL STATE
+A small local SQLite database is suitable for Router operational state only.
+Possible fields:
+source, filename, size, mtime, hash, message_id, status, destination, attempt_count, first_seen, last_attempt, acknowledged.
+
+This is not the maritime vessel database.
+
+12. LOGGING
+Use structured rotating logs.
+Include timestamp, source, message_id, filename where applicable, destination, event and error.
+Log source detection, queueing, connection changes, delivery, ACK, retry and failure.
+Do not log credentials or full payloads by default.
+
+13. METRICS/HEALTH
+Track per source:
+enabled/running state
+connection state
+items received
+items routed
+items acknowledged
+failures
+retry count
+queue depth
+input/output rate
+last received
+last successful delivery
+last error
+
+These metrics will later be exposed to the Web Control Console.
+
+14. FUTURE WEB CONSOLE
+The final Validation Web Console will control/monitor Router, Parser and Forwarder services.
+Router should therefore expose clean internal/service interfaces for:
+source configuration
+enable/disable
+status
+health
+metrics
+logs
+configuration reload
+start/stop/restart control
+
+Do not build the full console as part of the Router implementation.
+
+15. SERVICE
+Run as a long-running Linux service, eventually:
+validation-router.service
+
+Support graceful SIGTERM/SIGINT shutdown.
+Persist state and close connections cleanly.
+
+16. SECURITY/OFFLINE
+Target is offline/on-premise Linux.
+Keep dependencies minimal.
+Do not depend on cloud services or external APIs.
+Never hard-code credentials.
+Validate configuration and avoid unsafe filename/command handling.
+
+17. TESTING
+Test:
+- stable/unstable files
+- duplicate files
+- all file sources
+- parser unavailable
+- ACK timeout
+- retries
+- restart/recovery
+- TCP disconnect/reconnect
+- partial TCP reads
+- multiple messages in one read
+- simultaneous sources
+- bounded queue/backpressure
+- malformed configuration
+- missing folders
+- permissions/disk failures
+
+18. FUTURE EXTENSION
+A new source may be:
+- another folder/CSV feed
+- another TCP feed
+- another parser destination
+
+Prefer configuration-only additions. If a genuinely new transport/framing mechanism is required, add a source adapter without disturbing existing sources.
+
+19. CURRENT SCOPE
+Implement the Router service and its interfaces/test harness only. Do not implement Data Parser, Validation, Correlation, Enrichment, Fusion, XML Generator or Forwarder.
+
+20. CONFIRMED REAL-DATA OBSERVATIONS (FROM SAMPLE_DATA)
+- SAIS_IOR & SAIS_GLOBAL:
+  - Format: Raw NMEA AIS sentences with Tag Block headers (`\s:66,c:1782377468*4C\!AIVDM,1,1,,B,...`).
+  - Delimiter: LF (`\n`). No CSV headers.
+  - File size: ~650 KB - 720 KB.
+  - Routing: Destination :10001 (SAIS Parser). Exact payload preserved.
+- MSIS:
+  - Format: Decoded CSV tabular data (`mmsi,latitude,longitude,sog,cog,...`).
+  - Header: Present on line 1. Line endings: mixture of LF and CRLF.
+  - File size: 15 KB to 2.2 MB (`nc3in_20250707_010547.csv` is 2,223,922 bytes).
+  - Empty files: 6 of 41 files in SAMPLE_DATA are 0 bytes (empty cron transfers).
+  - Routing: Destination :10002 (MSIS Parser). Multi-MB payloads handled cleanly.
+- LRIT:
+  - Format: CSV rows without header (`419000122,13.107333,80.302667,None,...`).
+  - Delimiter: LF (`\n`).
+  - Empty files: 40 of 59 sample files are 0 bytes (no records during interval).
+  - Routing: Destination :10003 (LRIT Parser). Both 0-byte and non-empty files routed with unique message IDs.
+- VATMS_EAST:
+  - Format: Raw NMEA (`!WSVDM,1,1,1,A,...`). CRLF line endings.
+  - Routing: Destination :10004 (VATMS Parser).
+- VATMS_WEST:
+  - Format: Transas Marine Target Data sentences (`$TMVTD,230726,103400.05,...`). CRLF line endings.
+  - Routing: Destination :10004 (VATMS Parser). Provenance strictly separated from VATMS_EAST.
+- NAIS:
+  - Format: Raw NMEA base station / own-ship sentences (`!ABVDO,1,1,,,4h3wotiuK3bHU5KQ...`). CRLF line endings.
+  - Routing: Destination :10005 (NAIS Parser).
+
+21. CORRECTED ASSUMPTIONS & ARCHITECTURAL HARDENING
+- In-Memory Deduplication Scoping:
+  - Previous assumption: In-flight hash set checked only `file_hash`.
+  - Correction: With empty files (common in LRIT/MSIS) or identical payloads, subsequent files with different filenames were dropped. Fixed by indexing in-flight tracking by `(filename, file_hash)`, matching SQLite primary key.
+- Socket Leak on Feed Reconnect:
+  - Identified ResourceWarning during feed reconnection. Socket streaming wrapped in `try...finally` ensuring `sock.close()` is guaranteed upon disconnect or exception.
+- Crash / Restart Recovery Semantics:
+  - Previous assumption: `is_in_flight_or_processed` checked `READY/QUEUED/SENDING/RETRYING`, preventing interrupted files from resuming after daemon restart.
+  - Fix: Added `reset_interrupted_states()` in `FileStateStore` and executed on `RoutingEngine.start()`. Interrupted states are safely reset to `DISCOVERED` to resume delivery, while `ACKNOWLEDGED` and `PROCESSED` states remain permanently protected against duplicate deliveries.
+- Metrics Auto-Registration:
+  - Fixed `MetricsCollector` to auto-register active sources so metrics are never dropped even if not explicitly pre-registered.
+
+22. PERFORMANCE & STRESS BENCHMARK RESULTS
+- Multi-source simultaneous burst test (40 files across 4 sources):
+  - Ingestion & Delivery Rate: 10.3 files/sec.
+  - Pipeline Processing Overhead: < 2ms per file.
+  - Memory Footprint: ~35 MB RAM (< 1 MB delta during peak burst).
+  - Delivery Retries: 0 under healthy network.
+  - Primary Floor: Configured stability observation window (`stability_window_seconds`).
+
+23. PROTOCOL & INTEGRATION CONTRACT
+- Protocol Version: 1.0 (NDJSON default, optional length-prefixed).
+- Delivery Timeout: Configurable (default 5.0s).
+- Acknowledgement: Mandatory explicit ACK per `message_id`. Connecting alone is not acceptance.
+- Embedded Health API: Exposes `/health`, `/status`, and `/metrics` on port 8080 for future Web Console.
+
+24. PENDING SPECIFICATIONS FOR FUTURE PHASES
+- Upstream TCP TLS/mTLS and auth requirements for coastal radar and NAIS feeds.
+- Downstream Parser connection pooling preference (long-lived keep-alive vs per-batch cycling).
+- Standardized parser NACK error code taxonomy.
+
+25. OPERATOR CONSOLE INTEGRATION & CONFIGURATION MANAGEMENT
+- Web Console Interface: Web Console running on port 8088 provides operator control and runtime inspection of the Data Router.
+- Configuration Management:
+  - Structured editing of `sources.yaml` via forms (no arbitrary file text editing).
+  - Validation engine verifies required fields, port bounds (1-65535), parser mapping existence, folder paths, and framing options.
+  - Concurrency control: Thread-safe lock (`threading.RLock()`) guarantees atomic writes across simultaneous operator actions.
+  - Safe persistence: Writes to `sources.yaml.tmp`, tests syntax and semantic loading with `loader.load_config()`, creates `sources.yaml.bak`, and executes atomic rename (`os.replace`).
+  - No silent restarts: Modifying configuration updates disk state and notifies the operator that a Reload (`POST /api/router/reload`) is required to apply changes to running ingestion threads.
+  - Audit logging: Operational actions (`CONFIG_SOURCE_ADDED`, `CONFIG_SOURCE_UPDATED`, `CONFIG_SOURCE_ENABLED`, `CONFIG_SOURCE_DISABLED`, `CONFIG_SOURCE_DELETED`) are logged for forensic tracking.
+
+

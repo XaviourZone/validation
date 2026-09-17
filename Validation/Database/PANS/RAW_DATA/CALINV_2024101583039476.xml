@@ -1,0 +1,36 @@
+<VesselCallNumber>
+  <DocumentHeader>
+    <DocumentReference>
+      <DocumentType>CALINV</DocumentType>
+      <DocumentName>ALLOTMENTOFVCN</DocumentName>
+      <CommonRefNumber>2024101583039476</CommonRefNumber>
+      <MessageType>9</MessageType>
+      <SenderID>ptuser11</SenderID>
+    </DocumentReference>
+    <DocumentExchangeDetails>
+      <ReceivingPartyDetails>
+        <ReceivingParty>shrich001</ReceivingParty>
+      </ReceivingPartyDetails>
+    </DocumentExchangeDetails>
+  </DocumentHeader>
+  <DocumentDetails>
+    <VoyageDetails>
+      <RecordType>N</RecordType>
+      <VCN>INBOM120242544</VCN>
+      <IMONumber>8121159</IMONumber>
+      <CallSign>AUZF</CallSign>
+      <VoyageNumber>0124</VoyageNumber>
+      <VesselType>1721</VesselType>
+      <SACode>70001515</SACode>
+      <LineCode>AJZ</LineCode>
+      <DockORTOCode>INBOM1</DockORTOCode>
+      <Portcode>INBOM1</Portcode>
+      <EDTA>16102024</EDTA>
+      <EDTD>17102024</EDTD>
+      <AllotmentDate>07072025</AllotmentDate>
+    </VoyageDetails>
+  </DocumentDetails>
+  <DocumentSummary>
+    <IssuedDateTime>15102024000000</IssuedDateTime>
+  </DocumentSummary>
+</VesselCallNumber>

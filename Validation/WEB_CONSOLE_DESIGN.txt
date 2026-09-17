@@ -1,0 +1,133 @@
+VALIDATION — WEB CONSOLE DESIGN
+Version: 1.0 (Operator Console Upgrade)
+Status: Living Design Document
+
+1. PURPOSE
+The Validation Web Console is the centralized operator interface for monitoring, operational diagnostics, safe configuration management, and lifecycle control of services in the Validation maritime data processing pipeline:
+
+   INPUT SOURCES
+        ↓
+   DATA ROUTER SERVICE
+        ↓
+   DATA PARSER SERVICE
+   ├── Parsing / Decoding
+   ├── Normalization
+   ├── Validation logic as applicable
+   ├── Vessel Correlation
+   ├── Reference Enrichment (PANS, WRS, NSC)
+   └── Final Parser Output
+        ↓
+   DATA FORWARDER SERVICE (Downstream Secure Hand-off)
+        ↓
+   DOWNSTREAM SYSTEM
+
+2. CORE PHILOSOPHY & CONSTRAINTS
+- Three-Service Pipeline Architecture: Data Router, Data Parser, and Data Forwarder. Correlation, Validation, and Reference Enrichment are internal capabilities of the Data Parser, NOT separate microservices.
+- Strict Truthfulness: Only expose functionality, status, and metrics that actually exist in the backend. Never fabricate metrics, simulate fake throughput, or claim an unimplemented module is running.
+- Unimplemented Modules: Data Forwarder is clearly marked with "NOT IMPLEMENTED" / "Pending Integration".
+- Zero External Dependencies: Designed for air-gapped, offline on-premise deployment. Zero Google Fonts, zero CDNs, zero external JavaScript/CSS libraries. Pure Vanilla CSS & Vanilla JS.
+- Safe Controls: Only allow allow-listed operational controls (start, stop, restart, reload, validate configuration). No arbitrary OS shell execution.
+- No Silent Restarts: Saving configuration updates `sources.yaml` atomically with backup, but does NOT silently restart the running Data Router daemon. The operator is prompted that a reload or restart is required.
+- Cross-Platform Portability: Works cleanly on Windows development runtime and is natively architected for Ubuntu Linux production (systemd).
+
+3. ARCHITECTURE & COMPONENTS
+The Web Console consists of:
+- Backend: Multi-threaded Python HTTP server (`Validation/Web_Console/app/server.py`).
+- Configuration Manager (`Validation/Web_Console/app/config_manager.py`):
+  - Thread-safe concurrency control via `threading.RLock()`.
+  - Rigorous semantic and schema validation of source configurations before persistence.
+  - Dynamic discovery of active `parser_destinations` directly from `sources.yaml`.
+  - Atomic persistence workflow:
+    1. Write to temporary file (`sources.yaml.tmp`).
+    2. Validate file loads and parses cleanly.
+    3. Create timestamped/safety backup (`sources.yaml.bak`).
+    4. Atomically replace active file (`os.replace`).
+  - Structured operational audit logging:
+    `CONFIG_SOURCE_ADDED`, `CONFIG_SOURCE_UPDATED`, `CONFIG_SOURCE_ENABLED`, `CONFIG_SOURCE_DISABLED`, `CONFIG_SOURCE_DELETED`.
+- Service Management Abstraction (`Validation/Web_Console/app/service_control/`):
+  - `WindowsDevelopmentController`: Development process management via `subprocess` and `psutil`.
+  - `LinuxSystemdController`: Production systemd control (`systemctl start/stop/restart/reload validation-router.service`).
+- Router Client (`Validation/Web_Console/app/router_client.py`): Queries Data Router's embedded HTTP API (`:8080`), buffer queue metrics, SQLite state database, and operational log events.
+- Frontend Single-Page Application:
+  - Dark maritime operational aesthetic.
+  - Pure CSS tooltip system (`[data-tooltip]`).
+  - Modal system for Add/Edit Source configuration and Dangerous Action Confirmations.
+
+4. REST API SPECIFICATION
+System Status:
+- GET /api/system/status                 : Overall pipeline status (Router, Parser, Forwarder).
+
+Data Router Monitoring & Telemetry:
+- GET /api/router/status                : Composite router status, queue depth, uptime.
+- GET /api/router/health                : Basic liveness probe.
+- GET /api/router/metrics               : Metric counters, throughput, failure counts.
+- GET /api/router/sources               : 10-column source feed runtime table with input_config and raw_config.
+- GET /api/router/queue                 : Live queue health and state counts (QUEUED, SENDING, ACKNOWLEDGED, etc.).
+- GET /api/router/activity              : Structured operational events parsed from router log.
+- GET /api/router/errors                : Failure events and delivery retry alerts.
+
+Data Router Configuration Management:
+- GET  /api/router/config               : Full raw sources and parser destinations dictionary.
+- GET  /api/router/parser-destinations  : Available configured parser destinations mapping (`SAIS`, `MSIS`, `LRIT`, `VATMS`, `NAIS`).
+- GET  /api/router/audit                : Operational audit event log.
+- POST /api/router/sources/validate     : Dry-run semantic and syntax validation for source payload.
+- POST /api/router/sources/save         : Atomically save new or updated source configuration.
+- POST /api/router/sources/<name>/delete: Safely delete a source with atomic backup and validation.
+- POST /api/router/sources/<name>/(enable|disable) : Enable or disable a source with audit logging.
+
+Service Controls:
+- POST /api/router/start                : Start router background process.
+- POST /api/router/stop                 : Stop router process gracefully.
+- POST /api/router/restart              : Stop and restart router process.
+- POST /api/router/reload               : Reload router configuration without terminating process.
+- POST /api/router/validate-config      : Validate sources.yaml syntax and references.
+
+Data Parser:
+- GET /api/parser/status                : Real parser operational metrics and source breakdown.
+- GET /api/parser/metrics               : Decoded records produced, messages parsed, and errors.
+
+5. DATA ROUTER OPERATOR INTERFACE
+A. Service Control Toolbars:
+- SERVICE CONTROL: [ ▶ Start ] [ ■ Stop ] [ ⟳ Restart ] (with hover tooltips and danger confirmation dialogs)
+- CONFIGURATION:   [ ↺ Reload ] [ ✓ Validate ] (with hover tooltips)
+- VIEW:            [ ↻ Refresh ] (with hover tooltips)
+
+B. Sources Table (10 Comprehensive Columns):
+1. Source Name (e.g. `SAIS_IOR`, `VATMS_EAST`)
+2. Enabled (Status pill: `ENABLED` / `DISABLED`)
+3. Input Type (Badge: `FILE` / `TCP STREAM`)
+4. Input Configuration (Folder path + masks or Host:Port + framing)
+5. Parser Mapping (Badge: `SAIS`, `MSIS`, `LRIT`, `VATMS`, `NAIS`)
+6. Destination (Auto-derived endpoint, e.g. `127.0.0.1:10001`)
+7. Current Status (`ACTIVE`, `CONNECTED`, `WAITING`, `DISABLED`, `STOPPED`)
+8. Last Activity (Timestamp of last processed message or delivery)
+9. Error State (`OK` or error snippet)
+10. Actions:
+    - [Edit]: Opens pre-populated configuration modal.
+    - [Enable] / [Disable]: Toggles source state with confirmation on disable.
+    - [Delete]: Safely deletes source with strict confirmation dialog.
+
+C. Add / Edit Source Modal Workflow:
+- Form Sections:
+  1. GENERAL: Source Name (disabled in Edit mode), Description, Enabled toggle.
+  2. INPUT TYPE: Segmented toggle between `FILE INGESTION` and `TCP STREAM`.
+  3. INPUT CONFIGURATION:
+     - FILE: Input folder, File patterns (`*.csv, *.txt, *`), Stability window (sec), Polling interval (sec).
+     - TCP STREAM: Remote host/IP, Remote port (1–65535), Framing (`line`), Max line length, Reconnect parameters. Notice banner displaying "PENDING SPECIFICATION" for Authentication/TLS.
+  4. PARSER MAPPING: Dropdown populated dynamically from active `parser_destinations`.
+  5. INGESTION DESTINATION: Auto-derived and displayed read-only from chosen parser.
+  6. EFFECTIVE CONFIGURATION PREVIEW: Live compact box showing exact YAML configuration before saving.
+- Actions:
+  - [✓ Validate]: Performs non-destructive dry-run validation with instant feedback banner.
+  - [💾 Save Configuration]: Atomically persists configuration, emits audit log, and notifies operator: *"Configuration saved. Reload required to apply."*
+  - [Cancel]: Closes modal without saving.
+
+D. Safety Confirmation Modals:
+- Intercepts dangerous operations: Stop Service, Restart Service, Disable Source, and Delete Source.
+- Displays explicit warning message, affected entity name, and requires explicit confirmation.
+
+6. UBUNTU DEPLOYMENT SPECIFICATION
+- Service Unit: `systemd/validation-web.service`
+- Default Port: 8088 (configurable via `config/console.yaml`)
+- User/Group: Non-root `validation` service account
+- Portable Paths: Dynamically resolved using `VALIDATION_HOME` or workspace root; zero `C:\` hardcoding.

@@ -1,0 +1,7 @@
+# Validation Web Console Requirements
+# Designed for 100% offline air-gapped installation on Ubuntu / Windows
+# The Web Console server and frontend use Python standard library (http.server, urllib, json, sqlite3)
+# and pure vanilla HTML5/CSS3/JavaScript (Zero CDN / Zero external packages).
+# PyYAML is the only third-party dependency for loading YAML configurations.
+
+pyyaml>=6.0

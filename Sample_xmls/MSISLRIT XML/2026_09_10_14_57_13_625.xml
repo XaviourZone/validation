@@ -1,0 +1,1797 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:XTracks xmlns="http://www.raytheon.com/athena/ctrack/common/1.1" xmlns:ns2="http://www.raytheon.com/athena/ctrack/xtrack/1.1">
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000001</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000001</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.100000</lat><lon u="deg">73.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.100000</lat><lon u="deg">73.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000001</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100001</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL001</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>EVERNORTH PROTECTOR</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000002</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000002</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.200000</lat><lon u="deg">73.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.200000</lat><lon u="deg">73.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000002</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100002</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL002</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>VITESSE</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000003</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000003</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.300000</lat><lon u="deg">73.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.300000</lat><lon u="deg">73.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000003</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100003</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL003</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>INGRID B</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000004</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000004</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.400000</lat><lon u="deg">73.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.400000</lat><lon u="deg">73.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000004</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100004</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL004</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>UNISTAR</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000005</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000005</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.500000</lat><lon u="deg">73.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.500000</lat><lon u="deg">73.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000005</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100005</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL005</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>SAAM SABA</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000006</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000006</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.600000</lat><lon u="deg">73.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.600000</lat><lon u="deg">73.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000006</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100006</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL006</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>MY LADY JANE</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000007</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000007</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.700000</lat><lon u="deg">73.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.700000</lat><lon u="deg">73.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000007</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100007</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL007</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>ADANI PORT DAHEJ</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000008</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000008</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.800000</lat><lon u="deg">73.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.800000</lat><lon u="deg">73.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000008</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100008</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL008</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>DSG ALEX ESCORT TUG</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000009</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000009</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">15.900000</lat><lon u="deg">73.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">15.900000</lat><lon u="deg">73.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000009</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100009</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL009</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>ZHONG GU HANG ZHOU</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000010</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000010</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.000000</lat><lon u="deg">74.000000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.000000</lat><lon u="deg">74.000000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000010</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100010</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL010</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>LADY MADI</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000011</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000011</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.100000</lat><lon u="deg">74.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.100000</lat><lon u="deg">74.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000011</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100011</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL011</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>GREEN COSTA RICA</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000012</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000012</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.200000</lat><lon u="deg">74.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.200000</lat><lon u="deg">74.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000012</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100012</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL012</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>GENESIS PATRIOT</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000013</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000013</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.300000</lat><lon u="deg">74.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.300000</lat><lon u="deg">74.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000013</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100013</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL013</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>LB GALVESTON</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000014</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000014</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.400000</lat><lon u="deg">74.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.400000</lat><lon u="deg">74.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000014</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100014</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL014</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>HEINRICH ESSBERGER</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000015</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000015</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.500000</lat><lon u="deg">74.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.500000</lat><lon u="deg">74.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000015</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100015</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL015</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>SAR MASTELERO</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000016</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000016</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.600000</lat><lon u="deg">74.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.600000</lat><lon u="deg">74.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000016</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100016</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL016</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>DOLORES LAZO</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000017</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000017</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.700000</lat><lon u="deg">74.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.700000</lat><lon u="deg">74.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000017</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100017</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL017</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>BUENA FORTUNA</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000018</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000018</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.800000</lat><lon u="deg">74.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.800000</lat><lon u="deg">74.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000018</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100018</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL018</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>TULIP</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000019</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000019</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">16.900000</lat><lon u="deg">74.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">16.900000</lat><lon u="deg">74.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000019</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100019</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL019</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>UNIEXPRESS12</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000020</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000020</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.000000</lat><lon u="deg">75.000000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.000000</lat><lon u="deg">75.000000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000020</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100020</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL020</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>KOSTERHAVET</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000021</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000021</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.100000</lat><lon u="deg">75.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.100000</lat><lon u="deg">75.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000021</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100021</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL021</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>BJORKSUNDET</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000022</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000022</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.200000</lat><lon u="deg">75.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.200000</lat><lon u="deg">75.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000022</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100022</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL022</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>Frisian Summer</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000023</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000023</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.300000</lat><lon u="deg">75.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.300000</lat><lon u="deg">75.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000023</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100023</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL023</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>FLORIAN BURMESTER</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000024</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000024</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.400000</lat><lon u="deg">75.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.400000</lat><lon u="deg">75.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000024</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100024</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL024</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>ORIENTAL PEARL</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000025</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000025</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.500000</lat><lon u="deg">75.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.500000</lat><lon u="deg">75.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000025</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100025</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL025</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>CORSARA</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000026</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000026</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.600000</lat><lon u="deg">75.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.600000</lat><lon u="deg">75.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000026</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100026</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL026</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>SILVERWIND</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000027</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000027</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.700000</lat><lon u="deg">75.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.700000</lat><lon u="deg">75.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000027</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100027</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL027</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>SEA ENTERPRISE</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000028</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000028</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.800000</lat><lon u="deg">75.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.800000</lat><lon u="deg">75.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000028</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100028</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL028</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>EUGEN</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000029</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000029</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">17.900000</lat><lon u="deg">75.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">17.900000</lat><lon u="deg">75.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000029</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100029</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL029</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>JOHANNAENGELINA</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000030</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000030</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.000000</lat><lon u="deg">76.000000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.000000</lat><lon u="deg">76.000000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000030</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100030</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL030</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>DALSFJORDFISK</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000031</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000031</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.100000</lat><lon u="deg">76.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.100000</lat><lon u="deg">76.100000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000031</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100031</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL031</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>EIDSVAAG PIONER</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis MSSIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000032</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000032</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.200000</lat><lon u="deg">76.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.200000</lat><lon u="deg">76.200000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000032</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100032</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL032</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>ARGOLIKOS</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000033</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000033</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.300000</lat><lon u="deg">76.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.300000</lat><lon u="deg">76.300000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000033</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100033</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL033</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>L550W</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000034</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000034</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.400000</lat><lon u="deg">76.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.400000</lat><lon u="deg">76.400000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000034</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100034</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL034</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>ESPOIR SEVEN</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000035</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000035</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.500000</lat><lon u="deg">76.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.500000</lat><lon u="deg">76.500000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000035</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100035</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL035</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>THILAAKKAM</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000036</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000036</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.600000</lat><lon u="deg">76.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.600000</lat><lon u="deg">76.600000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000036</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100036</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL036</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>PACIFIC VULCAN</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000037</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000037</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.700000</lat><lon u="deg">76.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.700000</lat><lon u="deg">76.700000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000037</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100037</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL037</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>CHEM ROTTERDAM</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS IPA LIQUID CARGO ( NA ) (IPA) PURP: CARGO OPERATION DISCHARGE</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000038</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000038</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.800000</lat><lon u="deg">76.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.800000</lat><lon u="deg">76.800000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000038</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100038</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL038</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>C 427</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+    <ns2:XTrack verbose="true">
+        <ns2:A><id>sys.source.id</id><iv>40</iv></ns2:A>
+        <ns2:A><id>sys.track.number</id><iv>316000039</iv></ns2:A>
+        <ns2:A><id>foreign.track.number</id><sv>316000039</sv></ns2:A>
+        <ns2:A><id>kinematic.pos</id><pos><lat u="deg">18.900000</lat><lon u="deg">76.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.pos.ext</id><pos><lat u="deg">18.900000</lat><lon u="deg">76.900000</lon></pos></ns2:A>
+        <ns2:A><id>kinematic.course</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.speed</id><qv u="m/s">6.429</qv></ns2:A>
+        <ns2:A><id>vessel.mmsi</id><iv>316000039</iv></ns2:A>
+        <ns2:A><id>vessel.imo</id><iv>9100039</iv></ns2:A>
+        <ns2:A><id>vessel.callsign</id><sv>CALL039</sv></ns2:A>
+        <ns2:A><id>vessel.name</id><sv>MANDARIN ARROW</sv></ns2:A>
+        <ns2:A><id>vessel.flag</id><sv>IN</sv></ns2:A>
+        <ns2:A><id>vessel.type</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.length</id><qv u="m">180.0</qv></ns2:A>
+        <ns2:A><id>vessel.beam</id><qv u="m">28.0</qv></ns2:A>
+        <ns2:A><id>vessel.draft</id><qv u="m">9.5</qv></ns2:A>
+        <ns2:A><id>vessel.destination</id><sv>MUMBAI PORT</sv></ns2:A>
+        <ns2:A><id>vessel.eta</id><tv>1789050000000</tv></ns2:A>
+        <ns2:A><id>vessel.cargo</id><iv>70</iv></ns2:A>
+        <ns2:A><id>vessel.navstatus</id><iv>0</iv></ns2:A>
+        <ns2:A><id>vessel.posaccuracy</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.rais</id><iv>1</iv></ns2:A>
+        <ns2:A><id>vessel.dim.bow</id><qv u="m">140.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.stern</id><qv u="m">40.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.port</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.dim.starboard</id><qv u="m">14.0</qv></ns2:A>
+        <ns2:A><id>vessel.remarks</id><sv>msis MSSIS | WRS1:VESSEL_SANCTIONS[SANCTION_LIST_NAME=OFAC_SDN,PROGRAM=SDGT,START_DATE=2024-01-15] | WRS2:COMPANY_SANCTIONS[SANCTIONED_COMPANY_NAME=GLOBAL_MARITIME_LLC,LIST_NAME=EU_SANCTIONS,PROGRAM=UKRAINE_RISK] | WRS3:COMPLIANCE[Overall_Compliance_Risk_Level=HIGH,Sanction_Compliance_Score=88.5] | WRS4:AISSPOOFING_RISK[AIS_Spoofing_Risk_Score=75.0,Spoofing_Event_Count=3] | WRS5:AIS_GAP_RISK[Gap_Risk_Level=MEDIUM,Total_Gap_Duration_Hours=14.2] | WRS6:AIS_MNPTN_RISK[Manipulation_Risk_Score=62.0,Identified_Pattern=MMSI_SWAP] | WRS7:ABNML_MVM_RISK[Abnormal_Movement_Risk=HIGH,Anomaly_Type=UNEXPLAINED_SPEED_SPIKE] | WRS8:LOITERING_RISK[Loitering_Risk_Score=80.0,Loitering_Duration_Hours=28.5] | WRS9:FLAG_RISK[Flag_State_Risk_Level=ELEVATED,Flag_Risk_Score=70.0] | WRS10:OWNER_RISK[Beneficial_Owner_Risk_Level=HIGH,Owner_Risk_Score=85.0] | WRS11:CASUALTY[CASUALTY_SEVERITY=MODERATE,INCIDENT_TYPE=ENGINE_FAILURE,CASUALTY_DATE=2025-11-04] | WRS12:PSC_INSPECTIONS[INSPECTION_RESULT=DEFICIENCIES_FOUND,DEFICIENCY_COUNT=4,DETENTION_STATUS=NO] | WRS13:OWNERSHIP_CURRENT[BENEFICIAL_OWNER_NAME=OCEANIC_SHIPPING_CORP,REGISTERED_OWNER_NAME=APEX_MARITIME,OPERATOR_NAME=BLUE_WAVE_MANAGEMENT] | WRS14:STS[STS_Transfer_Risk_Score=90.0,STS_Event_Count=2] | WRS15:VIGILANCE[Vigilance_Watch_Level=HIGH_PRIORITY_WATCH,Watch_Reason=BORDER_SECURITY_ALERT]</sv></ns2:A>
+        <ns2:A><id>source.name</id><sv>MSSIS_STREAM</sv></ns2:A>
+        <ns2:A><id>source.type</id><sv>AIS</sv></ns2:A>
+        <ns2:A><id>source.channel</id><sv>A</sv></ns2:A>
+        <ns2:A><id>kinematic.heading</id><qv u="rad">2.827433</qv></ns2:A>
+        <ns2:A><id>kinematic.rot</id><qv u="deg/min">0.0</qv></ns2:A>
+        <ns2:A><id>timestamp.source</id><tv>1789048801000</tv></ns2:A>
+        <ns2:A><id>timestamp.receipt</id><tv>1789032433891</tv></ns2:A>
+        <ns2:A><id>cat.annotation</id><sv>msis NAIS</sv></ns2:A>
+        <ns2:A><id>sys.sensor.id</id><iv>101</iv></ns2:A>
+        <ns2:A><id>sys.sensor.type</id><iv>2</iv></ns2:A>
+        <ns2:A><id>vessel.cls</id><sv>CLASS A</sv></ns2:A>
+        <ns2:A><id>vessel.dwt</id><qv u="t">45000.0</qv></ns2:A>
+        <ns2:A><id>vessel.gt</id><qv u="t">28000.0</qv></ns2:A>
+        <ns2:A><id>vessel.owner</id><sv>OCEANIC SHIPPING CORP</sv></ns2:A>
+        <ns2:A><id>vessel.operator</id><sv>BLUE WAVE MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.manager</id><sv>APEX MARITIME MANAGEMENT</sv></ns2:A>
+        <ns2:A><id>vessel.clearance</id><sv>NSC_CLEARED_GREEN</sv></ns2:A>
+    </ns2:XTrack>
+</ns2:XTracks>

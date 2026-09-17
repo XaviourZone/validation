@@ -1,0 +1,36 @@
+<VesselCallNumber>
+  <DocumentHeader>
+    <DocumentReference>
+      <DocumentType>CALINV</DocumentType>
+      <DocumentName>ALLOTMENTOFVCN</DocumentName>
+      <CommonRefNumber>2022123033227503</CommonRefNumber>
+      <MessageType>9</MessageType>
+      <SenderID>kndlpt001</SenderID>
+    </DocumentReference>
+    <DocumentExchangeDetails>
+      <ReceivingPartyDetails>
+        <ReceivingParty>excil001</ReceivingParty>
+      </ReceivingPartyDetails>
+    </DocumentExchangeDetails>
+  </DocumentHeader>
+  <DocumentDetails>
+    <VoyageDetails>
+      <RecordType>N</RecordType>
+      <VCN>IXY12022121418</VCN>
+      <IMONumber>9260823</IMONumber>
+      <CallSign>9LS2024</CallSign>
+      <VoyageNumber>012023</VoyageNumber>
+      <VesselType>82</VesselType>
+      <SACode>910204</SACode>
+      <LineCode>AADCE4357N</LineCode>
+      <DockORTOCode>INIXY1</DockORTOCode>
+      <Portcode>INIXY1</Portcode>
+      <EDTA>02012023</EDTA>
+      <EDTD>04012023</EDTD>
+      <AllotmentDate>31122022</AllotmentDate>
+    </VoyageDetails>
+  </DocumentDetails>
+  <DocumentSummary>
+    <IssuedDateTime>31122022114433</IssuedDateTime>
+  </DocumentSummary>
+</VesselCallNumber>

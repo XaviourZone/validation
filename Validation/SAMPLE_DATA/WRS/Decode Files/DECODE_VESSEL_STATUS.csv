@@ -1,0 +1,13 @@
+STATUS,STATUS DECODE
+A,Additions
+D,Dead
+E,Extra
+G,Ghost
+I,Launched
+L,Live
+O,On Order
+Q,Cancelled Order
+R,Reported Order
+S,Special Research
+U,Under construction
+X,Unconfirmed Existence

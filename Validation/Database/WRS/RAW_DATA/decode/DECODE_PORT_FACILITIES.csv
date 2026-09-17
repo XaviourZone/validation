@@ -1,0 +1,12 @@
+FACILITY CODE,FACILITY DECODE
+A,Airport (within 100km)
+B,Bunkers
+C,Containers
+D,Dry dock
+G,General Cargo
+L,Cruise Facilities
+P,Petroleum
+Q,Other liquid bulk
+R,Ro-ro
+T,Towage (where available from port)
+Y,Dry bulk

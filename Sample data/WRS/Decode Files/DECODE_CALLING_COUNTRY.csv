@@ -1,0 +1,7 @@
+COUNTRY_ID,ALPHA_3_CODE,NAME,OFFICIAL_NAME
+        ORDER BY    a.code
+                    *
+ERROR at line 3:
+"ORA-00904: ""A"".""CODE"": invalid identifier"
+
+

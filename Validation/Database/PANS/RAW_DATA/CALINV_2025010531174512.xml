@@ -1,0 +1,36 @@
+<VesselCallNumber>
+  <DocumentHeader>
+    <DocumentReference>
+      <DocumentType>CALINV</DocumentType>
+      <DocumentName>ALLOTMENTOFVCN</DocumentName>
+      <CommonRefNumber>2025010531174512</CommonRefNumber>
+      <MessageType>9</MessageType>
+      <SenderID>ptuser11</SenderID>
+    </DocumentReference>
+    <DocumentExchangeDetails>
+      <ReceivingPartyDetails>
+        <ReceivingParty>mdins001</ReceivingParty>
+      </ReceivingPartyDetails>
+    </DocumentExchangeDetails>
+  </DocumentHeader>
+  <DocumentDetails>
+    <VoyageDetails>
+      <RecordType>N</RecordType>
+      <VCN>INBOM120244656</VCN>
+      <IMONumber>GMBNLK8</IMONumber>
+      <CallSign>GMBNLK</CallSign>
+      <VoyageNumber>2502</VoyageNumber>
+      <VesselType>150</VesselType>
+      <SACode>40007116</SACode>
+      <LineCode>MDZ</LineCode>
+      <DockORTOCode>INBOM1</DockORTOCode>
+      <Portcode>INBOM1</Portcode>
+      <EDTA>05012025</EDTA>
+      <EDTD>08012025</EDTD>
+      <AllotmentDate>25072025</AllotmentDate>
+    </VoyageDetails>
+  </DocumentDetails>
+  <DocumentSummary>
+    <IssuedDateTime>05012025000000</IssuedDateTime>
+  </DocumentSummary>
+</VesselCallNumber>

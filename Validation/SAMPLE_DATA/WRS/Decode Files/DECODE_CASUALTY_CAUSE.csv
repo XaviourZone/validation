@@ -1,0 +1,15 @@
+CAUSE,CAUSE DECODE
+AR,Arrests/seizures
+CN,Collision (involving vessels)
+CT,Contact (eg. Harbour wall)
+FD,"Foundered (sunk, submerged)"
+FX,Fire/explosion
+HL,"Hull damage (holed, cracks, structural failure)"
+LD,Labour dispute
+LT,War loss/damage during hostilities
+MG,Missing/overdue
+MY,"Machinery damage/failure (e.g. lost rudder, fouled propellor)"
+PS,Vessel detained for Ports state control regulation
+PY,Piracy
+WS,Wrecked/stranded (aground)
+XX,Miscellaneous

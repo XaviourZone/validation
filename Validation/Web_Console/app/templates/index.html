@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Maritime Operations Console</title>
+  <!-- Pure local CSS - Zero external CDN / Zero online fonts -->
+  <link rel="stylesheet" href="/static/css/console.css">
+</head>
+<body>
+
+  <!-- ==================== LEFT SIDEBAR ==================== -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="radar-logo">
+        <div class="radar-sweep"></div>
+      </div>
+      <div>
+        <h2>Validation</h2>
+        <span>Maritime Pipeline</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Core Services</div>
+      <a class="nav-item active" data-tab="dashboard">
+        <span>Main Dashboard</span>
+        <span class="mini-badge running">Active</span>
+      </a>
+      <a class="nav-item" data-tab="router">
+        <span>1. Data Router</span>
+        <span class="mini-badge running" id="sidebar-router-badge">Live</span>
+      </a>
+      <a class="nav-item" data-tab="parser">
+        <span>2. Data Parser</span>
+        <span class="mini-badge running" id="sidebar-parser-badge">Live</span>
+      </a>
+      <a class="nav-item" data-tab="forwarder">
+        <span>3. Data Forwarder</span>
+        <span class="mini-badge notimpl">Not Impl</span>
+      </a>
+      <a class="nav-item" data-tab="database">
+        <span>4. Database Management</span>
+      </a>
+
+      <div class="nav-section-title">Operations & Control</div>
+      <a class="nav-item" data-tab="system">
+        <span>System Diagnostics</span>
+      </a>
+      <a class="nav-item" data-tab="logs">
+        <span>Operational Logs</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Console v1.0.0</span>
+      <span style="color: var(--accent-emerald);">● Offline Mode</span>
+    </div>
+  </aside>
+
+  <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+  <div class="content-wrapper">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <h1 class="topbar-title" id="topbar-title">Validation Pipeline Dashboard</h1>
+        <span id="system-health-badge" class="status-pill degraded">CONNECTING...</span>
+      </div>
+      <div class="topbar-right">
+        <div class="utc-clock" id="utc-clock">2026-09-17 00:00:00 UTC</div>
+        <button class="refresh-btn" id="btn-manual-refresh">
+          <span>⟳ Refresh</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="content-body">
+
+      <!-- ==================== VIEW: DASHBOARD ==================== -->
+      <div class="view-tab active" id="view-dashboard">
+        <!-- Pipeline Overview Grid -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Pipeline Stages Overview</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Truthful Operational State (Zero Fabrication)</span>
+          </div>
+          <div class="panel-body">
+            <div class="module-grid" id="module-cards-container">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- System Ingestion & Feed Summary -->
+        <div class="kpi-grid">
+          <div class="kpi-card highlight">
+            <div class="kpi-title">Data Router Status</div>
+            <div class="kpi-value" id="kpi-router-status">
+              <span class="status-pill running" id="router-status-badge">UNKNOWN</span>
+            </div>
+            <div class="kpi-subtext">Uptime: <span id="router-uptime" class="mono">0s</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Ingestion Throughput</div>
+            <div class="kpi-value" id="router-throughput">0.0 <span class="unit">msg/s</span></div>
+            <div class="kpi-subtext">Live delivery rate</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Internal Buffer Queue</div>
+            <div class="kpi-value" id="router-queue-depth">0 <span class="unit">/ 10000</span></div>
+            <div class="kpi-subtext">Active items in memory</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Total Acknowledged</div>
+            <div class="kpi-value" id="router-ack-count">0</div>
+            <div class="kpi-subtext">Successfully parsed envelopes</div>
+          </div>
+        </div>
+
+        <!-- Recent Activity & Alert Grid -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Live Pipeline Activity</span>
+              <span style="font-size: 11px; color: var(--text-muted);">Recent operational events</span>
+            </div>
+            <div class="panel-body">
+              <div class="activity-feed" id="activity-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <span class="panel-title">Active Alerts & Retries</span>
+              <span style="font-size: 11px; color: var(--text-muted);">Exceptions & retries</span>
+            </div>
+            <div class="panel-body">
+              <div class="activity-feed" id="error-list">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: DATA ROUTER ==================== -->
+      <div class="view-tab" id="view-router">
+        <!-- Router Service Status Strip -->
+        <div class="router-header-panel">
+          <div class="router-header-title-row">
+            <h2>DATA ROUTER</h2>
+          </div>
+          <div class="router-status-row">
+            <span class="router-status-label">Router Status:</span>
+            <span id="router-page-status-pill" class="status-pill stopped">● STOPPED</span>
+            <button class="btn btn-success" id="btn-start-router" data-tooltip="Start the Data Router service." style="display: none; margin-left: 12px; padding: 5px 14px; font-weight: 600; font-size: 12px;">
+              <span>▶ Start Service</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sources Table Panel -->
+        <div class="panel">
+          <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <span class="panel-title">DATA SOURCES</span>
+              <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">Configured Ingestion Feeds &amp; Routing Table</span>
+            </div>
+            <div>
+              <button class="btn btn-primary" id="btn-add-source" data-tooltip="Create a new Data Router source." style="display: flex; align-items: center; gap: 6px; padding: 6px 14px; font-weight: 600;">
+                <span>+ Add Data Source</span>
+              </button>
+            </div>
+          </div>
+          <!-- Horizontal scroll wrapper prevents table from breaking the panel layout -->
+          <div class="sources-table-scroll-wrap">
+            <table class="data-table sources-table" id="sources-data-table">
+              <!-- colgroup locks all column widths permanently regardless of cell content -->
+              <colgroup>
+                <col class="col-src-name">
+                <col class="col-src-enabled">
+                <col class="col-src-type">
+                <col class="col-src-input">
+                <col class="col-src-parser">
+                <col class="col-src-dest">
+                <col class="col-src-status">
+                <col class="col-src-activity">
+                <col class="col-src-error">
+                <col class="col-src-actions">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>Source Name</th>
+                  <th>Enabled</th>
+                  <th>Type</th>
+                  <th>Input Configuration</th>
+                  <th>Parser Mapping</th>
+                  <th>Destination</th>
+                  <th>Status</th>
+                  <th>Last Activity</th>
+                  <th>Error State</th>
+                  <th class="th-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="sources-table-body">
+                <!-- Rows are created once per source and updated in-place. Never rebuilt on polling. -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: DATA PARSER ==================== -->
+      <div class="view-tab" id="view-parser">
+        <!-- Telemetry KPIs -->
+        <div class="kpi-grid" style="margin-bottom: 20px;">
+          <div class="kpi-card">
+            <div class="kpi-title">Parser Service</div>
+            <div class="kpi-value"><span class="status-pill stopped" id="parser-service-badge">STOPPED</span></div>
+            <div class="kpi-subtext" id="parser-service-uptime">Uptime: 0s</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Messages Received</div>
+            <div class="kpi-value" id="parser-messages-received">0</div>
+            <div class="kpi-subtext">Router envelopes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Records Produced</div>
+            <div class="kpi-value" id="parser-records-produced">0</div>
+            <div class="kpi-subtext" id="parser-throughput">0.0 rec/s</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Parse Rejections / Errors</div>
+            <div class="kpi-value" id="parser-rejected-count" style="color: var(--accent-rose);">0</div>
+            <div class="kpi-subtext" id="parser-last-error">No errors</div>
+          </div>
+        </div>
+
+        <!-- Endpoints Grid -->
+        <div class="panel" style="margin-bottom: 20px;">
+          <div class="panel-header">
+            <span class="panel-title">Active Parser Endpoints & Protocols</span>
+            <span class="mini-badge running" style="padding: 4px 8px;">5 Ingestion Ports Active</span>
+          </div>
+          <div class="panel-body">
+            <div class="kpi-grid">
+              <div class="kpi-card">
+                <div class="kpi-title">SAIS (:10001)</div>
+                <div class="kpi-value"><span class="status-pill running" style="font-size: 11px;">LISTENING</span></div>
+                <div class="kpi-subtext">SAIS_IOR & SAIS_GLOBAL (NMEA AIS)</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">MSIS (:10002)</div>
+                <div class="kpi-value"><span class="status-pill running" style="font-size: 11px;">LISTENING</span></div>
+                <div class="kpi-subtext">Decoded AIS CSV Tables</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">LRIT (:10003)</div>
+                <div class="kpi-value"><span class="status-pill running" style="font-size: 11px;">LISTENING</span></div>
+                <div class="kpi-subtext">Position CSV Reports</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">VATMS (:10004)</div>
+                <div class="kpi-value"><span class="status-pill running" style="font-size: 11px;">LISTENING</span></div>
+                <div class="kpi-subtext">East (!WSVDM) & West ($TMVTD)</div>
+              </div>
+              <div class="kpi-card">
+                <div class="kpi-title">NAIS (:10005)</div>
+                <div class="kpi-value"><span class="status-pill running" style="font-size: 11px;">LISTENING</span></div>
+                <div class="kpi-subtext">National AIS (!ABVDM/!ABVDO)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Source Distribution Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Parser Source Distribution</span>
+          </div>
+          <div class="panel-body" style="padding: 0;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Source Feed</th>
+                  <th>Parser Engine</th>
+                  <th>Envelopes Ingested</th>
+                  <th>Decoded Vessel Records</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="parser-sources-body">
+                <tr>
+                  <td><strong>SAIS_IOR</strong></td>
+                  <td>SAISParser (NMEA 0183 / AIS)</td>
+                  <td id="p-sais-ior-env">0</td>
+                  <td id="p-sais-ior-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+                <tr>
+                  <td><strong>SAIS_GLOBAL</strong></td>
+                  <td>SAISParser (NMEA 0183 / AIS)</td>
+                  <td id="p-sais-global-env">0</td>
+                  <td id="p-sais-global-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+                <tr>
+                  <td><strong>MSIS</strong></td>
+                  <td>MSISParser (CSV Table)</td>
+                  <td id="p-msis-env">0</td>
+                  <td id="p-msis-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+                <tr>
+                  <td><strong>LRIT</strong></td>
+                  <td>LRITParser (CSV Table)</td>
+                  <td id="p-lrit-env">0</td>
+                  <td id="p-lrit-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+                <tr>
+                  <td><strong>VATMS_EAST</strong></td>
+                  <td>VATMSParser (!WSVDM)</td>
+                  <td id="p-vatms-east-env">0</td>
+                  <td id="p-vatms-east-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+                <tr>
+                  <td><strong>VATMS_WEST</strong></td>
+                  <td>VATMSParser ($TMVTD)</td>
+                  <td id="p-vatms-west-env">0</td>
+                  <td id="p-vatms-west-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+                <tr>
+                  <td><strong>NAIS</strong></td>
+                  <td>NAISParser (!ABVDM)</td>
+                  <td id="p-nais-env">0</td>
+                  <td id="p-nais-rec">0</td>
+                  <td><span class="status-pill running" style="font-size: 10px;">READY</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: DATA FORWARDER ==================== -->
+      <div class="view-tab" id="view-forwarder">
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Stage 3 — Data Forwarder Service</span>
+            <span class="status-pill notimpl">NOT IMPLEMENTED</span>
+          </div>
+          <div class="panel-body">
+            <p style="color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
+              Downstream secure delivery and transmission will be implemented in Stage 3 according to final destination and protocol specifications.
+            </p>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); background: #040813; padding: 12px; border-radius: 6px;">
+              <div>Status: <span style="color: var(--text-muted);">NOT IMPLEMENTED</span></div>
+              <div>Pipeline Role: <span style="color: var(--text-primary);">Downstream Secure Hand-off to External Systems</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: DATABASE MANAGEMENT ==================== -->
+      <div class="view-tab" id="view-database">
+        <div class="operator-toolbar" style="margin-bottom: 24px;">
+          <!-- WRS CARD -->
+          <div class="control-group-card">
+            <div class="control-group-title">WRS DATABASE</div>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.8;">
+              <div>Status: <span id="db-wrs-status" class="status-pill stopped" style="font-size: 9px; padding: 2px 6px;">UNKNOWN</span></div>
+              <div>Database File: <strong id="db-wrs-file" style="color: var(--text-primary);">wrs.db</strong></div>
+              <div>Size: <strong id="db-wrs-size" style="color: var(--accent-cyan);">0.0 MB</strong></div>
+              <div>Tables: <strong id="db-wrs-tables">0</strong></div>
+              <div>Total Records: <strong id="db-wrs-records">0</strong></div>
+              <div>Last Import: <strong id="db-wrs-last">Unknown</strong></div>
+            </div>
+            <div class="control-btn-strip" style="margin-top: 10px;">
+              <button class="btn btn-primary" id="btn-wrs-refresh" data-tooltip="Rebuild WRS from RAW_DATA files">⟳ Refresh WRS Data</button>
+              <button class="btn btn-danger" id="btn-wrs-clear" data-tooltip="Clear WRS database contents">Clear WRS Database</button>
+            </div>
+          </div>
+          
+          <!-- PANS CARD -->
+          <div class="control-group-card">
+            <div class="control-group-title">PANS DATABASE</div>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.8;">
+              <div>Status: <span id="db-pans-status" class="status-pill stopped" style="font-size: 9px; padding: 2px 6px;">UNKNOWN</span></div>
+              <div>Importer: <span id="db-pans-importer-status" class="status-pill stopped" style="font-size: 9px; padding: 2px 6px;">UNKNOWN</span></div>
+              <div>Size: <strong id="db-pans-size" style="color: var(--accent-cyan);">0.0 MB</strong></div>
+              <div>Tables: <strong id="db-pans-tables">0</strong></div>
+              <div>Total Records: <strong id="db-pans-records">0</strong></div>
+              <div>Files Processed: <strong id="db-pans-files">0</strong></div>
+              <div>Last Update: <strong id="db-pans-last">Unknown</strong></div>
+            </div>
+            <div class="control-btn-strip" style="margin-top: 10px;">
+              <button class="btn btn-success" id="btn-pans-start">▶ Start</button>
+              <button class="btn btn-danger" id="btn-pans-stop">■ Stop</button>
+              <button class="btn btn-secondary" id="btn-pans-process">Process Now</button>
+            </div>
+            <div class="control-btn-strip" style="margin-top: 4px;">
+              <button class="btn btn-danger" id="btn-pans-clear" data-tooltip="Clear PANS database contents">Clear PANS Database</button>
+            </div>
+          </div>
+
+          <!-- NSC CARD -->
+          <div class="control-group-card">
+            <div class="control-group-title">NSC DATABASE</div>
+            <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.8;">
+              <div>Status: <span id="db-nsc-status" class="status-pill stopped" style="font-size: 9px; padding: 2px 6px;">UNKNOWN</span></div>
+              <div>Database File: <strong id="db-nsc-file" style="color: var(--text-primary);">nsc.db</strong></div>
+              <div>Size: <strong id="db-nsc-size" style="color: var(--accent-cyan);">0.0 MB</strong></div>
+              <div>Tables: <strong id="db-nsc-tables">0</strong></div>
+              <div>Total Records: <strong id="db-nsc-records">0</strong></div>
+              <div>EAST Records: <strong id="db-nsc-east">0</strong></div>
+              <div>WEST Records: <strong id="db-nsc-west">0</strong></div>
+              <div>Last Import: <strong id="db-nsc-last">Unknown</strong></div>
+            </div>
+            <div class="control-btn-strip" style="margin-top: 10px;">
+              <button class="btn btn-primary" id="btn-nsc-refresh" data-tooltip="Rebuild NSC from RAW_DATA files">⟳ Refresh NSC Data</button>
+              <button class="btn btn-danger" id="btn-nsc-clear" data-tooltip="Clear NSC database contents">Clear NSC Database</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Database Tables List -->
+        <div class="panel">
+          <div class="panel-header">
+            <span class="panel-title">Database Tables Inventory</span>
+          </div>
+          <div class="panel-body" style="padding: 0;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Database</th>
+                  <th>Table Name</th>
+                  <th>Row Count</th>
+                </tr>
+              </thead>
+              <tbody id="db-tables-body">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== VIEW: SYSTEM & LOGS ==================== -->
+      <div class="view-tab" id="view-system">
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">System Environment & Telemetry</span></div>
+          <div class="panel-body">
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); line-height: 2;">
+              <div>Platform: <strong style="color: var(--text-primary);">Windows Development / Ubuntu Production Compatible</strong></div>
+              <div>Service Controller: <strong style="color: var(--accent-cyan);">ServiceController Abstraction Active</strong></div>
+              <div>Offline Security: <strong style="color: var(--accent-emerald);">Enabled (Zero External CDN / No Internet Access Required)</strong></div>
+              <div>Router Port: <strong style="color: var(--text-primary);">127.0.0.1:8080</strong></div>
+              <div>Web Console Port: <strong style="color: var(--text-primary);">127.0.0.1:8088</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="view-tab" id="view-logs">
+        <div class="panel">
+          <div class="panel-header"><span class="panel-title">Live Router Log Output</span></div>
+          <div class="panel-body" style="padding: 10px;">
+            <div id="full-log-viewer" style="font-family: var(--font-mono); font-size: 11px; background: #040813; padding: 14px; border-radius: 6px; max-height: 500px; overflow-y: auto; color: #a5b4fc; line-height: 1.6;">
+              <!-- Populated by activity feed -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ==================== MODAL: ADD / EDIT DATA SOURCE ==================== -->
+  <div class="modal-backdrop" id="modal-source-config">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span id="modal-title-icon">⚙</span>
+          <span id="modal-title-text">Configure Data Source</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-modal-close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <input type="hidden" id="src-is-new" value="true">
+
+        <!-- Section: General -->
+        <div class="form-section-title">1. General Identification</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="src-name">Source Name <span class="required">*</span></label>
+            <input type="text" id="src-name" class="form-input" placeholder="e.g. SAIS_NORTH" autocomplete="off">
+            <span class="form-hint" id="src-name-hint">Alphanumeric and underscores only</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="src-desc">Description</label>
+            <input type="text" id="src-desc" class="form-input" placeholder="Operational comments / location" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 4px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer;">
+            <input type="checkbox" id="src-enabled" checked>
+            <span>Enabled in Router configuration</span>
+          </label>
+        </div>
+
+        <!-- Section: Input Type Selection -->
+        <div class="form-section-title" style="margin-top: 10px;">2. Input Feed Type</div>
+        <div class="segmented-toggle">
+          <button type="button" class="segmented-toggle-btn active" id="btn-type-file">FILE INGESTION</button>
+          <button type="button" class="segmented-toggle-btn" id="btn-type-tcp">TCP STREAM</button>
+        </div>
+        <input type="hidden" id="src-type" value="file">
+
+        <!-- Section: File Source Specific Fields -->
+        <div id="container-fields-file">
+          <div class="form-section-title" style="margin-top: 10px;">3. File Ingestion Configuration</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="src-folder">Input Folder <span class="required">*</span></label>
+              <input type="text" id="src-folder" class="form-input" placeholder="e.g. SAIS_NORTH" autocomplete="off">
+              <span class="form-hint">Folder name under base directory</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="src-patterns">File Patterns <span class="required">*</span></label>
+              <input type="text" id="src-patterns" class="form-input" value="*.csv, *.txt, *" autocomplete="off">
+              <span class="form-hint">Comma-separated filename wildcards</span>
+            </div>
+          </div>
+          <div class="form-row" style="margin-top: 10px;">
+            <div class="form-group">
+              <label class="form-label" for="src-stability">Stability Window (seconds)</label>
+              <input type="number" id="src-stability" class="form-input" value="1.0" min="0.1" step="0.5">
+              <span class="form-hint">Time to verify file write completion</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="src-poll">Polling Interval (seconds)</label>
+              <input type="number" id="src-poll" class="form-input" value="1.0" min="0.1" step="0.5">
+              <span class="form-hint">Directory scan frequency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: TCP Source Specific Fields -->
+        <div id="container-fields-tcp" style="display: none;">
+          <div class="form-section-title" style="margin-top: 10px;">3. TCP Connection Configuration</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="src-remote-host">Remote Host / IP <span class="required">*</span></label>
+              <input type="text" id="src-remote-host" class="form-input" placeholder="e.g. 127.0.0.1" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="src-remote-port">Remote Port <span class="required">*</span></label>
+              <input type="number" id="src-remote-port" class="form-input" placeholder="e.g. 20005" min="1" max="65535">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top: 10px;">
+            <div class="form-group">
+              <label class="form-label" for="src-framing">Framing Protocol</label>
+              <select id="src-framing" class="form-select">
+                <option value="line" selected>line (Newline '\n' delimited)</option>
+                <option value="delimited">delimited</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="src-max-line">Max Line Length (bytes)</label>
+              <input type="number" id="src-max-line" class="form-input" value="65536" min="128" step="1024">
+            </div>
+          </div>
+          <div class="form-row" style="margin-top: 10px;">
+            <div class="form-group">
+              <label class="form-label" for="src-recon-init">Reconnect Initial Delay (sec)</label>
+              <input type="number" id="src-recon-init" class="form-input" value="2.0" min="0.1" step="0.5">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="src-recon-max">Reconnect Max Delay (sec)</label>
+              <input type="number" id="src-recon-max" class="form-input" value="60.0" min="1.0" step="1.0">
+            </div>
+          </div>
+          <div style="margin-top: 10px;">
+            <div class="pending-spec-banner">
+              <span>🔒 Authentication & TLS:</span>
+              <span><strong>PENDING SPECIFICATION</strong> (Plain TCP connection mode)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Parser Routing & Destination -->
+        <div class="form-section-title" style="margin-top: 10px;">4. Target Parser Mapping</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="src-parser">Parser Mapping <span class="required">*</span></label>
+            <select id="src-parser" class="form-select">
+              <!-- Populated dynamically from router configuration -->
+            </select>
+            <span class="form-hint">Decoder pipeline matching feed format</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="src-derived-destination">Ingestion Destination (Auto-derived)</label>
+            <input type="text" id="src-derived-destination" class="form-input" readonly value="Loading...">
+            <span class="form-hint">Derived automatically from selected parser</span>
+          </div>
+        </div>
+
+        <!-- Section: Effective Configuration Preview -->
+        <div class="form-section-title" style="margin-top: 10px;">5. Effective Configuration Preview</div>
+        <div class="effective-preview-box">
+          <div class="effective-preview-title">
+            <span>Effective Payload Summary</span>
+            <span id="preview-badge" class="mini-badge running" style="display: none;">VALID</span>
+          </div>
+          <pre id="src-preview-text" style="margin: 0;">Generating configuration summary...</pre>
+        </div>
+
+        <div id="modal-feedback-alert" style="display: none; padding: 10px 14px; border-radius: 6px; font-size: 12px; font-family: var(--font-mono); line-height: 1.5;"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btn-modal-cancel">Cancel</button>
+        <button type="button" class="btn btn-secondary" id="btn-modal-validate" data-tooltip="Test configuration syntax and semantic rules">✓ Validate</button>
+        <button type="button" class="btn btn-primary" id="btn-modal-save" data-tooltip="Save configuration atomically (Reload required)">💾 Save Configuration</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL: DANGEROUS ACTION CONFIRMATION ==================== -->
+  <div class="modal-backdrop" id="modal-confirmation">
+    <div class="modal-container" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span style="color: var(--accent-amber);">⚠</span>
+          <span id="confirm-title">Confirm Action</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-confirm-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-dialog-content">
+          <div class="confirm-warning-icon">⚠</div>
+          <div class="confirm-warning-msg" id="confirm-message">Are you sure you want to perform this action?</div>
+          <div class="confirm-subtext" id="confirm-subtext">This will temporarily interrupt Router processing.</div>
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <button type="button" class="btn btn-secondary" id="btn-confirm-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="btn-confirm-proceed">Confirm Action</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Pure local JS - Zero CDN / Zero online libraries -->
+  <script src="/static/js/console.js"></script>
+</body>
+</html>

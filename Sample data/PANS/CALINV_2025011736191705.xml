@@ -1,0 +1,36 @@
+<VesselCallNumber>
+  <DocumentHeader>
+    <DocumentReference>
+      <DocumentType>CALINV</DocumentType>
+      <DocumentName>ALLOTMENTOFVCN</DocumentName>
+      <CommonRefNumber>2025011736191705</CommonRefNumber>
+      <MessageType>9</MessageType>
+      <SenderID>hydecaadm001</SenderID>
+    </DocumentReference>
+    <DocumentExchangeDetails>
+      <ReceivingPartyDetails>
+        <ReceivingParty>msckak08</ReceivingParty>
+      </ReceivingPartyDetails>
+    </DocumentExchangeDetails>
+  </DocumentHeader>
+  <DocumentDetails>
+    <VoyageDetails>
+      <RecordType>N</RecordType>
+      <VCN>KAK12025010062</VCN>
+      <IMONumber>9240328</IMONumber>
+      <CallSign>D5NK9</CallSign>
+      <VoyageNumber>XA451B</VoyageNumber>
+      <VesselType>1511</VesselType>
+      <SACode>AACCM7663A</SACode>
+      <LineCode>AACCM7663A</LineCode>
+      <DockORTOCode>INKAK1KSP1</DockORTOCode>
+      <Portcode>INKAK1</Portcode>
+      <EDTA>19012025</EDTA>
+      <EDTD>20012025</EDTD>
+      <AllotmentDate>17012025</AllotmentDate>
+    </VoyageDetails>
+  </DocumentDetails>
+  <DocumentSummary>
+    <IssuedDateTime>17012025104148</IssuedDateTime>
+  </DocumentSummary>
+</VesselCallNumber>

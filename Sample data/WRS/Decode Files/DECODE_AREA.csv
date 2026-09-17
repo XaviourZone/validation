@@ -1,0 +1,26 @@
+AREA CODE,AREA DECODE,AREA DETAILS
+ARA,Persian Gulf,Gulf States
+AUS,Australasia,"Australia, New Zealand, New Guinea etc"
+BLK,Black Sea,Black Sea coast
+CAM,Central America,Central America inc Mexico to Panama
+CAN,Great Lakes - Canada,N.E. Canada and Great Lakes
+CAR,Caribbean,Caribbean Islands
+CHI,Far East - China Sea,"China, Korea and Russia"
+EAF,S & E Africa,South & East African coasts
+EMD,E Mediterranean,"Eastern Mediterranean inc Cyprus, Turkey"
+IBE,Iberian Atlantic,Spain / Portugal inc Atlantic Islands
+IND,Indian Sub Continent,"India, Pakistan and Burma"
+JPN,Japan,Japan
+NAF,N Africa,North African coast
+NEU,N Cont Europe,North European Atlantic coast
+RED,Red Sea,Red Sea coast inc up to the Persian Gulf
+SAA,S America - Atlantic,South America Atlantic coast
+SAP,S America - Pacific,South America Pacific coast
+SCN,Scandinavia/Baltic,"Scandinavia inc Baltic, Greenland, Iceland etc"
+SEA,Far East - Asean,"Vietnam, Thailand, Malaysia and Indonesia"
+SEU,S Europe,European Mediterranean coast
+SPC,Special Interest,Special interest
+UKE,UK/Eire,United Kingdom inc Eire
+UNK,Unknown,"Unknown, used for Unknown Place"
+USA,US Atlantic,"U.S, Atlantic coast including part of Canada"
+USG,US Gulf,Gulf of Mexico

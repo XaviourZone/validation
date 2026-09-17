@@ -1,0 +1,26 @@
+VESSEL ID,BUILT PLACE ID,BUILT PLACE,YARD NUMBER,VESSEL BUILDER,ORDER DATE,ORDER QUALIFIER,ORDER VALUE,ORDER CANCELLED,ORDER CANCELLED QUALIFIER,SCHEDULED CONSTRUCTION END,SCHED CONS END QUALIFIER,ORIGINAL SCHED CONS END,ORIG SCHED CONS QUALIFIER,CONSTRUCTION START,CONSTRUCTION START QUALIFIER,LAUNCH DATE,LAUNCH QUALIFIER,CONSTRUCTION END,CONSTRUCTION END QUALIFIER,DEAD DATE,DEAD QUALIFIER,LOSS DATE,LOSS QUALIFIER,BROKEN END DATE,BROKEN END QUALIFIER,BREAKER COMPANY,BROKEN PLACE,LT TONNES,RECORD LAST UPDATED
+2,2846,Vietnam,,,,,,,,,,,,,,,,01/01/1965,A,,,,,,,,,,17/06/2003
+4,2159,Newcastle(AUS),89,Carrington Slipways Proprietary Limited,,,,,,,,,,,,,,01/01/1973,A,03/04/2002,,12/03/2002,,,,,,,17/06/2003
+6,1985,Vigo,Y7330002,Factorias Vulcano S.A.,,,,,,,,,,01/09/1973,B,01/09/1973,,01/01/1974,A,,,,,,,,,,02/03/2021
+7,,,,,,,,,,,,,,,,,,,,05/04/1976,B,,,,,,,,30/12/1983
+10,4082,Sweden,,,,,,,,,,,,,,,,01/01/1974,A,04/09/1996,,,,18/08/1996,,Bangladesh Breakers,Chittagong,,17/06/2003
+11,5814,Busum,,Buesumer Werft GmbH,,,,,,,,,,,,,,01/01/1951,A,,,,,,,,,,09/07/2004
+12,,,,,,,,,,,,,,,,,,01/01/1956,A,29/10/1980,B,,,,,,,,17/06/2003
+13,5236,Netherlands,,,,,,,,,,,,,,,,01/01/1965,A,09/12/1996,,30/11/1996,B,,,,,,17/06/2003
+14,,,,,,,,,,,,,,,,,,01/01/1950,A,21/09/1976,B,,,,,,,,17/06/2003
+16,,,,,,,,,,,,,,,,,,01/01/1966,A,13/01/1984,,,,,,,,,17/06/2003
+17,,,,,,,,,,,,,,,,,,01/01/1966,A,31/10/1979,B,,,,,,,,17/06/2003
+20,2430,Norway,,,,,,,,,,,,,,,,01/01/1965,A,28/03/1989,O,09/10/1980,,27/12/1993,,Pakistan Breakers,Pakistan,,07/03/2007
+21,5305,Makkum,293,Amels Holland B.V.,,,,,,,,,,,,,,01/01/1966,A,24/10/2007,,,,19/10/2007,,Indian Breakers,Alang,875,04/01/2008
+23,5236,Netherlands,,,,,,,,,,,,,,,,01/01/1962,A,22/07/1988,O,01/04/1987,,01/06/1987,B,Greek Breakers,Greece,,17/06/2003
+24,5200,Finland,,,,,,,,,,,,,,,,01/01/1962,A,23/10/1989,O,,,29/10/1989,,Chinese Breakers,China,,17/06/2003
+25,,,,,,,,,,,,,,,,,,01/01/1962,A,28/10/1984,,,,,,,,,17/06/2003
+26,5200,Finland,,,,,,,,,,,,,,,,01/01/1967,A,23/07/1993,O,,,21/02/1989,,Chinese Breakers,China,,17/06/2003
+30,,,,,,,,,,,,,,,,,,01/01/1961,A,13/11/1985,,,,,,,,,17/06/2003
+31,5884,Savonlinna,201,Rauma-Repola Oy,,,,,,,,,,,,,,01/10/1977,,17/02/2005,,,,08/01/2005,,Indian Breakers,Mumbai,,16/11/2010
+32,142,Germany,,,,,,,,,,,,,,,,01/01/1972,A,03/06/1993,O,,,31/03/1993,B,Chinese Breakers,Shanghai,,17/06/2003
+33,3447,Elmshorn,1091,D.W. Kremer Sohn,,,,,,,,,,01/01/1961,B,01/01/1961,B,01/01/1961,A,,,,,,,,,,03/12/2009
+34,142,Germany,,,,,,,,,,,,,,,,01/01/1956,A,24/12/1983,,24/12/1983,,,,,,,09/07/2004
+35,1284,Buyukdere,139,Anadolu Deniz Insaat Kizaklari Sanayii ve Ticaret Limited Sirketi,,,,,,,,,,,,,,01/01/1975,A,05/02/2002,,30/09/2001,O,,,,,,17/06/2003
+36,1828,Le Havre,169,ACH - Construction Navale,,,,,,,,,,01/01/1963,B,01/01/1963,A,01/01/1963,A,,,,,,,,,,03/12/2009
+37,,,,,,,,,,,,,,,,,,01/01/1950,A,11/11/1978,B,,,,,,,,17/06/2003

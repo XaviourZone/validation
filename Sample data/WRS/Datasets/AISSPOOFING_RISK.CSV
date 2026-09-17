@@ -1,0 +1,26 @@
+VESSEL_ID,IMO,NAME,SEQ_NO,DAY_NUMBER,START_DATE,END_DATE,RISK_INDICATORS,START_LOCATION,END_LOCATION
+7221,7237884,Hongbo No.5,1,22.33,09/03/2026 21:03:33,01/04/2026 05:04:34,Impossibly repetitive values; Impossibly stationary AIS,,South Korean Exclusive Economic Zone
+36405,6524917,Al Mahroukat Al Thani,1,30.04,02/03/2026 08:03:21,01/04/2026 09:04:04,Very long AIS Spoofing; Impossibly repetitive values; Impossibly stationary AIS,Saudi Arabian Exclusive Economic Zone,Saudi Arabian Exclusive Economic Zone
+67673,6720004,Kola,1,14.95,06/05/2026 22:05:00,21/05/2026 21:05:38,Impossibly repetitive values; Distance travelled inconsistent with stated SOG,Nigerian Exclusive Economic Zone,Nigerian Exclusive Economic Zone
+106620,7635878,Jazeera Reefer,1,31,02/04/2025 08:04:44,03/05/2025 08:05:13,Very long AIS Spoofing; Impossibly repetitive values; Impossibly stationary AIS,Maldives Exclusive Economic Zone,Maldives Exclusive Economic Zone
+110066,7637539,S Leelawadee,1,9.58,05/12/2024 20:12:25,15/12/2024 10:12:45,Impossibly repetitive values; Impossibly stationary AIS,Maldives Exclusive Economic Zone,Maldives Exclusive Economic Zone
+110066,7637539,S Leelawadee,2,11.2,18/12/2024 00:12:12,29/12/2024 05:12:35,Impossibly repetitive values; Impossibly stationary AIS,Maldives Exclusive Economic Zone,Maldives Exclusive Economic Zone
+110066,7637539,S Leelawadee,3,11.95,23/02/2025 22:02:39,07/03/2025 21:03:27,Impossibly repetitive values; Impossibly stationary AIS,Maldives Exclusive Economic Zone,Maldives Exclusive Economic Zone
+110066,7637539,S Leelawadee,4,5.16,09/03/2025 11:03:07,14/03/2025 15:03:20,Draught change after the AIS Spoofing event; Impossibly repetitive values; Impossibly stationary AIS,Maldives Exclusive Economic Zone,Maldives Exclusive Economic Zone
+115664,7702657,Nadezhda,1,.58,30/03/2025 05:03:12,30/03/2025 19:03:03,AIS Spoofing started in a high risk area; AIS receiver(s) detected out of range AIS messages,Russian Exclusive economic Zone,Russian Exclusive economic Zone
+117464,7727334,Erdeniz,1,11,27/04/2025 06:04:48,08/05/2025 06:05:15,Impossibly repetitive values; Impossibly stationary AIS,Turkish Exclusive Economic Zone,Turkish Exclusive Economic Zone
+117550,7804900,Asian Marine Reefer 2,1,10.58,11/02/2025 22:02:13,22/02/2025 12:02:51,Draught change after the AIS Spoofing event; Impossibly repetitive values; Impossibly stationary AIS,Maldives Exclusive Economic Zone,Maldives Exclusive Economic Zone
+143161,7831874,Nefterudovoz-34M,1,50.5,11/11/2024 05:11:29,31/12/2024 17:12:33,Very long AIS Spoofing; Impossibly repetitive values; Impossibly stationary AIS,Turkish Exclusive Economic Zone,Turkish Exclusive Economic Zone
+143574,8007195,Alman,1,.91,30/06/2025 14:06:17,01/07/2025 12:07:11,Draught change after the AIS Spoofing event; Probable spoofed port call,,
+154560,8008498,Eagle 1,1,35.29,05/05/2026 08:05:10,09/06/2026 15:06:12,Very long AIS Spoofing; AIS receiver(s) detected out of range AIS messages; Impossibly repetitive values; Distance travelled inconsistent with stated SOG,,Dominican Republic Exclusive Economic Zone
+172350,8117809,Great Jaguar,1,4.41,31/10/2024 23:10:22,05/11/2024 09:11:07,Impossibly repetitive values,Panamanian Exclusive Economic Zone,Panamanian Exclusive Economic Zone
+174741,8408650,Spring,1,1,30/10/2025 07:10:00,31/10/2025 07:10:06,Draught change after the AIS Spoofing event; AIS receiver(s) detected out of range AIS messages,Turkish Exclusive Economic Zone,Turkish Exclusive Economic Zone
+174741,8408650,Spring,2,.25,31/10/2025 08:10:47,31/10/2025 14:10:01,AIS receiver(s) detected out of range AIS messages,,Greek Exclusive Economic Zone
+175236,8228672,Navigator,1,3.95,12/07/2025 19:07:41,16/07/2025 18:07:37,AIS receiver(s) detected out of range AIS messages,,
+175740,8403545,S J Royal,1,8.29,01/06/2026 17:06:22,10/06/2026 00:06:25,AIS Spoofing started in a high risk area; AIS receiver(s) detected out of range AIS messages,United Arab Emirates Exclusive Economic Zone,
+177112,8508747,Barakaale I,1,3.62,06/06/2026 18:06:13,10/06/2026 09:06:40,AIS receiver(s) detected out of range AIS messages,,
+200451,8415160,Dan,1,8,03/02/2026 06:02:11,11/02/2026 06:02:24,Draught change after the AIS Spoofing event; AIS receiver(s) detected out of range AIS messages,,
+200470,8504284,Green Line .,1,.16,16/08/2024 13:08:27,16/08/2024 17:08:32,Draught change after the AIS Spoofing event; AIS Spoofing started in a high risk area; AIS receiver(s) detected out of range AIS messages,Overlapping claim Ukrainian Exclusive Economic Zone,Overlapping claim Ukrainian Exclusive Economic Zone
+203223,8520563,Rustica,1,197.25,08/01/2024 06:01:35,23/07/2024 12:07:05,AIS Spoofing started in a high risk area; Very long AIS Spoofing; Impossibly repetitive values; Impossibly stationary AIS,Russian Exclusive economic Zone,Russian Exclusive economic Zone
+207114,8302442,1st Lt.Baldomero Lopez,1,265.04,19/09/2024 12:09:04,11/06/2025 13:06:14,Draught change after the AIS Spoofing event; Very long AIS Spoofing; Impossibly repetitive values; Impossibly stationary AIS,United States Exclusive Economic Zone,United States Exclusive Economic Zone
+213161,8710209,Neptun,1,36,15/12/2024 08:12:02,20/01/2025 08:01:19,Draught change after the AIS Spoofing event; Very long AIS Spoofing; Impossibly repetitive values; Impossibly stationary AIS,,Chinese Exclusive Economic Zone
