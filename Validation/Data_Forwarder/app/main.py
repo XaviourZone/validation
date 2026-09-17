@@ -36,24 +36,46 @@ def main():
     service = ForwarderService(cfg, log)
     api = make_server(cfg.http_host, cfg.http_port, service)
     api_thread = threading.Thread(target=api.serve_forever, name="Forwarder-API", daemon=True)
+    shutdown_event = threading.Event()
+    shutting_down = threading.Event()
 
-    def shutdown(signum, frame):
-        log.info("Signal %s received", signum)
+    def shutdown(signum=None, frame=None):
+        if shutting_down.is_set():
+            return
+        shutting_down.set()
+        if signum is not None:
+            log.info("Signal %s received", signum)
+        else:
+            log.info("Shutdown requested")
         service.stop()
-        api.shutdown()
+        try:
+            api.shutdown()
+        except Exception:
+            pass
+        shutdown_event.set()
 
     signal.signal(signal.SIGINT, shutdown)
-    signal.signal(signal.SIGTERM, shutdown)
+    if hasattr(signal, "SIGTERM"):
+        signal.signal(signal.SIGTERM, shutdown)
+
     service.start()
     api_thread.start()
     log.info("Data Forwarder listening on %s:%s", cfg.http_host, cfg.http_port)
     try:
-        while service.running:
-            signal.pause()
+        # signal.pause() is Unix-only. Event.wait() keeps the same blocking
+        # behavior and works on Windows and Ubuntu.
+        shutdown_event.wait()
     except (KeyboardInterrupt, SystemExit):
-        shutdown(signal.SIGTERM, None)
+        shutdown()
     finally:
+        service.stop()
+        try:
+            api.shutdown()
+        except Exception:
+            pass
         api.server_close()
+        api_thread.join(timeout=5)
+        log.info("Data Forwarder stopped")
 
 
 if __name__ == "__main__":
