@@ -1,10 +1,8 @@
 """Persistent AIS message and per-MMSI vessel state.
 
-AIS static/voyage information is carried less frequently than position reports.
-This store keeps the latest valid value for each MMSI and remembers the latest
-message seen for each AIS message type. It is deliberately separate from WRS/
-PANS/NSC reference data so transmitted AIS state remains distinguishable from
-reference enrichment.
+Keeps latest valid static/voyage/kinematic fields and a bounded message history.
+Position history metadata is kept separately from last-message timestamp so a
+Type 5/static message cannot corrupt the time interval used for movement checks.
 """
 
 import json
@@ -13,7 +11,6 @@ import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Optional
-
 
 AIS_STATE_FIELDS = (
     "imo", "vessel_name", "callsign", "vessel_type", "length", "width",
@@ -42,8 +39,7 @@ class AISStateDB:
         self._conn = sqlite3.connect(str(self.path), check_same_thread=False)
         self._conn.row_factory = sqlite3.Row
         self._conn.execute("PRAGMA journal_mode=WAL")
-        self._conn.executescript(
-            """
+        self._conn.executescript("""
             CREATE TABLE IF NOT EXISTS ais_vessel_state (
                 mmsi INTEGER PRIMARY KEY,
                 state_json TEXT NOT NULL,
@@ -63,21 +59,13 @@ class AISStateDB:
             );
             CREATE INDEX IF NOT EXISTS idx_ais_message_mmsi_type
                 ON ais_message_state(mmsi, message_type, id DESC);
-            """
-        )
+        """)
         self._conn.commit()
 
     def merge_record(self, record: Any) -> Any:
-        """Update MMSI state from non-empty incoming fields, then fill missing fields.
-
-        The current transmission always wins. Missing values are filled only from
-        the last valid AIS state for that MMSI; reference enrichment remains a later
-        stage in the pipeline.
-        """
         mmsi = getattr(record, "mmsi", None)
         if not mmsi or not (100000000 <= int(mmsi) <= 999999999):
             return record
-
         mmsi = int(mmsi)
         msg_type = getattr(record, "app_message_id", None)
         now = datetime.now(timezone.utc).isoformat()
@@ -93,7 +81,13 @@ class AISStateDB:
             ).fetchone()
             state: Dict[str, Any] = json.loads(row["state_json"]) if row else {}
 
-            # Current message values replace previous AIS values; missing values do not.
+            # Preserve the previous valid position independently of last message time.
+            if incoming.get("latitude") is not None and incoming.get("longitude") is not None:
+                state["last_position_latitude"] = incoming["latitude"]
+                state["last_position_longitude"] = incoming["longitude"]
+                state["last_position_timestamp"] = getattr(record, "timestamp", None)
+                state["last_position_source"] = getattr(record, "source", None)
+
             state.update(incoming)
             if msg_type is not None:
                 state["last_message_type"] = int(msg_type)
@@ -113,7 +107,6 @@ class AISStateDB:
                 (mmsi, json.dumps(state, ensure_ascii=False), msg_type,
                  getattr(record, "timestamp", None), getattr(record, "source", None), now),
             )
-
             if msg_type is not None:
                 self._conn.execute(
                     "INSERT INTO ais_message_state(mmsi,message_type,timestamp,source,payload_json,updated_at) VALUES (?,?,?,?,?,?)",
@@ -121,15 +114,12 @@ class AISStateDB:
                      getattr(record, "source", None), json.dumps(incoming, ensure_ascii=False), now),
                 )
                 self._conn.execute(
-                    """DELETE FROM ais_message_state
-                       WHERE mmsi=? AND id NOT IN
+                    """DELETE FROM ais_message_state WHERE mmsi=? AND id NOT IN
                        (SELECT id FROM ais_message_state WHERE mmsi=? ORDER BY id DESC LIMIT ?)""",
                     (mmsi, mmsi, self.history_limit),
                 )
             self._conn.commit()
 
-        # Fill only fields absent in this transmission. Never replace current position,
-        # timestamp, source, message id or raw payload with cached values.
         for field in AIS_STATE_FIELDS:
             if getattr(record, field, None) in (None, "") and field in state:
                 try:
@@ -140,19 +130,13 @@ class AISStateDB:
 
     def get(self, mmsi: int) -> Optional[Dict[str, Any]]:
         with self._lock:
-            row = self._conn.execute(
-                "SELECT * FROM ais_vessel_state WHERE mmsi=?", (int(mmsi),)
-            ).fetchone()
+            row = self._conn.execute("SELECT * FROM ais_vessel_state WHERE mmsi=?", (int(mmsi),)).fetchone()
         if not row:
             return None
         data = json.loads(row["state_json"])
-        data.update({
-            "mmsi": int(row["mmsi"]),
-            "last_message_type": row["last_message_type"],
-            "last_timestamp": row["last_timestamp"],
-            "last_source": row["last_source"],
-            "updated_at": row["updated_at"],
-        })
+        data.update({"mmsi": int(row["mmsi"]), "last_message_type": row["last_message_type"],
+                     "last_timestamp": row["last_timestamp"], "last_source": row["last_source"],
+                     "updated_at": row["updated_at"]})
         return data
 
     def recent_messages(self, mmsi: int, limit: int = 20):
