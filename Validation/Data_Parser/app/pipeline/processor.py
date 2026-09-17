@@ -1,9 +1,7 @@
-"""
-Validation Data Parser Pipeline Processor.
+"""Validation Data Parser Pipeline Processor.
 
-Executes the complete processing lifecycle:
 Raw Envelope -> Decoding -> AIS state merge -> Normalization -> Enrichment
--> Correlation/Track State -> XML Generation -> Forwarder spool.
+-> positional validation -> XML Generation -> Forwarder spool.
 """
 
 import hashlib
@@ -19,6 +17,7 @@ from .downstream_parser import DownstreamXMLParser
 from .enricher import VesselEnricher
 from .normalizer import NormalizedRecord, normalize_from_common_record, normalize_from_decoded_track
 from .reference_db import ReferenceDB
+from .spoofing import PositionalSpoofingDetector
 from .track_state import TrackStateDB
 from .xml_decoder import decode_xml_payload
 from .xml_generator import XTrackXMLGenerator
@@ -29,11 +28,13 @@ log = logging.getLogger("parser.processor")
 class PipelineProcessor:
     """Master processor running the end-to-end Data Parser pipeline."""
 
-    def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None, ais_state_db: Optional[AISStateDB] = None, xml_output_dir: Optional[Path] = None):
+    def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None,
+                 ais_state_db: Optional[AISStateDB] = None, xml_output_dir: Optional[Path] = None):
         self.ref_db = reference_db or ReferenceDB()
         self.state_db = track_state_db or TrackStateDB()
         self.ais_state_db = ais_state_db or AISStateDB()
         self.enricher = VesselEnricher(reference_db=self.ref_db, track_state_db=self.state_db)
+        self.spoofing = PositionalSpoofingDetector()
         self.xml_generator = XTrackXMLGenerator()
         self.downstream_parser = DownstreamXMLParser()
 
@@ -72,13 +73,23 @@ class PipelineProcessor:
                     for rec in res.records:
                         try:
                             if rec.mmsi and rec.app_message_id is not None:
+                                previous_state = self.ais_state_db.get(rec.mmsi)
+                                incoming_lat = rec.latitude
+                                incoming_lon = rec.longitude
                                 self.ais_state_db.merge_record(rec)
                                 state = self.ais_state_db.get(rec.mmsi)
                                 if state:
                                     rec.raw_attributes = dict(rec.raw_attributes or {})
                                     rec.raw_attributes["ais_state"] = state
+                                # Spoofing compares only a new transmitted position against
+                                # the previous transmitted position; static Type 5 messages
+                                # must not become the movement timestamp.
+                                if incoming_lat is not None and incoming_lon is not None:
+                                    anomaly = self.spoofing.check(previous_state, rec)
+                                    if anomaly:
+                                        rec.raw_attributes["positional_spoofing"] = anomaly
                         except Exception as state_exc:
-                            errors.append(f"AIS state error for MMSI={rec.mmsi}: {state_exc}")
+                            errors.append(f"AIS state/position validation error for MMSI={rec.mmsi}: {state_exc}")
                         normalized_records.append(normalize_from_common_record(rec))
                     errors.extend(res.errors)
                 except Exception as e:
@@ -91,6 +102,20 @@ class PipelineProcessor:
         for norm in normalized_records:
             try:
                 enr = self.enricher.enrich(norm)
+                anomaly = (norm.raw_attributes or {}).get("positional_spoofing")
+                if anomaly and anomaly.get("flagged"):
+                    detail = (
+                        f"POSITIONAL SPOOFING FOUND | calculated speed: {anomaly['calculated_speed_knots']:.2f} kt"
+                        f" | distance: {anomaly['distance_nm']:.2f} NM"
+                        f" | delta-t: {anomaly['elapsed_seconds']:.1f} s"
+                        f" | threshold: {anomaly['threshold_knots']:.2f} kt"
+                    )
+                    if anomaly.get("reported_sog_knots") is not None:
+                        detail += f" | reported SOG: {anomaly['reported_sog_knots']:.2f} kt"
+                    existing = [p.strip() for p in (enr.vessel_remarks or "").split("|") if p.strip()]
+                    if not any(p.startswith("POSITIONAL SPOOFING FOUND") for p in existing):
+                        existing.insert(0, detail)
+                    enr.vessel_remarks = " | ".join(existing)
                 enriched_records.append(enr)
                 common_records.append(CommonVesselRecord(
                     source=source, message_id=message_id,
@@ -117,7 +142,9 @@ class PipelineProcessor:
                 errors.append(f"XML generation/spooling error: {e}")
 
         success = len(enriched_records) > 0 and not errors
-        result = ParseResult(message_id=message_id, source=source, success=success, records_parsed=len(enriched_records), records_rejected=len(errors), records=common_records, errors=errors)
+        result = ParseResult(message_id=message_id, source=source, success=success,
+                             records_parsed=len(enriched_records), records_rejected=len(errors),
+                             records=common_records, errors=errors)
         return result, generated_xml
 
     def _spool_xml(self, source: str, message_id: str, xml: str) -> Path:
