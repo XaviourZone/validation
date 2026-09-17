@@ -146,36 +146,67 @@ class VesselEnricher:
             rec.foreign_track_number = None
         rec.sys_track_number = incoming_mmsi
 
+        # A direct MMSI match is the strongest reference identity for enrichment.
+        # If the MMSI matched NSC, NSC is tried first; if it matched PANS,
+        # PANS is tried first. WRS remains an available fallback and is still
+        # used independently for spoofing/correlation.
+        ref_order = {
+            "WRS": ("WRS", "PANS", "NSC"),
+            "PANS": ("PANS", "WRS", "NSC"),
+            "NSC": ("NSC", "WRS", "PANS"),
+        }.get(ctx.primary_mmsi_source, ("WRS", "PANS", "NSC"))
+
+        def ref_value(*fields):
+            for source in ref_order:
+                prefix = source.lower()
+                for field in fields:
+                    value = getattr(ctx, f"{prefix}_{field}", None)
+                    if value not in (None, ""):
+                        return value
+            return None
+
         resolved_name = None
         if incoming_name and incoming_name.upper() not in ("UNKNOWN", "-", "N/A", "NONE"):
             resolved_name = incoming_name
-        elif ctx.wrs_vessel_name:
-            resolved_name = ctx.wrs_vessel_name
-        elif ctx.pans_vessel_name:
-            resolved_name = ctx.pans_vessel_name
-        elif ctx.nsc_vessel_name:
-            resolved_name = ctx.nsc_vessel_name
         else:
-            resolved_name = "UNKNOWN"
+            resolved_name = ref_value("vessel_name") or "UNKNOWN"
         rec.vessel_name = sanitize_string(resolved_name)
 
         if not rec.id_callsign:
-            rec.id_callsign = ctx.wrs_callsign or ctx.pans_callsign or ctx.nsc_callsign or None
+            rec.id_callsign = ref_value("callsign")
+
         if not rec.id_imo or not is_valid_imo(rec.id_imo):
-            if ctx.wrs_imo and is_valid_imo(ctx.wrs_imo): rec.id_imo = ctx.wrs_imo
-            elif ctx.pans_imo and is_valid_imo(ctx.pans_imo): rec.id_imo = ctx.pans_imo
-            elif ctx.nsc_imo and is_valid_imo(ctx.nsc_imo): rec.id_imo = ctx.nsc_imo
+            for source in ref_order:
+                value = getattr(ctx, f"{source.lower()}_imo", None)
+                if value and is_valid_imo(value):
+                    rec.id_imo = value
+                    break
 
         if rec.ais_typeAndCargo is None:
-            if ctx.wrs_ais_type_code is not None: rec.ais_typeAndCargo = ctx.wrs_ais_type_code
-            elif ctx.wrs_vessel_type: rec.ais_typeAndCargo = ctx.wrs_vessel_type
-            elif ctx.pans_vessel_type: rec.ais_typeAndCargo = ctx.pans_vessel_type
+            # WRS has the numeric AIS type decode; use the selected reference
+            # source first for raw vessel type, then WRS decode where available.
+            if ctx.primary_mmsi_source == "WRS" and ctx.wrs_ais_type_code is not None:
+                rec.ais_typeAndCargo = ctx.wrs_ais_type_code
+            elif ctx.primary_mmsi_source == "PANS" and ctx.pans_vessel_type:
+                rec.ais_typeAndCargo = ctx.pans_vessel_type
+            elif ctx.primary_mmsi_source == "NSC" and ctx.nsc_type:
+                rec.ais_typeAndCargo = ctx.nsc_type
+            elif ctx.wrs_ais_type_code is not None:
+                rec.ais_typeAndCargo = ctx.wrs_ais_type_code
+            else:
+                rec.ais_typeAndCargo = ref_value("vessel_type")
+
         if not rec.vessel_description:
-            rec.vessel_description = ctx.wrs_vessel_type or ctx.pans_vessel_type or ctx.nsc_type or None
-        if rec.vessel_length is None: rec.vessel_length = ctx.wrs_loa or ctx.pans_loa
-        if rec.vessel_beam is None: rec.vessel_beam = ctx.wrs_breadth or ctx.pans_beam
-        if rec.vessel_draft is None: rec.vessel_draft = ctx.wrs_draft or ctx.pans_max_draft
-        if rec.vessel_grosstonnage is None: rec.vessel_grosstonnage = ctx.wrs_gross or ctx.pans_grt
+            rec.vessel_description = ref_value("vessel_type")
+
+        if rec.vessel_length is None:
+            rec.vessel_length = ref_value("loa")
+        if rec.vessel_beam is None:
+            rec.vessel_beam = ref_value("breadth", "beam")
+        if rec.vessel_draft is None:
+            rec.vessel_draft = ref_value("draft", "max_draft")
+        if rec.vessel_grosstonnage is None:
+            rec.vessel_grosstonnage = ref_value("gross", "grt")
 
         effective_vigilance = ctx.wrs_vigilance_score if ctx.wrs_vigilance_score is not None else rec.id_mmsi_destination
         if effective_vigilance is not None:
@@ -183,29 +214,124 @@ class VesselEnricher:
             score = float(effective_vigilance)
             rec.cat_identity = 1 if score < 300 else (4 if score > 600 else 3)
 
-        if not rec.voyage_destination: rec.voyage_destination = ctx.pans_berman_dest or ctx.pans_npc or ctx.wrs_calling_place
-        if not rec.voyage_origin: rec.voyage_origin = ctx.pans_org_dep or ctx.wrs_calling_place
-        if not rec.voyage_departure: rec.voyage_departure = ctx.pans_lpc or ctx.pans_berman_lpc or ctx.wrs_calling_sailing
-        if not rec.voyage_arrival: rec.voyage_arrival = ctx.wrs_calling_arrival
-        if not rec.voyage_eta: rec.voyage_eta = ctx.pans_eta or ctx.pans_berman_eta
-        if not rec.voyage_etd: rec.voyage_etd = ctx.pans_etd or ctx.pans_berman_etd
+        # Voyage fields exist in PANS and WRS; NSC has no voyage columns.
+        # Preserve incoming AIS first, then use the selected MMSI reference
+        # source, followed by the remaining reference sources.
+        voyage_fields = {
+            "voyage_destination": {
+                "PANS": ("pans_berman_dest", "pans_npc"),
+                "WRS": ("wrs_calling_place",),
+                "NSC": (),
+            },
+            "voyage_origin": {
+                "PANS": ("pans_org_dep",),
+                "WRS": ("wrs_calling_place",),
+                "NSC": (),
+            },
+            "voyage_departure": {
+                "PANS": ("pans_lpc", "pans_berman_lpc"),
+                "WRS": ("wrs_calling_sailing",),
+                "NSC": (),
+            },
+            "voyage_arrival": {
+                "PANS": ("pans_berman_eta",),
+                "WRS": ("wrs_calling_arrival",),
+                "NSC": (),
+            },
+            "voyage_eta": {
+                "PANS": ("pans_eta", "pans_berman_eta"),
+                "WRS": (),
+                "NSC": (),
+            },
+            "voyage_etd": {
+                "PANS": ("pans_etd", "pans_berman_etd"),
+                "WRS": (),
+                "NSC": (),
+            },
+        }
+        for attr, source_fields in voyage_fields.items():
+            if getattr(rec, attr, None):
+                continue
+            for source in ref_order:
+                for field in source_fields.get(source, ()):
+                    value = getattr(ctx, field, None)
+                    if value not in (None, ""):
+                        setattr(rec, attr, value)
+                        break
+                if getattr(rec, attr, None):
+                    break
         if ctx.wrs_status_decode: rec.cat_annotation = ctx.wrs_status_decode
 
+        # Remarks are built only from explicit evidence. PANS/NSC CLEARED
+        # currently records that the vessel was resolved in that reference DB.
         remarks_parts: List[str] = []
-        if rec.vessel_remarks and rec.vessel_remarks not in ("-", "None"): remarks_parts.append(rec.vessel_remarks)
-        if ctx.is_pans_cleared(): remarks_parts.append("PANS CLEARED")
-        if ctx.is_nsc_cleared(): remarks_parts.append("NSC CLEARED")
-        if is_valid_mmsi(incoming_mmsi) and ctx.wrs_mmsi and is_valid_mmsi(ctx.wrs_mmsi) and incoming_mmsi != ctx.wrs_mmsi:
-            remarks_parts.append(f"MMSI SPOOFING — transmitted MMSI: {incoming_mmsi}; WRS MMSI: {ctx.wrs_mmsi}")
-        if is_valid_imo(incoming_imo) and ctx.wrs_imo and is_valid_imo(ctx.wrs_imo) and incoming_imo != ctx.wrs_imo:
-            remarks_parts.append(f"IMO SPOOFING — transmitted IMO: {incoming_imo}; WRS IMO: {ctx.wrs_imo}")
-        ref_name = ctx.wrs_vessel_name or ctx.pans_vessel_name
-        if incoming_name and ref_name and incoming_name.strip().upper() != "UNKNOWN" and incoming_name.strip().upper() != ref_name.strip().upper():
-            remarks_parts.append(f"NAME SPOOFING — transmitted name: {incoming_name}; reference name: {ref_name}")
+        if rec.vessel_remarks and rec.vessel_remarks not in ("-", "None"):
+            remarks_parts.append(rec.vessel_remarks)
+        if ctx.is_pans_cleared():
+            remarks_parts.append("PANS CLEARED")
+        if ctx.is_nsc_cleared():
+            remarks_parts.append("NSC CLEARED")
+
+        # MMSI spoofing: only for a transmitted MMSI shorter than 9 digits,
+        # with a valid transmitted IMO. Resolve WRS by that IMO and compare
+        # the transmitted MMSI with the WRS MMSI.
+        transmitted_mmsi_text = str(incoming_mmsi).strip() if incoming_mmsi is not None else ""
+        malformed_mmsi = transmitted_mmsi_text.isdigit() and len(transmitted_mmsi_text) < 9
+        if malformed_mmsi and is_valid_imo(incoming_imo):
+            if (
+                ctx.wrs_match_method == "IMO"
+                and ctx.wrs_mmsi is not None
+                and is_valid_mmsi(ctx.wrs_mmsi)
+                and transmitted_mmsi_text != str(ctx.wrs_mmsi)
+            ):
+                remarks_parts.append(
+                    f"MMSI SPOOFING — transmitted MMSI: {transmitted_mmsi_text}; "
+                    f"WRS MMSI: {ctx.wrs_mmsi}"
+                )
+
+        # IMO spoofing: use the transmitted 9-digit MMSI to resolve WRS, then
+        # compare the transmitted IMO with the IMO stored against that MMSI.
+        if (
+            is_valid_mmsi(incoming_mmsi)
+            and is_valid_imo(incoming_imo)
+            and ctx.wrs_match_method == "MMSI"
+            and ctx.wrs_imo is not None
+            and is_valid_imo(ctx.wrs_imo)
+            and int(incoming_imo) != int(ctx.wrs_imo)
+        ):
+            remarks_parts.append(
+                f"IMO SPOOFING — transmitted IMO: {incoming_imo}; "
+                f"WRS IMO: {ctx.wrs_imo}"
+            )
+
+        # Name spoofing: check the vessel resolved by transmitted MMSI in WRS.
+        # Only flag a completely changed name. Case is ignored and either name
+        # containing the other is treated as the same vessel name.
+        if (
+            is_valid_mmsi(incoming_mmsi)
+            and ctx.wrs_match_method == "MMSI"
+            and ctx.wrs_vessel_name
+            and incoming_name
+        ):
+            transmitted_name = " ".join(str(incoming_name).strip().upper().split())
+            wrs_name = " ".join(str(ctx.wrs_vessel_name).strip().upper().split())
+            if (
+                transmitted_name not in ("", "UNKNOWN", "-", "N/A", "NONE")
+                and wrs_name
+                and transmitted_name not in wrs_name
+                and wrs_name not in transmitted_name
+            ):
+                remarks_parts.append(
+                    f"NAME SPOOFING — transmitted name: {incoming_name}; "
+                    f"reference name: {ctx.wrs_vessel_name}"
+                )
+
         remarks_parts.append(f"SOURCE: {get_source_label(rec.source_name)}")
-        seen = set(); deduped = []
+        seen = set()
+        deduped = []
         for remark in remarks_parts:
             if remark not in seen:
-                seen.add(remark); deduped.append(remark)
+                seen.add(remark)
+                deduped.append(remark)
         rec.vessel_remarks = " | ".join(deduped)
         return rec

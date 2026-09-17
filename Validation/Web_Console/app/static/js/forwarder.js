@@ -25,7 +25,7 @@
       <div class="panel">
         <div class="panel-header"><span class="panel-title">Destinations</span><button class="btn btn-primary" id="fw-add">+ Add Destination</button></div>
         <div class="panel-body" style="padding:0;overflow:auto;">
-          <table class="data-table"><thead><tr><th>Name</th><th>Status</th><th>SSH</th><th>Remote Folder</th><th>User</th><th>Password</th><th>Actions</th></tr></thead>
+          <table class="data-table"><thead><tr><th>Name</th><th>Status</th><th>Type</th><th>Folder</th><th>User</th><th>Credential</th><th>Actions</th></tr></thead>
           <tbody id="fw-destinations-body"></tbody></table>
         </div>
       </div>
@@ -42,15 +42,18 @@
           <div class="modal-body">
             <input type="hidden" id="fw-editing-name">
             <div class="form-group"><label class="form-label">Destination Name *</label><input id="fw-name" class="form-input" placeholder="D-DIODE-01"></div>
-            <div class="form-row"><div class="form-group"><label class="form-label">Host / IP *</label><input id="fw-host" class="form-input" placeholder="40.1.1.1"></div><div class="form-group"><label class="form-label">SSH Port</label><input id="fw-port" type="number" class="form-input" value="22" min="1" max="65535"></div></div>
-            <div class="form-group"><label class="form-label">SSH Username *</label><input id="fw-user" class="form-input" placeholder="ddiode"></div>
-            <div class="form-group"><label class="form-label">SSH Password</label><input id="fw-password" type="password" class="form-input" autocomplete="new-password" placeholder="Enter when not configured"><div id="fw-password-hint" class="form-hint"></div></div>
-            <div class="form-group"><label class="form-label">Remote Folder *</label><input id="fw-path" class="form-input" placeholder="/home/ddiode/txserver/in/"></div>
-            <div class="form-group"><label class="form-label">Private Key File (optional)</label><input id="fw-key" class="form-input" placeholder="Leave empty for password authentication"></div>
+            <div class="form-group"><label class="form-label">Destination Type *</label><select id="fw-protocol" class="form-select"><option value="sftp">Data Diode / SFTP</option><option value="filesystem">FILE / Local Folder</option></select></div>
+            <div id="fw-sftp-fields">
+              <div class="form-row"><div class="form-group"><label class="form-label">Host / IP *</label><input id="fw-host" class="form-input" placeholder="40.1.1.1"></div><div class="form-group"><label class="form-label">SSH Port</label><input id="fw-port" type="number" class="form-input" value="22" min="1" max="65535"></div></div>
+              <div class="form-group"><label class="form-label">SSH Username *</label><input id="fw-user" class="form-input" placeholder="ddiode"></div>
+              <div class="form-group"><label class="form-label">SSH Password</label><input id="fw-password" type="password" class="form-input" autocomplete="new-password" placeholder="Enter when not configured"><div id="fw-password-hint" class="form-hint"></div></div>
+              <div class="form-group"><label class="form-label">Private Key File (optional)</label><input id="fw-key" class="form-input" placeholder="Leave empty for password authentication"></div>
+            </div>
+            <div class="form-group"><label class="form-label" id="fw-path-label">Remote Folder *</label><input id="fw-path" class="form-input" placeholder="/home/ddiode/txserver/in/"></div>
             <div class="form-row"><div class="form-group"><label class="form-label">Connection Timeout</label><input id="fw-timeout" type="number" class="form-input" value="10" min="1"></div><div class="form-group" style="display:flex;align-items:center;padding-top:24px;"><label style="display:flex;align-items:center;gap:8px;font-size:13px;"><input type="checkbox" id="fw-enabled"> Enable</label></div></div>
             <div id="fw-form-error" style="display:none;margin-top:12px;"></div>
           </div>
-          <div class="modal-footer"><button class="btn btn-secondary" id="fw-cancel">Cancel</button><button class="btn btn-primary" id="fw-test">Test SSH</button><button class="btn btn-success" id="fw-save">Save</button></div>
+          <div class="modal-footer"><button class="btn btn-secondary" id="fw-cancel">Cancel</button><button class="btn btn-primary" id="fw-test">Test</button><button class="btn btn-success" id="fw-save">Save</button></div>
         </div>
       </div>`;
 
@@ -72,7 +75,7 @@
       const d=await api("/api/forwarder/destinations"),body=document.getElementById("fw-destinations-body");body.innerHTML="";
       (d.destinations||[]).forEach(dest=>{
         const tr=document.createElement("tr");
-        tr.innerHTML=`<td><strong>${esc(dest.name)}</strong></td><td><span class="status-pill ${dest.enabled?"running":"stopped"}">${dest.enabled?"ENABLED":"DISABLED"}</span></td><td class="mono">SSH ${esc(dest.host)}:${esc(dest.port)}</td><td class="mono">${esc(dest.remote_path)}</td><td>${esc(dest.username)}</td><td>${dest.password_configured?"Configured":"Not configured"}</td><td><div class="btn-group"><button class="btn btn-secondary fw-edit" data-name="${esc(dest.name)}">Edit</button><button class="btn btn-secondary fw-test-row" data-name="${esc(dest.name)}">Test</button><button class="btn ${dest.enabled?"btn-danger":"btn-success"} fw-toggle" data-name="${esc(dest.name)}">${dest.enabled?"Disable":"Enable"}</button><button class="btn btn-danger fw-delete" data-name="${esc(dest.name)}">Delete</button></div></td>`;
+        tr.innerHTML=`<td><strong>${esc(dest.name)}</strong></td><td><span class="status-pill ${dest.enabled?"running":"stopped"}">${dest.enabled?"ENABLED":"DISABLED"}</span></td><td class="mono">${dest.protocol==="filesystem"?"FILE":"SSH "+esc(dest.host)+":"+esc(dest.port)}</td><td class="mono">${esc(dest.remote_path)}</td><td>${esc(dest.username)}</td><td>${dest.protocol==="filesystem"?"—":(dest.password_configured?"Configured":"Not configured")}</td><td><div class="btn-group"><button class="btn btn-secondary fw-edit" data-name="${esc(dest.name)}">Edit</button><button class="btn btn-secondary fw-test-row" data-name="${esc(dest.name)}">Test</button><button class="btn ${dest.enabled?"btn-danger":"btn-success"} fw-toggle" data-name="${esc(dest.name)}">${dest.enabled?"Disable":"Enable"}</button><button class="btn btn-danger fw-delete" data-name="${esc(dest.name)}">Delete</button></div></td>`;
         body.appendChild(tr);
       });
       body.querySelectorAll(".fw-edit").forEach(b=>b.onclick=()=>openModal((d.destinations||[]).find(x=>x.name===b.dataset.name)));
@@ -89,6 +92,28 @@
     document.getElementById("fw-cancel").onclick=closeModal;
     document.getElementById("fw-save").onclick=saveDestination;
     document.getElementById("fw-test").onclick=testCurrent;
+    document.getElementById("fw-protocol").onchange=updateTypeFields;
+  }
+
+  function updateTypeFields(){
+    const type=document.getElementById("fw-protocol").value;
+    const test=document.getElementById("fw-test");
+    const sftp=document.getElementById("fw-sftp-fields");
+    const label=document.getElementById("fw-path-label");
+    const path=document.getElementById("fw-path");
+    const port=document.getElementById("fw-port");
+    const user=document.getElementById("fw-user");
+    const pass=document.getElementById("fw-password");
+    const key=document.getElementById("fw-key");
+    const hint=document.getElementById("fw-password-hint");
+    const isFile=type==="filesystem";
+    sftp.style.display=isFile?"none":"block";
+    label.textContent=isFile?"Local Folder *":"Remote Folder *";
+    path.placeholder=isFile?"C:\\Validation\\XML\\out":"/home/ddiode/txserver/in/";
+    port.value=isFile?1:(Number(port.value)||22);
+    user.disabled=isFile; pass.disabled=isFile; key.disabled=isFile;
+    if(isFile) hint.textContent="XML files will be copied to this local folder.";
+    test.textContent=isFile?"Test Folder":"Test SSH";
   }
 
   function openModal(dest){
@@ -97,6 +122,7 @@
     document.getElementById("fw-modal-title").textContent=dest?"Edit Destination":"Add Destination";
     document.getElementById("fw-editing-name").value=dest?dest.name:"";
     document.getElementById("fw-name").value=dest?dest.name:"";
+    document.getElementById("fw-protocol").value=dest?(dest.protocol||"sftp"):"sftp";
     document.getElementById("fw-name").disabled=!!dest;
     document.getElementById("fw-host").value=dest?dest.host:"";
     document.getElementById("fw-port").value=dest?dest.port:22;
@@ -108,17 +134,19 @@
     document.getElementById("fw-enabled").checked=dest?!!dest.enabled:false;
 
     const hint=document.getElementById("fw-password-hint");
-    hint.textContent=dest?(dest.password_configured?"Password already configured. Leave blank to keep it.":"Password is not configured. Enter the Data Diode SSH password before saving."):"Enter the Data Diode SSH password.";
+    hint.textContent=dest?(dest.protocol==="filesystem"?"Local file destination; no password required.":(dest.password_configured?"Password already configured. Leave blank to keep it.":"Password is not configured. Enter the Data Diode SSH password before saving.")):"Enter the Data Diode SSH password.";
+    updateTypeFields();
 
     const error=document.getElementById("fw-form-error");error.style.display="none";error.textContent="";error.style.color="";
   }
   function closeModal(){document.getElementById("fw-modal").classList.remove("open");}
 
   function getDestinationPayload(){
+    const protocol=document.getElementById("fw-protocol").value;
     return {
       name:document.getElementById("fw-name").value.trim(),
       enabled:document.getElementById("fw-enabled").checked,
-      protocol:"sftp",
+      protocol,
       host:document.getElementById("fw-host").value.trim(),
       port:Number(document.getElementById("fw-port").value),
       username:document.getElementById("fw-user").value.trim(),
@@ -132,7 +160,7 @@
 
   async function saveDestination(){
     const p=getDestinationPayload(),err=document.getElementById("fw-form-error");
-    if(!p.name||!p.host||!p.remote_path||!p.username){err.textContent="Name, host, remote folder and SSH username are required.";err.style.display="block";return;}
+    if(!p.name||!p.remote_path||(p.protocol==="sftp"&&(!p.host||!p.username))){err.textContent=p.protocol==="sftp"?"Name, host, remote folder and SSH username are required.":"Name and local folder are required.";err.style.display="block";return;}
     try{
       const d=await api("/api/forwarder/destinations/save",{method:"POST",body:JSON.stringify(p)});
       if(d.password_required)throw new Error(d.error||"SSH password is required.");
@@ -143,15 +171,16 @@
   async function testCurrent(){
     const p=getDestinationPayload(),err=document.getElementById("fw-form-error");
     try{
-      if(!p.name||!p.host||!p.remote_path||!p.username)throw new Error("Name, host, remote folder and SSH username are required.");
+      if(!p.name||!p.remote_path||(p.protocol==="sftp"&&(!p.host||!p.username)))throw new Error(p.protocol==="sftp"?"Name, host, remote folder and SSH username are required.":"Name and local folder are required.");
       const save=await api("/api/forwarder/destinations/save",{method:"POST",body:JSON.stringify(p)});
       if(save.password_required)throw new Error(save.error||"SSH password is required.");
       const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name:p.name})});
-      err.textContent=d.message||"SSH connection and remote folder test succeeded.";err.style.display="block";err.style.color="var(--accent-emerald)";refresh();
-    }catch(e){err.textContent="SSH test failed: "+e.message;err.style.display="block";err.style.color="var(--accent-rose)";}
+      err.textContent=d.message||(p.protocol==="sftp"?"SSH connection and remote folder test succeeded.":"Local folder test succeeded.");
+      err.style.display="block";err.style.color="var(--accent-emerald)";refresh();
+    }catch(e){err.textContent=(p.protocol==="sftp"?"SSH test failed: ":"Folder test failed: ")+e.message;err.style.display="block";err.style.color="var(--accent-rose)";}
   }
 
-  async function testDestination(name){try{const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name})});alert(d.message||"SSH test succeeded.");}catch(e){alert("SSH test failed: "+e.message);}}
+  async function testDestination(name){try{const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name})});alert(d.message||"Destination test succeeded.");}catch(e){alert("Destination test failed: "+e.message);}}
   async function toggleDestination(name,enable){try{await api(`/api/forwarder/destinations/${encodeURIComponent(name)}/${enable?"enable":"disable"}`,{method:"POST",body:"{}"});refresh();}catch(e){alert(e.message);}}
   async function deleteDestination(name){if(!confirm(`Delete Forward Destination '${name}'?`))return;try{await api(`/api/forwarder/destinations/${encodeURIComponent(name)}/delete`,{method:"POST",body:"{}"});refresh();}catch(e){alert(e.message);}}
 
