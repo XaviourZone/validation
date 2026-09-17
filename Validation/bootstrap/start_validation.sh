@@ -5,9 +5,9 @@ export VALIDATION_HOME="$PROJECT_ROOT"
 log(){ printf '[VALIDATION] %s\n' "$*"; }
 if [[ "$(uname -s)" != "Linux" || "$(uname -m)" != "x86_64" ]]; then echo "[ERROR] Offline bootstrap supports Linux x86_64 only." >&2; exit 1; fi
 log "Starting offline environment bootstrap..."
-"$PROJECT_ROOT/Validation/bootstrap/check_environment.sh"
-"$PROJECT_ROOT/Validation/bootstrap/install_python.sh"
-"$PROJECT_ROOT/Validation/bootstrap/install_dependencies.sh"
+bash "$PROJECT_ROOT/Validation/bootstrap/check_environment.sh"
+bash "$PROJECT_ROOT/Validation/bootstrap/install_python.sh"
+bash "$PROJECT_ROOT/Validation/bootstrap/install_dependencies.sh"
 PYTHON="$PROJECT_ROOT/.venv/bin/python"
 mkdir -p "$PROJECT_ROOT/Validation/Data_Router/logs" "$PROJECT_ROOT/Validation/Data_Parser/logs" "$PROJECT_ROOT/Validation/Data_Forwarder/logs" "$PROJECT_ROOT/Validation/Web_Console/logs"
 log "Validating Data Router configuration..."
