@@ -179,16 +179,16 @@ class ReferenceDB:
             self._resolve_pans(ctx, mmsi, imo, callsign, vessel_name)
             self._resolve_nsc(ctx, mmsi, imo, callsign, vessel_name)
 
-            # If the transmitted MMSI directly matched a reference DB,
-            # that DB becomes the primary enrichment source. WRS remains
-            # available for independent correlation/spoofing checks.
+            # Record the first direct MMSI match using the agreed source
+            # check order. Field-level enrichment separately evaluates
+            # PANS -> NSC -> WRS based on which data is actually available.
             if mmsi is not None:
-                if ctx.wrs_matched and ctx.wrs_match_method == "MMSI":
-                    ctx.primary_mmsi_source = "WRS"
-                elif ctx.pans_matched and ctx.pans_match_method == "MMSI":
+                if ctx.pans_matched and ctx.pans_match_method == "MMSI":
                     ctx.primary_mmsi_source = "PANS"
                 elif ctx.nsc_matched and ctx.nsc_match_method == "MMSI":
                     ctx.primary_mmsi_source = "NSC"
+                elif ctx.wrs_matched and ctx.wrs_match_method == "MMSI":
+                    ctx.primary_mmsi_source = "WRS"
         return ctx
 
     # ── WRS ──────────────────────────────────────────────────────────────────
