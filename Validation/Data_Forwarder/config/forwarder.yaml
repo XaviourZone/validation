@@ -1,0 +1,37 @@
+# Validation Data Forwarder configuration
+# Production downstream values must be supplied by the deployment authority.
+# Secrets are never stored here.
+
+server:
+  http_host: "127.0.0.1"
+  http_port: 8082
+
+spool:
+  input_dir: "Validation/Data_Forwarder/spool/pending"
+  archive_dir: "Validation/Data_Forwarder/spool/delivered"
+  failed_dir: "Validation/Data_Forwarder/spool/failed"
+  state_db: "Validation/Data_Forwarder/state/forwarder.db"
+  poll_interval_seconds: 1
+  claim_timeout_seconds: 300
+
+retry:
+  max_attempts: 5
+  initial_delay_seconds: 2
+  max_delay_seconds: 60
+  multiplier: 2.0
+
+# Disabled until the actual downstream destination is supplied.
+destinations:
+  downstream:
+    enabled: false
+    protocol: "sftp"
+    host: ""
+    port: 22
+    remote_path: ""
+    username: ""
+    private_key_file: ""
+    connect_timeout_seconds: 10
+    verify_remote_size: true
+
+logging:
+  level: "INFO"

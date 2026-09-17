@@ -1,182 +1,82 @@
 VALIDATION — FORWARDER DESIGN
-Version: 0.1
-Status: Living Design Document
+Version: 1.0
+Status: Implemented on feature/data-forwarder
 
 1. PURPOSE
-The Forwarder is the final delivery service in the Validation pipeline. It receives completed output from the processing/XML stage and reliably transfers it to the configured downstream system.
+The Forwarder is the final delivery service in the Validation pipeline. It receives completed XML output from the Parser and reliably transfers it to the configured downstream system.
 
 Pipeline boundary:
 FINAL DATA/XML -> FORWARDER -> DOWNSTREAM SYSTEM
 
 The Forwarder is not the Data Router. The Router handles source ingestion and Parser routing; the Forwarder handles final outbound delivery.
 
-2. FUTURE INPUT
-The normal future flow is:
+2. IMPLEMENTED FLOW
 Data Router
 -> Data Parser
--> Normalization
--> Validation
--> Correlation
--> Reference Enrichment
--> Fusion
--> Final Data
+-> Normalization / Validation / Correlation / Reference Enrichment / Fusion
 -> XML Generator
--> Forwarder
+-> atomic XML spool
+-> Data Forwarder
+-> configured destination
 
-The Forwarder should consume finalized XML/output and should not alter vessel/business content.
+The Parser creates the finalized XML and atomically renames it into `Validation/Data_Forwarder/spool/pending`. The Forwarder consumes only complete `.xml` files and does not alter their content.
 
-3. OUTPUT
-The project has an established requirement for forwarding generated XML to a downstream destination. The earlier design uses SSH/SFTP-style delivery to a configured remote IP/port/path, with reliable processing/sent/failed handling.
-
-Exact downstream protocol, IP, port, credentials and remote path must come from configuration/project specification. Never invent or hard-code them.
+3. OUTPUT / TRANSPORT
+The implementation supports configuration-driven `filesystem` delivery for offline testing and `sftp` delivery for the planned secure remote-file-transfer mechanism. Production host, port, remote path and credential reference remain deployment configuration and are not hard-coded.
 
 4. DELIVERY MODEL
-Recommended generic flow:
+PENDING -> TRANSFERRING -> DELIVERED
+Failure -> RETRYING -> DELIVERED or FAILED
 
-FINAL OUTPUT
--> pending queue
--> Forwarder
--> remote connection
--> transfer
--> acknowledgement/success confirmation
--> SENT/DELIVERED state
+A failed delivery leaves the finalized XML in the pending spool. Confirmed delivery is persisted in the Forwarder state database before the source file is archived.
 
-On failure:
--> retry
--> remain pending
--> after retry exhaustion -> FAILED with reason
+5. DUPLICATE PROTECTION
+Each output is identified by deterministic filename plus SHA-256 content digest. Delivery state is keyed by output ID and destination. A destination already confirmed as DELIVERED for the same digest is not retransmitted.
 
-Do not delete final output merely because delivery failed.
-
-5. FILE/OUTPUT STATES
-Possible states:
-GENERATED
-PENDING
-QUEUED
-TRANSFERRING
-DELIVERED
-RETRYING
-FAILED
-
-Use persistent operational state so restart does not blindly resend already confirmed deliveries.
-
-6. TRANSPORT
-Support the actual downstream mechanism specified by the project. The known planned mechanism is secure remote file transfer using SSH/SFTP semantics.
-
-Separate:
-- connection management
-- authentication
-- transfer
-- acknowledgement/verification
-- retry
-- state management
-
-Credentials must never be stored in source code or logs.
+6. STATE
+SQLite is used only for lightweight Forwarder operational state. It contains destination, checksum, filename, state, attempts, error and timestamps. Vessel/business data is not stored in this state database.
 
 7. RELIABILITY
-Handle:
-- remote unavailable
-- connection timeout
-- authentication failure
-- transfer interruption
-- remote disk/path error
-- duplicate output
-- local file missing
-- local disk full
-- service restart
-
-Use configurable retry/backoff.
-Do not endlessly retry permanent configuration/authentication errors without recording the condition.
+The service handles unavailable destinations, timeouts, authentication/configuration errors, transfer failures, restart recovery, duplicate output and missing destination configuration. Retry count and backoff are configurable.
 
 8. INTEGRITY
-Before marking delivered, verify the transfer according to the actual protocol, for example successful remote transfer and/or agreed acknowledgement.
-Where appropriate, preserve filename, checksum or message ID to support duplicate protection and auditability.
+Local delivery uses a `.part` file followed by atomic rename. SFTP uses a remote `.part` file, size verification when enabled, and rename to the final filename. Secrets are never written to source code or logs.
 
-9. QUEUE
-Use a controlled/persistent pending queue.
-Do not introduce a distributed message broker without a demonstrated requirement.
-The Forwarder must tolerate temporary downstream outages without losing finalized output.
-
-10. CONFIGURATION
-Destination must be configuration-driven:
-- destination name
+9. CONFIGURATION
+`Validation/Data_Forwarder/config/forwarder.yaml` controls:
+- enabled destinations
 - protocol
-- remote host
-- remote port
+- host
+- port
 - remote path
-- authentication reference
-- enabled/disabled
+- username
+- private-key file reference
+- connection timeout
+- transfer verification
 - retry policy
-- timeout
-- polling/transfer mode as required
+- polling interval
+- state/spool paths
 
-The Web Control Console will later manage these settings.
+10. MONITORING
+HTTP endpoints are provided by the Forwarder:
+- `/health`
+- `/metrics`
+- `/deliveries`
 
-11. LOGGING
-Log:
-- output/message ID
-- filename
-- destination
-- connection status
-- transfer start
-- transfer success
-- retry
-- failure reason
-- timestamps
+11. SERVICE
+Systemd unit: `Validation/Data_Forwarder/systemd/validation-forwarder.service`.
 
-Never log passwords/private keys/secrets.
+12. OFFLINE / ON-PREMISE
+No cloud or Internet delivery dependency is introduced. Paramiko is an optional installed dependency for the configured SFTP transport and must be supplied through the approved offline package repository.
 
-12. MONITORING
-Track:
-- pending count
-- transferred count
-- failed count
-- retry count
-- current connection state
-- transfer rate
-- last successful delivery
-- last error
-- queue depth
+13. SECURITY
+SFTP host keys are loaded from the system known-hosts database and unknown hosts are rejected. Credentials are externalized. Remote paths are configuration values and no shell commands are executed from filenames/configuration.
 
-These will later be exposed to the Web Control Console.
+14. TESTING
+The Forwarder test suite covers successful filesystem delivery, disabled destinations, persistent delivery state and duplicate prevention. SFTP integration must be exercised against the actual deployment endpoint when its approved host/path/credentials are supplied.
 
-13. SERVICE
-Run as a long-running Linux service, eventually:
-validation-forwarder.service
+15. CURRENT SCOPE
+The Forwarder service is implemented. The exact production destination remains a deployment input because the project specification does not define a real downstream IP, port, remote path or credential reference.
 
-Support graceful shutdown and restart recovery.
-
-14. OFFLINE/ON-PREMISE
-The environment is primarily offline/on-premise. The Forwarder must not depend on cloud delivery services or Internet APIs.
-
-15. DATABASE/STATE
-PostgreSQL is the central application repository, but operational Forwarder state should remain appropriately separated from vessel/business data. A lightweight local state database is acceptable where needed for delivery tracking.
-
-16. SECURITY
-Use secure transport where required by the downstream specification.
-Use externalized credential references.
-Restrict filesystem access.
-Validate remote paths/configuration.
-Do not execute arbitrary shell commands based on filenames or configuration values.
-
-17. TESTING
-Test:
-- successful delivery
-- remote unavailable
-- timeout
-- authentication/configuration failure
-- interrupted transfer
-- retry
-- duplicate prevention
-- restart/recovery
-- missing output
-- disk full
-- multiple destinations if later required
-- large output files
-
-18. CURRENT SCOPE
-Forwarder architecture and interface are planned now. Implementation will be done after the upstream Parser/Validation/XML pipeline is established, unless explicitly instructed otherwise.
-
-19. IMPORTANT BOUNDARY
-Forwarder receives finalized output and delivers it.
-It must not parse AIS, perform vessel correlation, enrich reference data, decide XML values, or modify business content.
+16. IMPORTANT BOUNDARY
+Forwarder receives finalized XML and delivers it. It does not parse AIS, perform vessel correlation, enrich reference data, decide XML values, or modify business content.
