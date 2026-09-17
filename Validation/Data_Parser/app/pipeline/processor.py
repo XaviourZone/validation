@@ -28,12 +28,7 @@ log = logging.getLogger("parser.processor")
 class PipelineProcessor:
     """Master processor running the end-to-end Data Parser pipeline."""
 
-    def __init__(
-        self,
-        reference_db: Optional[ReferenceDB] = None,
-        track_state_db: Optional[TrackStateDB] = None,
-        xml_output_dir: Optional[Path] = None,
-    ):
+    def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None, xml_output_dir: Optional[Path] = None):
         self.ref_db = reference_db or ReferenceDB()
         self.state_db = track_state_db or TrackStateDB()
         self.enricher = VesselEnricher(reference_db=self.ref_db, track_state_db=self.state_db)
@@ -80,26 +75,17 @@ class PipelineProcessor:
                 enr = self.enricher.enrich(norm)
                 enriched_records.append(enr)
                 common_records.append(CommonVesselRecord(
-                    source=source,
-                    message_id=message_id,
+                    source=source, message_id=message_id,
                     record_id=f"{source}:{message_id}:{enr.id_mmsi or 'unknown'}",
-                    timestamp=str(enr.timestamp_source or ""),
-                    mmsi=enr.id_mmsi,
-                    imo=enr.id_imo,
-                    vessel_name=enr.vessel_name,
-                    callsign=enr.id_callsign,
-                    latitude=enr.kinematic_pos_lla_lat,
-                    longitude=enr.kinematic_pos_lla_lon,
-                    sog=enr.kinematic_speed,
-                    cog=enr.kinematic_course_true,
+                    timestamp=str(enr.timestamp_source or ""), mmsi=enr.id_mmsi, imo=enr.id_imo,
+                    vessel_name=enr.vessel_name, callsign=enr.id_callsign,
+                    latitude=enr.kinematic_pos_lla_lat, longitude=enr.kinematic_pos_lla_lon,
+                    sog=enr.kinematic_speed, cog=enr.kinematic_course_true,
                     true_heading=enr.kinematic_heading_true,
                     nav_status=enr.ais_navStatus if isinstance(enr.ais_navStatus, int) else None,
-                    draught=enr.vessel_draft,
-                    vessel_type=str(enr.ais_typeAndCargo or ""),
-                    destination=enr.voyage_destination,
-                    eta=str(enr.voyage_eta or ""),
-                    length=enr.vessel_length,
-                    width=enr.vessel_beam,
+                    draught=enr.vessel_draft, vessel_type=str(enr.ais_typeAndCargo or ""),
+                    destination=enr.voyage_destination, eta=str(enr.voyage_eta or ""),
+                    length=enr.vessel_length, width=enr.vessel_beam,
                 ))
             except Exception as e:
                 errors.append(f"Enrichment error for record MMSI={norm.id_mmsi}: {e}")
@@ -108,23 +94,16 @@ class PipelineProcessor:
         if enriched_records:
             try:
                 generated_xml = self.xml_generator.generate_batch_xml(enriched_records)
-                # The Parser owns XML creation; the Forwarder owns delivery.
-                # Persist only a complete, atomically renamed file at this boundary.
                 if self.xml_output_dir:
                     self._spool_xml(source, message_id, generated_xml)
             except Exception as e:
                 errors.append(f"XML generation/spooling error: {e}")
 
-        success = len(enriched_records) > 0 and not errors
-        result = ParseResult(
-            message_id=message_id,
-            source=source,
-            success=success,
-            records_parsed=len(enriched_records),
-            records_rejected=len(errors),
-            records=common_records,
-            errors=errors,
-        )
+        # Preserve the Parser's existing success semantics; spooling errors are reported in errors.
+        success = len(enriched_records) > 0 or (len(errors) == 0)
+        result = ParseResult(message_id=message_id, source=source, success=success,
+                             records_parsed=len(enriched_records), records_rejected=len(errors),
+                             records=common_records, errors=errors)
         return result, generated_xml
 
     def _spool_xml(self, source: str, message_id: str, xml: str) -> Path:
