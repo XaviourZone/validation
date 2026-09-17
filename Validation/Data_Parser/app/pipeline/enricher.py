@@ -191,21 +191,76 @@ class VesselEnricher:
         if not rec.voyage_etd: rec.voyage_etd = ctx.pans_etd or ctx.pans_berman_etd
         if ctx.wrs_status_decode: rec.cat_annotation = ctx.wrs_status_decode
 
+        # Remarks are built only from explicit evidence. PANS/NSC CLEARED
+        # currently records that the vessel was resolved in that reference DB.
         remarks_parts: List[str] = []
-        if rec.vessel_remarks and rec.vessel_remarks not in ("-", "None"): remarks_parts.append(rec.vessel_remarks)
-        if ctx.is_pans_cleared(): remarks_parts.append("PANS CLEARED")
-        if ctx.is_nsc_cleared(): remarks_parts.append("NSC CLEARED")
-        if is_valid_mmsi(incoming_mmsi) and ctx.wrs_mmsi and is_valid_mmsi(ctx.wrs_mmsi) and incoming_mmsi != ctx.wrs_mmsi:
-            remarks_parts.append(f"MMSI SPOOFING — transmitted MMSI: {incoming_mmsi}; WRS MMSI: {ctx.wrs_mmsi}")
-        if is_valid_imo(incoming_imo) and ctx.wrs_imo and is_valid_imo(ctx.wrs_imo) and incoming_imo != ctx.wrs_imo:
-            remarks_parts.append(f"IMO SPOOFING — transmitted IMO: {incoming_imo}; WRS IMO: {ctx.wrs_imo}")
-        ref_name = ctx.wrs_vessel_name or ctx.pans_vessel_name
-        if incoming_name and ref_name and incoming_name.strip().upper() != "UNKNOWN" and incoming_name.strip().upper() != ref_name.strip().upper():
-            remarks_parts.append(f"NAME SPOOFING — transmitted name: {incoming_name}; reference name: {ref_name}")
+        if rec.vessel_remarks and rec.vessel_remarks not in ("-", "None"):
+            remarks_parts.append(rec.vessel_remarks)
+        if ctx.is_pans_cleared():
+            remarks_parts.append("PANS CLEARED")
+        if ctx.is_nsc_cleared():
+            remarks_parts.append("NSC CLEARED")
+
+        # MMSI spoofing: only for a transmitted MMSI shorter than 9 digits,
+        # with a valid transmitted IMO. Resolve WRS by that IMO and compare
+        # the transmitted MMSI with the WRS MMSI.
+        transmitted_mmsi_text = str(incoming_mmsi).strip() if incoming_mmsi is not None else ""
+        malformed_mmsi = transmitted_mmsi_text.isdigit() and len(transmitted_mmsi_text) < 9
+        if malformed_mmsi and is_valid_imo(incoming_imo):
+            if (
+                ctx.wrs_match_method == "IMO"
+                and ctx.wrs_mmsi is not None
+                and is_valid_mmsi(ctx.wrs_mmsi)
+                and transmitted_mmsi_text != str(ctx.wrs_mmsi)
+            ):
+                remarks_parts.append(
+                    f"MMSI SPOOFING — transmitted MMSI: {transmitted_mmsi_text}; "
+                    f"WRS MMSI: {ctx.wrs_mmsi}"
+                )
+
+        # IMO spoofing: use the transmitted 9-digit MMSI to resolve WRS, then
+        # compare the transmitted IMO with the IMO stored against that MMSI.
+        if (
+            is_valid_mmsi(incoming_mmsi)
+            and is_valid_imo(incoming_imo)
+            and ctx.wrs_match_method == "MMSI"
+            and ctx.wrs_imo is not None
+            and is_valid_imo(ctx.wrs_imo)
+            and int(incoming_imo) != int(ctx.wrs_imo)
+        ):
+            remarks_parts.append(
+                f"IMO SPOOFING — transmitted IMO: {incoming_imo}; "
+                f"WRS IMO: {ctx.wrs_imo}"
+            )
+
+        # Name spoofing: check the vessel resolved by transmitted MMSI in WRS.
+        # Only flag a completely changed name. Case is ignored and either name
+        # containing the other is treated as the same vessel name.
+        if (
+            is_valid_mmsi(incoming_mmsi)
+            and ctx.wrs_match_method == "MMSI"
+            and ctx.wrs_vessel_name
+            and incoming_name
+        ):
+            transmitted_name = " ".join(str(incoming_name).strip().upper().split())
+            wrs_name = " ".join(str(ctx.wrs_vessel_name).strip().upper().split())
+            if (
+                transmitted_name not in ("", "UNKNOWN", "-", "N/A", "NONE")
+                and wrs_name
+                and transmitted_name not in wrs_name
+                and wrs_name not in transmitted_name
+            ):
+                remarks_parts.append(
+                    f"NAME SPOOFING — transmitted name: {incoming_name}; "
+                    f"reference name: {ctx.wrs_vessel_name}"
+                )
+
         remarks_parts.append(f"SOURCE: {get_source_label(rec.source_name)}")
-        seen = set(); deduped = []
+        seen = set()
+        deduped = []
         for remark in remarks_parts:
             if remark not in seen:
-                seen.add(remark); deduped.append(remark)
+                seen.add(remark)
+                deduped.append(remark)
         rec.vessel_remarks = " | ".join(deduped)
         return rec
