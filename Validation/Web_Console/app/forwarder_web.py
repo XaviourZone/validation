@@ -102,7 +102,10 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
 
     def _write_forwarder_files(self, config, secrets):
         self.forwarder_config_path.parent.mkdir(parents=True, exist_ok=True)
-        _atomic_write(self.forwarder_config_path, yaml.safe_dump(config, sort_keys=False, allow_unicode=True))
+        _atomic_write(
+            self.forwarder_config_path,
+            yaml.safe_dump(config, sort_keys=False, allow_unicode=True),
+        )
         _atomic_write(
             self.forwarder_secret_path,
             json.dumps(secrets, indent=2) + "\n",
@@ -183,7 +186,6 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
         if match:
             self._modify_destination(match.group(1), match.group(2))
             return
-
         self._error_response(HTTPStatus.NOT_FOUND, "Forwarder endpoint not found")
 
     def _save_destination(self, body):
@@ -196,20 +198,18 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
         destinations = cfg.setdefault("destinations", {})
         existing = destinations.get(name) or {}
 
-        # The operational Forwarder is SSH/SFTP. Keep the operator flow focused.
-        protocol = "sftp"
+        host = str(body.get("host", existing.get("host", ""))).strip()
+        remote_path = str(body.get("remote_path", existing.get("remote_path", ""))).strip()
+        username = str(body.get("username", existing.get("username", ""))).strip()
+        key_file = str(body.get("private_key_file", existing.get("private_key_file", ""))).strip()
+        enabled = bool(body.get("enabled", existing.get("enabled", False)))
+
         try:
             port = int(body.get("port", existing.get("port", 22)))
             timeout = int(body.get("connect_timeout_seconds", existing.get("connect_timeout_seconds", 10)))
         except (TypeError, ValueError):
             self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "SSH port and timeout must be numeric")
             return
-
-        host = str(body.get("host", existing.get("host", ""))).strip()
-        remote_path = str(body.get("remote_path", existing.get("remote_path", ""))).strip()
-        username = str(body.get("username", existing.get("username", ""))).strip()
-        key_file = str(body.get("private_key_file", existing.get("private_key_file", ""))).strip()
-        enabled = bool(body.get("enabled", existing.get("enabled", False)))
 
         if not host or not remote_path or not username:
             self._error_response(
@@ -224,9 +224,26 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Connection timeout must be at least 1 second")
             return
 
+        secrets = self._forwarder_secrets()
+        password = body.get("password")
+        password_supplied = isinstance(password, str) and bool(password)
+
+        # Password auth is the current Data Diode mode. A private key can be
+        # configured instead, but we never require both.
+        if not password_supplied and name not in secrets and not key_file:
+            self._json_response({
+                "success": False,
+                "password_required": True,
+                "error": "SSH password is not configured. Enter the Data Diode password before saving.",
+            }, status=HTTPStatus.UNPROCESSABLE_ENTITY)
+            return
+
+        if password_supplied:
+            secrets[name] = password
+
         destinations[name] = {
             "enabled": enabled,
-            "protocol": protocol,
+            "protocol": "sftp",
             "host": host,
             "port": port,
             "remote_path": remote_path,
@@ -236,20 +253,9 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             "verify_remote_size": True,
         }
 
-        secrets = self._forwarder_secrets()
-        password = body.get("password")
-        if isinstance(password, str) and password:
-            secrets[name] = password
-        elif name not in secrets and not key_file:
-            self._error_response(
-                HTTPStatus.UNPROCESSABLE_ENTITY,
-                "SSH password is not configured. Enter the Data Diode password before saving.",
-            )
-            return
-
         self._write_forwarder_files(cfg, secrets)
-
         reload_result = self._forwarder_service_api("/config/reload", {}, False)
+
         self._json_response({
             "success": True,
             "destination": name,
@@ -276,20 +282,26 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
 
     def _forwarder_service_api(self, endpoint, payload, strict):
         try:
-            return self._json_response(
-                _json_request(f"{_API_URL}{endpoint}", method="POST", payload=payload, timeout=5)
+            result = _json_request(
+                f"{_API_URL}{endpoint}",
+                method="POST",
+                payload=payload,
+                timeout=5,
             )
+            self._json_response(result)
+            return result
         except Exception as exc:
             if strict:
-                return self._json_response(
-                    {"success": False, "error": str(exc)},
-                    status=HTTPStatus.SERVICE_UNAVAILABLE,
-                )
-            return self._json_response({
+                result = {"success": False, "error": str(exc)}
+                self._json_response(result, status=HTTPStatus.SERVICE_UNAVAILABLE)
+                return result
+            result = {
                 "success": True,
                 "reload_required": True,
                 "message": f"Configuration saved; Forwarder reload pending ({exc})",
-            })
+            }
+            self._json_response(result)
+            return result
 
     handler_class.do_GET = do_get
     handler_class.do_POST = do_post
