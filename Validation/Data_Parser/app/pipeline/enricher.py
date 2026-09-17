@@ -1,33 +1,13 @@
-"""
-Enricher & Correlator for maritime vessel records.
+"""Enricher & Correlator for maritime vessel records.
 
-Performs:
-1. Reference database lookup against independent WRS, PANS, and NSC SQLite stores.
-2. Track state update and active flag calculation (< 3h active, >= 3h inactive).
-3. Fallback priority:
-   - Vessel Name: Incoming -> WRS -> PANS -> NSC -> 'UNKNOWN'
-   - AIS Type/Cargo: Incoming -> WRS
-   - Nav Status: Incoming only
-   - Dimensions: Incoming -> WRS -> PANS
-   - Identifiers:
-     - id.mmsi: Original incoming MMSI (never modified)
-     - foreign.track.number: valid incoming MMSI; if invalid/missing, IMO-resolved WRS MMSI
-4. Vigilance & identity scoring:
-   - id.mmsi.destination = WRS VIGILANCE score
-   - cat.identity: <300 friend (1), >600 suspect (4), 300-600 neutral (3)
-5. Point-wise remarks generation:
-   - PANS CLEARED
-   - NSC CLEARED
-   - MMSI SPOOFING detection
-   - IMO SPOOFING detection
-   - NAME SPOOFING detection
-   - SOURCE provenance
-6. Full internal provenance tracking per field.
+Performs reference lookup, AIS track-state handling, configurable parser mapping,
+source fallback rules, vigilance/identity calculation and provenance remarks.
 """
 
 import logging
 from typing import Any, Dict, List, Optional
 
+from .mapping_manager import ParserMappingManager
 from .normalizer import NormalizedRecord
 from .reference_db import ReferenceDB, VesselContext
 from .source_registry import get_source_label, is_valid_imo, is_valid_mmsi, sanitize_string
@@ -36,40 +16,109 @@ from .track_state import TrackStateDB
 log = logging.getLogger("parser.enricher")
 
 
-class VesselEnricher:
-    """Coordinates reference lookup, track state, fallback rules, and remarks."""
+LOGICAL_TO_ATTR = {
+    "ais.lenToBow": "ais_lenToBow", "ais.lenToStern": "ais_lenToStern",
+    "ais.navStatus": "ais_navStatus", "ais.typeAndCargo": "ais_typeAndCargo",
+    "ais.widthToPort": "ais_widthToPort", "ais.widthToStarboard": "ais_widthToStarboard",
+    "app.message.id": "app_message_id", "cat.annotation": "cat_annotation",
+    "cat.category": "cat_category", "cat.identity": "cat_identity",
+    "foreign.track.number": "foreign_track_number", "id.callsign": "id_callsign",
+    "id.imo": "id_imo", "id.mmsi": "id_mmsi", "id.mmsi.destination": "id_mmsi_destination",
+    "kinematic.course.true": "kinematic_course_true", "kinematic.flag.3d": "kinematic_flag_3d",
+    "kinematic.heading.true": "kinematic_heading_true", "kinematic.pos.lla.alt": "kinematic_pos_lla_alt",
+    "kinematic.pos.lla.lat": "kinematic_pos_lla_lat", "kinematic.pos.lla.lon": "kinematic_pos_lla_lon",
+    "kinematic.speed": "kinematic_speed", "sys.source.id": "sys_source_id",
+    "sys.track.number": "sys_track_number", "timestamp.receipt": "timestamp_receipt",
+    "timestamp.source": "timestamp_source", "track.flag.active": "track_flag_active",
+    "track.quality": "track_quality", "vessel.beam": "vessel_beam",
+    "vessel.description": "vessel_description", "vessel.draft": "vessel_draft",
+    "vessel.grosstonnage": "vessel_grosstonnage", "vessel.length": "vessel_length",
+    "vessel.name": "vessel_name", "vessel.remarks": "vessel_remarks",
+    "voyage.arrival": "voyage_arrival", "voyage.departure": "voyage_departure",
+    "voyage.destination": "voyage_destination", "voyage.eta": "voyage_eta",
+    "voyage.etd": "voyage_etd", "voyage.origin": "voyage_origin",
+}
 
-    def __init__(
-        self,
-        reference_db: Optional[ReferenceDB] = None,
-        track_state_db: Optional[TrackStateDB] = None,
-    ):
+INCOMING_ALIASES = {
+    "mmsi": "id_mmsi", "imo": "id_imo", "callsign": "id_callsign", "vessel_name": "vessel_name",
+    "ship_name": "vessel_name", "vessel_type": "ais_typeAndCargo", "type_and_cargo": "ais_typeAndCargo",
+    "length": "vessel_length", "width": "vessel_beam", "beam": "vessel_beam", "draught": "vessel_draft",
+    "draft": "vessel_draft", "latitude": "kinematic_pos_lla_lat", "longitude": "kinematic_pos_lla_lon",
+    "sog": "kinematic_speed", "cog": "kinematic_course_true", "true_heading": "kinematic_heading_true",
+    "heading": "kinematic_heading_true", "nav_status": "ais_navStatus", "navigation_status": "ais_navStatus",
+    "navigatetion_status": "ais_navStatus", "destination": "voyage_destination", "eta": "voyage_eta",
+    "message_type": "app_message_id",
+}
+
+
+def _parser_name(source: str) -> str:
+    upper = (source or "").upper()
+    for name in ("SAIS", "MSIS", "LRIT", "VATMS", "NAIS"):
+        if name in upper:
+            return name
+    return upper or "GENERIC"
+
+
+class VesselEnricher:
+    """Coordinates reference lookup, mapping, track state, fallbacks and remarks."""
+
+    def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None, mapping_manager: Optional[ParserMappingManager] = None):
         self.ref_db = reference_db or ReferenceDB()
         self.state_db = track_state_db or TrackStateDB()
+        self.mapping_manager = mapping_manager or ParserMappingManager()
+
+    @staticmethod
+    def _candidate_value(rec: NormalizedRecord, ctx: VesselContext, candidate: str):
+        if ":" not in candidate:
+            return None
+        kind, key = candidate.split(":", 1)
+        if kind == "default":
+            return key
+        if kind == "incoming":
+            attr = INCOMING_ALIASES.get(key, key)
+            return getattr(rec, attr, None)
+        if kind == "ais_state":
+            state = (rec.raw_attributes or {}).get("ais_state") or {}
+            return state.get(key)
+        if kind in {"wrs", "pans", "nsc"}:
+            # ReferenceDB exposes provenance fields directly on VesselContext.
+            return getattr(ctx, key, None)
+        return None
+
+    def _apply_configured_mapping(self, rec: NormalizedRecord, ctx: VesselContext) -> None:
+        """Apply only configured candidates to fields still missing.
+
+        Existing non-empty normalized values remain authoritative. This means the
+        operator can add WRS/PANS/NSC fallbacks without accidentally overwriting a
+        live incoming value.
+        """
+        try:
+            mapping = self.mapping_manager.get(_parser_name(rec.source_name))
+            fields = mapping.get("fields") or {}
+            for logical, candidates in fields.items():
+                attr = LOGICAL_TO_ATTR.get(logical)
+                if not attr or getattr(rec, attr, None) not in (None, ""):
+                    continue
+                for candidate in candidates or []:
+                    value = self._candidate_value(rec, ctx, str(candidate))
+                    if value not in (None, ""):
+                        setattr(rec, attr, value)
+                        break
+        except Exception as exc:
+            log.warning("Parser mapping could not be applied for %s: %s", rec.source_name, exc)
 
     def enrich(self, rec: NormalizedRecord) -> NormalizedRecord:
-        """
-        Enrich a normalized record with reference data, track state, and fallbacks.
-        Modifies rec in-place and returns it.
-        """
         incoming_mmsi = rec.id_mmsi
         incoming_imo = rec.id_imo
         incoming_name = rec.vessel_name
         incoming_callsign = rec.id_callsign
 
-        # 1. Reference Lookup across WRS, PANS, NSC
-        ctx: VesselContext = self.ref_db.resolve(
-            mmsi=incoming_mmsi,
-            imo=incoming_imo,
-            callsign=incoming_callsign,
-            vessel_name=incoming_name,
-        )
+        ctx: VesselContext = self.ref_db.resolve(mmsi=incoming_mmsi, imo=incoming_imo, callsign=incoming_callsign, vessel_name=incoming_name)
+        self._apply_configured_mapping(rec, ctx)
 
-        # 2. Track State & Active Flag (< 3 hours rule)
         effective_mmsi = incoming_mmsi
         if not is_valid_mmsi(effective_mmsi) and ctx.wrs_mmsi and is_valid_mmsi(ctx.wrs_mmsi):
             effective_mmsi = ctx.wrs_mmsi
-
         if effective_mmsi and is_valid_mmsi(effective_mmsi):
             is_active = self.state_db.upsert(
                 mmsi=effective_mmsi,
@@ -84,29 +133,19 @@ class VesselEnricher:
         else:
             rec.track_flag_active = True
 
-        # 3. foreign.track.number calculation
-        # Rule: valid MMSI where available; if incoming invalid/missing and IMO resolves valid reference MMSI, use resolved MMSI
         ref_mmsi = ctx.wrs_mmsi or ctx.pans_mmsi or ctx.nsc_mmsi
-        if ref_mmsi is not None:
-            try:
-                ref_mmsi = int(float(str(ref_mmsi)))
-            except Exception:
-                ref_mmsi = None
-
+        try:
+            ref_mmsi = int(float(str(ref_mmsi))) if ref_mmsi is not None else None
+        except Exception:
+            ref_mmsi = None
         if is_valid_mmsi(incoming_mmsi):
             rec.foreign_track_number = incoming_mmsi
         elif ref_mmsi and is_valid_mmsi(ref_mmsi):
             rec.foreign_track_number = ref_mmsi
-        elif is_valid_mmsi(rec.foreign_track_number):
-            pass
-        else:
+        elif not is_valid_mmsi(rec.foreign_track_number):
             rec.foreign_track_number = None
-
-        # sys.track.number MUST represent the original incoming MMSI
         rec.sys_track_number = incoming_mmsi
 
-        # 4. Fallback Priority: Vessel Name
-        # Incoming transmission -> WRS -> PANS -> NSC -> UNKNOWN
         resolved_name = None
         if incoming_name and incoming_name.upper() not in ("UNKNOWN", "-", "N/A", "NONE"):
             resolved_name = incoming_name
@@ -120,136 +159,53 @@ class VesselEnricher:
             resolved_name = "UNKNOWN"
         rec.vessel_name = sanitize_string(resolved_name)
 
-        # 5. Fallback Priority: Callsign
-        # Incoming -> WRS -> PANS -> NSC
         if not rec.id_callsign:
             rec.id_callsign = ctx.wrs_callsign or ctx.pans_callsign or ctx.nsc_callsign or None
-
-        # 6. Fallback Priority: IMO
-        # Incoming -> WRS -> PANS -> NSC
         if not rec.id_imo or not is_valid_imo(rec.id_imo):
-            if ctx.wrs_imo and is_valid_imo(ctx.wrs_imo):
-                rec.id_imo = ctx.wrs_imo
-            elif ctx.pans_imo and is_valid_imo(ctx.pans_imo):
-                rec.id_imo = ctx.pans_imo
-            elif ctx.nsc_imo and is_valid_imo(ctx.nsc_imo):
-                rec.id_imo = ctx.nsc_imo
+            if ctx.wrs_imo and is_valid_imo(ctx.wrs_imo): rec.id_imo = ctx.wrs_imo
+            elif ctx.pans_imo and is_valid_imo(ctx.pans_imo): rec.id_imo = ctx.pans_imo
+            elif ctx.nsc_imo and is_valid_imo(ctx.nsc_imo): rec.id_imo = ctx.nsc_imo
 
-        # 7. Fallback Priority: AIS Type and Cargo
-        # Incoming AIS transmission -> WRS
         if rec.ais_typeAndCargo is None:
-            if ctx.wrs_ais_type_code is not None:
-                rec.ais_typeAndCargo = ctx.wrs_ais_type_code
-            elif ctx.wrs_vessel_type:
-                rec.ais_typeAndCargo = ctx.wrs_vessel_type
-            elif ctx.pans_vessel_type:
-                rec.ais_typeAndCargo = ctx.pans_vessel_type
-
-        # vessel.description: WRS VESSELS.VESSEL_TYPE -> PANS
+            if ctx.wrs_ais_type_code is not None: rec.ais_typeAndCargo = ctx.wrs_ais_type_code
+            elif ctx.wrs_vessel_type: rec.ais_typeAndCargo = ctx.wrs_vessel_type
+            elif ctx.pans_vessel_type: rec.ais_typeAndCargo = ctx.pans_vessel_type
         if not rec.vessel_description:
             rec.vessel_description = ctx.wrs_vessel_type or ctx.pans_vessel_type or ctx.nsc_type or None
+        if rec.vessel_length is None: rec.vessel_length = ctx.wrs_loa or ctx.pans_loa
+        if rec.vessel_beam is None: rec.vessel_beam = ctx.wrs_breadth or ctx.pans_beam
+        if rec.vessel_draft is None: rec.vessel_draft = ctx.wrs_draft or ctx.pans_max_draft
+        if rec.vessel_grosstonnage is None: rec.vessel_grosstonnage = ctx.wrs_gross or ctx.pans_grt
 
-        # 8. Dimensions Fallbacks (exact source fields, NO beam / 2 or invented stern calculations)
-        if rec.vessel_length is None:
-            rec.vessel_length = ctx.wrs_loa or ctx.pans_loa
-        if rec.vessel_beam is None:
-            rec.vessel_beam = ctx.wrs_breadth or ctx.pans_beam
-        if rec.vessel_draft is None:
-            rec.vessel_draft = ctx.wrs_draft or ctx.pans_max_draft
-
-        # Gross tonnage
-        if rec.vessel_grosstonnage is None:
-            rec.vessel_grosstonnage = ctx.wrs_gross or ctx.pans_grt
-
-        # 9. Vigilance score & identity
-        # id.mmsi.destination = WRS VIGILANCE.SCORE (fallback to incoming score if present)
         effective_vigilance = ctx.wrs_vigilance_score if ctx.wrs_vigilance_score is not None else rec.id_mmsi_destination
         if effective_vigilance is not None:
             rec.id_mmsi_destination = int(effective_vigilance)
-
-            # cat.identity mapping:
-            # friend=1 (<300), neutral=3 (300-600), suspect=4 (>600)
-            # Exactly 300 and 600 treated as neutral (3) per explicit unresolved boundary handling
             score = float(effective_vigilance)
-            if score < 300:
-                rec.cat_identity = 1      # Friend
-            elif score > 600:
-                rec.cat_identity = 4      # Suspect
-            else:
-                rec.cat_identity = 3      # Neutral (300 <= score <= 600)
+            rec.cat_identity = 1 if score < 300 else (4 if score > 600 else 3)
 
-        # 10. Voyage Fallbacks (AIS -> PANS -> NSC -> WRS)
-        if not rec.voyage_destination:
-            rec.voyage_destination = ctx.pans_berman_dest or ctx.pans_npc or ctx.wrs_calling_place
-        if not rec.voyage_origin:
-            rec.voyage_origin = ctx.pans_org_dep or ctx.wrs_calling_place
-        if not rec.voyage_departure:
-            rec.voyage_departure = ctx.pans_lpc or ctx.pans_berman_lpc or ctx.wrs_calling_sailing
-        if not rec.voyage_arrival:
-            rec.voyage_arrival = ctx.wrs_calling_arrival
-        if not rec.voyage_eta:
-            rec.voyage_eta = ctx.pans_eta or ctx.pans_berman_eta
-        if not rec.voyage_etd:
-            rec.voyage_etd = ctx.pans_etd or ctx.pans_berman_etd
+        if not rec.voyage_destination: rec.voyage_destination = ctx.pans_berman_dest or ctx.pans_npc or ctx.wrs_calling_place
+        if not rec.voyage_origin: rec.voyage_origin = ctx.pans_org_dep or ctx.wrs_calling_place
+        if not rec.voyage_departure: rec.voyage_departure = ctx.pans_lpc or ctx.pans_berman_lpc or ctx.wrs_calling_sailing
+        if not rec.voyage_arrival: rec.voyage_arrival = ctx.wrs_calling_arrival
+        if not rec.voyage_eta: rec.voyage_eta = ctx.pans_eta or ctx.pans_berman_eta
+        if not rec.voyage_etd: rec.voyage_etd = ctx.pans_etd or ctx.pans_berman_etd
+        if ctx.wrs_status_decode: rec.cat_annotation = ctx.wrs_status_decode
 
-        # 11. Annotation
-        if ctx.wrs_status_decode:
-            rec.cat_annotation = ctx.wrs_status_decode
-
-        # 12. Point-wise vessel.remarks generation
         remarks_parts: List[str] = []
-
-        # If existing remarks from transmission, keep initial prefix if informative
-        if rec.vessel_remarks and rec.vessel_remarks not in ("-", "None"):
-            remarks_parts.append(rec.vessel_remarks)
-
-        # Clearance checks
-        if ctx.is_pans_cleared():
-            remarks_parts.append("PANS CLEARED")
-        if ctx.is_nsc_cleared():
-            remarks_parts.append("NSC CLEARED")
-
-        # Spoofing & Anomaly checks
-        # MMSI mismatch: incoming valid MMSI vs IMO-resolved WRS MMSI
-        if (
-            is_valid_mmsi(incoming_mmsi)
-            and ctx.wrs_mmsi
-            and is_valid_mmsi(ctx.wrs_mmsi)
-            and incoming_mmsi != ctx.wrs_mmsi
-        ):
+        if rec.vessel_remarks and rec.vessel_remarks not in ("-", "None"): remarks_parts.append(rec.vessel_remarks)
+        if ctx.is_pans_cleared(): remarks_parts.append("PANS CLEARED")
+        if ctx.is_nsc_cleared(): remarks_parts.append("NSC CLEARED")
+        if is_valid_mmsi(incoming_mmsi) and ctx.wrs_mmsi and is_valid_mmsi(ctx.wrs_mmsi) and incoming_mmsi != ctx.wrs_mmsi:
             remarks_parts.append(f"MMSI SPOOFING — transmitted MMSI: {incoming_mmsi}; WRS MMSI: {ctx.wrs_mmsi}")
-
-        # IMO mismatch: incoming valid IMO vs WRS IMO
-        if (
-            is_valid_imo(incoming_imo)
-            and ctx.wrs_imo
-            and is_valid_imo(ctx.wrs_imo)
-            and incoming_imo != ctx.wrs_imo
-        ):
+        if is_valid_imo(incoming_imo) and ctx.wrs_imo and is_valid_imo(ctx.wrs_imo) and incoming_imo != ctx.wrs_imo:
             remarks_parts.append(f"IMO SPOOFING — transmitted IMO: {incoming_imo}; WRS IMO: {ctx.wrs_imo}")
-
-        # Name mismatch: incoming name vs WRS/PANS name
         ref_name = ctx.wrs_vessel_name or ctx.pans_vessel_name
-        if (
-            incoming_name
-            and ref_name
-            and incoming_name.strip().upper() != "UNKNOWN"
-            and incoming_name.strip().upper() != ref_name.strip().upper()
-        ):
+        if incoming_name and ref_name and incoming_name.strip().upper() != "UNKNOWN" and incoming_name.strip().upper() != ref_name.strip().upper():
             remarks_parts.append(f"NAME SPOOFING — transmitted name: {incoming_name}; reference name: {ref_name}")
-
-        # Source label
-        source_label = get_source_label(rec.source_name)
-        remarks_parts.append(f"SOURCE: {source_label}")
-
-        # Join unique point-wise remarks with " | "
-        seen = set()
-        deduped = []
-        for r in remarks_parts:
-            if r not in seen:
-                seen.add(r)
-                deduped.append(r)
-
+        remarks_parts.append(f"SOURCE: {get_source_label(rec.source_name)}")
+        seen = set(); deduped = []
+        for remark in remarks_parts:
+            if remark not in seen:
+                seen.add(remark); deduped.append(remark)
         rec.vessel_remarks = " | ".join(deduped)
-
         return rec
