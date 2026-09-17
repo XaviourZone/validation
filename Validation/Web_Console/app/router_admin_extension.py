@@ -1,5 +1,4 @@
-"""Web Console extension for Router source browsing and parser mappings."""
-
+"""Web Console API extension for Router source browsing and parser mappings."""
 import json
 import os
 import tempfile
@@ -8,7 +7,6 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 import yaml
-
 from Validation.Data_Parser.app.pipeline.mapping_manager import ParserMappingManager, default_mapping_for
 
 ALLOWED_FILE_PATTERNS = ["*.csv", "*.xml", "*.json", "*.txt", "*.nmea", "*.log", "*"]
@@ -41,39 +39,48 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
 
     original_get = handler_class.do_GET
     original_post = handler_class.do_POST
-    original_dashboard = handler_class._serve_dashboard
 
     def do_get(self):
         path = urlparse(self.path).path
         if path == "/api/router/filesystem/browse":
-            self._router_browse(); return
+            self._router_browse()
+            return
         if path == "/api/router/filesystem/patterns":
-            self._json_response({"patterns": ALLOWED_FILE_PATTERNS}); return
+            self._json_response({"patterns": ALLOWED_FILE_PATTERNS})
+            return
         if path == "/api/parser/mapping/fields":
-            self._json_response({"fields": self.router_mapping_manager.fields()}); return
+            self._json_response({"fields": self.router_mapping_manager.fields()})
+            return
         if path == "/api/parser/mapping/parsers":
             names = self.router_mapping_manager.parser_names()
             configured = list(self.router_admin_config_manager.get_parser_destinations().keys())
             for name in configured:
                 if name not in names:
                     names.append(name)
-            self._json_response({"parsers": names}); return
+            self._json_response({"parsers": names})
+            return
         if path == "/api/parser/mapping":
             query = parse_qs(urlparse(self.path).query)
             name = (query.get("parser") or [""])[0]
             if not name:
-                self._json_response({"error": "parser query parameter is required"}, status=HTTPStatus.BAD_REQUEST); return
+                self._json_response({"error": "parser query parameter is required"}, status=HTTPStatus.BAD_REQUEST)
+                return
             mapping = self.router_mapping_manager.get(name)
             if not mapping.get("fields") or all(not v for v in mapping["fields"].values()):
                 mapping = default_mapping_for(name)
-            self._json_response({"parser": name, "mapping": mapping}); return
+            self._json_response({"parser": name, "mapping": mapping})
+            return
         if path == "/api/parser/ais-state":
             query = parse_qs(urlparse(self.path).query)
             try:
                 mmsi = int((query.get("mmsi") or [""])[0])
                 from Validation.Data_Parser.app.pipeline.ais_state import AISStateDB
                 db = AISStateDB()
-                self._json_response({"mmsi": mmsi, "state": db.get(mmsi), "recent_messages": db.recent_messages(mmsi)})
+                self._json_response({
+                    "mmsi": mmsi,
+                    "state": db.get(mmsi),
+                    "recent_messages": db.recent_messages(mmsi),
+                })
                 db.close()
             except Exception as exc:
                 self._json_response({"error": str(exc)}, status=HTTPStatus.BAD_REQUEST)
@@ -83,55 +90,50 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
     def do_post(self):
         path = urlparse(self.path).path
         if path == "/api/parser/mapping/save":
-            self._router_save_mapping(); return
+            self._router_save_mapping()
+            return
+        # Kept as an API for future controlled provisioning; the operator UI
+        # deliberately does not expose Add Parser.
         if path == "/api/parser/mapping/create":
-            self._router_create_parser(); return
+            self._router_create_parser()
+            return
         return original_post(self)
-
-    def serve_dashboard(self):
-        if not self.template_path.exists():
-            return original_dashboard(self)
-        try:
-            content = self.template_path.read_text(encoding="utf-8")
-            # This extension is installed after the Forwarder extension. The
-            # last dashboard wrapper must therefore explicitly load BOTH UI
-            # extensions; otherwise the Router wrapper would hide forwarder.js.
-            scripts = (
-                '<script src="/static/js/forwarder.js?v=20260918"></script>\n'
-                '<script src="/static/js/router_admin.js?v=20260918"></script>'
-            )
-            if "/static/js/forwarder.js" not in content:
-                content = content.replace("</body>", f"{scripts}\n</body>")
-            elif "/static/js/router_admin.js" not in content:
-                content = content.replace("</body>", f'<script src="/static/js/router_admin.js?v=20260918"></script>\n</body>')
-            body = content.encode("utf-8")
-            self.send_response(HTTPStatus.OK)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
-            self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
-            self.end_headers()
-            self.wfile.write(body)
-        except Exception as exc:
-            self._error_response(HTTPStatus.INTERNAL_SERVER_ERROR, f"Error reading dashboard: {exc}")
 
     def _router_browse(self):
         query = parse_qs(urlparse(self.path).query)
         raw = (query.get("path") or [""])[0]
-        path = Path(raw).expanduser() if raw else Path("/")
+        if raw:
+            path = Path(raw).expanduser()
+        elif os.name == "nt":
+            roots = []
+            for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+                root = Path(f"{letter}:\\")
+                if root.exists():
+                    roots.append({"name": str(root), "path": str(root), "readable": os.access(root, os.R_OK | os.X_OK)})
+            self._json_response({"roots": roots})
+            return
+        else:
+            path = Path("/")
+
         try:
             path = path.resolve()
             if not path.exists() or not path.is_dir():
-                self._json_response({"error": f"Directory does not exist: {path}"}, status=HTTPStatus.NOT_FOUND); return
+                self._json_response({"error": f"Directory does not exist: {path}"}, status=HTTPStatus.NOT_FOUND)
+                return
             entries = []
             for child in sorted(path.iterdir(), key=lambda p: (not p.is_dir(), p.name.lower())):
-                if child.is_dir() and not child.name.startswith("."):
-                    try:
-                        readable = os.access(child, os.R_OK | os.X_OK)
-                    except OSError:
-                        readable = False
-                    entries.append({"name": child.name, "path": str(child), "readable": readable})
-            parent = str(path.parent) if path.parent != path else None
-            self._json_response({"path": str(path), "parent": parent, "entries": entries})
+                if not child.is_dir() or child.name.startswith("."):
+                    continue
+                try:
+                    readable = os.access(child, os.R_OK | os.X_OK)
+                except OSError:
+                    readable = False
+                entries.append({"name": child.name, "path": str(child), "readable": readable})
+            self._json_response({
+                "path": str(path),
+                "parent": str(path.parent) if path.parent != path else None,
+                "entries": entries,
+            })
         except Exception as exc:
             self._json_response({"error": str(exc)}, status=HTTPStatus.BAD_REQUEST)
 
@@ -172,7 +174,13 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
                 raise ValueError(f"Router parser destination port {port} is already configured")
 
             endpoints[name] = {"port": port, "sources": [], "framing": "ndjson"}
-            parser_destinations[name] = {"host": "127.0.0.1", "port": port, "framing": "ndjson", "timeout_seconds": 5.0, "keep_alive": True}
+            parser_destinations[name] = {
+                "host": "127.0.0.1",
+                "port": port,
+                "framing": "ndjson",
+                "timeout_seconds": 5.0,
+                "keep_alive": True,
+            }
             _atomic_yaml(parser_cfg_path, parser_cfg)
             with self.router_admin_config_manager._lock:
                 self.router_admin_config_manager._atomic_write_unlocked(router_raw)
@@ -188,7 +196,6 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
 
     handler_class.do_GET = do_get
     handler_class.do_POST = do_post
-    handler_class._serve_dashboard = serve_dashboard
     handler_class._router_browse = _router_browse
     handler_class._router_save_mapping = _router_save_mapping
     handler_class._router_create_parser = _router_create_parser
