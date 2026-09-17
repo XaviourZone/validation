@@ -12,6 +12,7 @@ from .normalizer import NormalizedRecord
 from .reference_db import ReferenceDB, VesselContext
 from .source_registry import get_source_label, is_valid_imo, is_valid_mmsi, sanitize_string
 from .track_state import TrackStateDB
+from .unlocode import resolve_destination
 
 log = logging.getLogger("parser.enricher")
 
@@ -117,8 +118,11 @@ class VesselEnricher:
         self._apply_configured_mapping(rec, ctx)
 
         effective_mmsi = incoming_mmsi
-        if not is_valid_mmsi(effective_mmsi) and ctx.wrs_mmsi and is_valid_mmsi(ctx.wrs_mmsi):
-            effective_mmsi = ctx.wrs_mmsi
+        if not is_valid_mmsi(effective_mmsi):
+            for candidate in (ctx.pans_mmsi, ctx.nsc_mmsi, ctx.wrs_mmsi):
+                if candidate and is_valid_mmsi(candidate):
+                    effective_mmsi = candidate
+                    break
         if effective_mmsi and is_valid_mmsi(effective_mmsi):
             is_active = self.state_db.upsert(
                 mmsi=effective_mmsi,
@@ -133,7 +137,7 @@ class VesselEnricher:
         else:
             rec.track_flag_active = True
 
-        ref_mmsi = ctx.wrs_mmsi or ctx.pans_mmsi or ctx.nsc_mmsi
+        ref_mmsi = ctx.pans_mmsi or ctx.nsc_mmsi or ctx.wrs_mmsi
         try:
             ref_mmsi = int(float(str(ref_mmsi))) if ref_mmsi is not None else None
         except Exception:
@@ -146,15 +150,18 @@ class VesselEnricher:
             rec.foreign_track_number = None
         rec.sys_track_number = incoming_mmsi
 
-        # A direct MMSI match is the strongest reference identity for enrichment.
-        # If the MMSI matched NSC, NSC is tried first; if it matched PANS,
-        # PANS is tried first. WRS remains an available fallback and is still
-        # used independently for spoofing/correlation.
-        ref_order = {
-            "WRS": ("WRS", "PANS", "NSC"),
-            "PANS": ("PANS", "WRS", "NSC"),
-            "NSC": ("NSC", "WRS", "PANS"),
-        }.get(ctx.primary_mmsi_source, ("WRS", "PANS", "NSC"))
+        # Reference enrichment is field-availability driven.
+        # PANS is checked first, then NSC, then WRS. A source only contributes
+        # when that source resolved a vessel; a missing field falls through to
+        # the next available source. Incoming live data remains authoritative.
+        ref_order = tuple(
+            source for source, matched in (
+                ("PANS", ctx.pans_matched),
+                ("NSC", ctx.nsc_matched),
+                ("WRS", ctx.wrs_matched),
+            )
+            if matched
+        ) or ("PANS", "NSC", "WRS")
 
         def ref_value(*fields):
             for source in ref_order:
@@ -183,18 +190,21 @@ class VesselEnricher:
                     break
 
         if rec.ais_typeAndCargo is None:
-            # WRS has the numeric AIS type decode; use the selected reference
-            # source first for raw vessel type, then WRS decode where available.
-            if ctx.primary_mmsi_source == "WRS" and ctx.wrs_ais_type_code is not None:
-                rec.ais_typeAndCargo = ctx.wrs_ais_type_code
-            elif ctx.primary_mmsi_source == "PANS" and ctx.pans_vessel_type:
-                rec.ais_typeAndCargo = ctx.pans_vessel_type
-            elif ctx.primary_mmsi_source == "NSC" and ctx.nsc_type:
-                rec.ais_typeAndCargo = ctx.nsc_type
-            elif ctx.wrs_ais_type_code is not None:
-                rec.ais_typeAndCargo = ctx.wrs_ais_type_code
-            else:
-                rec.ais_typeAndCargo = ref_value("vessel_type")
+            # PANS/NSC store descriptive vessel type text; WRS also has a
+            # numeric AIS type decode. Prefer the first available source and
+            # retain the existing WRS numeric decode as the WRS fallback.
+            for source in ref_order:
+                if source == "PANS" and ctx.pans_vessel_type:
+                    rec.ais_typeAndCargo = ctx.pans_vessel_type
+                elif source == "NSC" and ctx.nsc_type:
+                    rec.ais_typeAndCargo = ctx.nsc_type
+                elif source == "WRS":
+                    if ctx.wrs_ais_type_code is not None:
+                        rec.ais_typeAndCargo = ctx.wrs_ais_type_code
+                    elif ctx.wrs_vessel_type:
+                        rec.ais_typeAndCargo = ctx.wrs_vessel_type
+                if rec.ais_typeAndCargo is not None:
+                    break
 
         if not rec.vessel_description:
             rec.vessel_description = ref_value("vessel_type")
@@ -249,6 +259,11 @@ class VesselEnricher:
                 "NSC": (),
             },
         }
+        # Convert an incoming destination as well as a reference-supplied
+        # destination. This keeps UN/LOCODE handling independent of source.
+        if rec.voyage_destination:
+            rec.voyage_destination = resolve_destination(rec.voyage_destination)
+
         for attr, source_fields in voyage_fields.items():
             if getattr(rec, attr, None):
                 continue
@@ -256,6 +271,8 @@ class VesselEnricher:
                 for field in source_fields.get(source, ()):
                     value = getattr(ctx, field, None)
                     if value not in (None, ""):
+                        if attr == "voyage_destination":
+                            value = resolve_destination(value)
                         setattr(rec, attr, value)
                         break
                 if getattr(rec, attr, None):
