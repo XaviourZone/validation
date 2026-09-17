@@ -35,16 +35,15 @@ class PipelineProcessor:
         self.xml_generator = XTrackXMLGenerator()
         self.downstream_parser = DownstreamXMLParser()
 
-        # The Parser always has a concrete Forwarder hand-off directory in the
-        # deployed three-service architecture. An environment override remains
-        # available for testing/custom deployments.
+        # Explicit Parser -> Forwarder hand-off directory. Environment/config
+        # override remains available for test or alternate deployment layouts.
         if xml_output_dir:
             configured = xml_output_dir
         elif os.environ.get("VALIDATION_FORWARDER_INPUT_DIR"):
             configured = Path(os.environ["VALIDATION_FORWARDER_INPUT_DIR"])
         else:
             validation_home = os.environ.get("VALIDATION_HOME")
-            root = Path(validation_home).resolve() if validation_home else Path(__file__).resolve().parents[3]
+            root = Path(validation_home).resolve() if validation_home else Path(__file__).resolve().parents[4]
             configured = root / "Validation" / "Data_Forwarder" / "spool" / "pending"
         self.xml_output_dir = Path(configured)
         self.xml_output_dir.mkdir(parents=True, exist_ok=True)
@@ -55,7 +54,6 @@ class PipelineProcessor:
         payload = envelope.payload or ""
         errors: List[str] = []
         normalized_records: List[NormalizedRecord] = []
-
         trimmed = payload.strip()
         is_xml = trimmed.startswith("<?xml") or trimmed.startswith("<ns2:XTracks") or trimmed.startswith("<XTracks") or "<XTrack" in trimmed
         if is_xml:
