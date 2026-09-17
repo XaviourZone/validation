@@ -206,62 +206,93 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             )
 
     def _save_destination(self, body):
-        name = str(body.get("name","")).strip()
+        name = str(body.get("name", "")).strip()
         if not re.fullmatch(r"[A-Za-z0-9_-]+", name):
             self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Invalid destination name")
+            return
+
+        protocol = str(body.get("protocol", "sftp")).strip().lower()
+        if protocol not in {"sftp", "filesystem"}:
+            self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Destination type must be SFTP or FILE")
             return
 
         cfg = self._forwarder_config()
         destinations = cfg.setdefault("destinations", {})
         existing = destinations.get(name) or {}
-
-        host = str(body.get("host", existing.get("host",""))).strip()
-        remote_path = str(body.get("remote_path", existing.get("remote_path",""))).strip()
-        username = str(body.get("username", existing.get("username",""))).strip()
-        key_file = str(body.get("private_key_file", existing.get("private_key_file",""))).strip()
-        enabled = bool(body.get("enabled", existing.get("enabled",False)))
+        remote_path = str(body.get("remote_path", existing.get("remote_path", ""))).strip()
+        enabled = bool(body.get("enabled", existing.get("enabled", False)))
 
         try:
-            port = int(body.get("port", existing.get("port",22)))
-            timeout = int(body.get("connect_timeout_seconds", existing.get("connect_timeout_seconds",10)))
+            port = int(body.get("port", existing.get("port", 22 if protocol == "sftp" else 1)))
+            timeout = int(body.get("connect_timeout_seconds", existing.get("connect_timeout_seconds", 10)))
         except (TypeError, ValueError):
             self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "SSH port and timeout must be numeric")
             return
 
-        if not host or not remote_path or not username:
-            self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Host, remote folder and SSH username are required")
+        if not remote_path:
+            self._error_response(
+                HTTPStatus.UNPROCESSABLE_ENTITY,
+                "Remote folder is required for SFTP or local folder is required for FILE",
+            )
             return
         if not 1 <= port <= 65535:
-            self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "SSH port must be between 1 and 65535")
+            self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Port must be between 1 and 65535")
             return
         if timeout < 1:
             self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Connection timeout must be at least 1 second")
             return
 
         secrets = self._forwarder_secrets()
-        password = body.get("password")
-        if isinstance(password, str) and password:
-            secrets[name] = password
 
-        if name not in secrets and not key_file:
-            self._json_response({
-                "success":False,
-                "password_required":True,
-                "error":"SSH password is not configured. Enter the Data Diode password before saving."
-            }, status=HTTPStatus.UNPROCESSABLE_ENTITY)
-            return
+        if protocol == "sftp":
+            host = str(body.get("host", existing.get("host", ""))).strip()
+            username = str(body.get("username", existing.get("username", ""))).strip()
+            key_file = str(body.get("private_key_file", existing.get("private_key_file", ""))).strip()
 
-        destinations[name] = {
-            "enabled":enabled,
-            "protocol":"sftp",
-            "host":host,
-            "port":port,
-            "remote_path":remote_path,
-            "username":username,
-            "private_key_file":key_file,
-            "connect_timeout_seconds":timeout,
-            "verify_remote_size":True,
-        }
+            if not host or not username:
+                self._error_response(
+                    HTTPStatus.UNPROCESSABLE_ENTITY,
+                    "SFTP requires host and SSH username",
+                )
+                return
+
+            password = body.get("password")
+            if isinstance(password, str) and password:
+                secrets[name] = password
+
+            if name not in secrets and not key_file:
+                self._json_response({
+                    "success": False,
+                    "password_required": True,
+                    "error": "SSH password is not configured. Enter the Data Diode password before saving.",
+                }, status=HTTPStatus.UNPROCESSABLE_ENTITY)
+                return
+
+            destinations[name] = {
+                "enabled": enabled,
+                "protocol": "sftp",
+                "host": host,
+                "port": port,
+                "remote_path": remote_path,
+                "username": username,
+                "private_key_file": key_file,
+                "connect_timeout_seconds": timeout,
+                "verify_remote_size": True,
+            }
+        else:
+            # FILE destination copies XML to a local/on-prem folder.
+            secrets.pop(name, None)
+            destinations[name] = {
+                "enabled": enabled,
+                "protocol": "filesystem",
+                "host": "",
+                "port": 1,
+                "remote_path": remote_path,
+                "username": "",
+                "private_key_file": "",
+                "connect_timeout_seconds": timeout,
+                "verify_remote_size": True,
+            }
 
         self._write_forwarder_files(cfg, secrets)
 
@@ -274,16 +305,17 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             )
         except Exception as exc:
             reload_result = {
-                "success":True,
-                "reload_required":True,
-                "message":f"Saved; reload pending ({exc})",
+                "success": True,
+                "reload_required": True,
+                "message": f"Saved; reload pending ({exc})",
             }
 
         self._json_response({
-            "success":True,
-            "destination":name,
-            "password_configured":bool(secrets.get(name)) or bool(key_file),
-            "reload":reload_result,
+            "success": True,
+            "destination": name,
+            "protocol": protocol,
+            "password_configured": bool(secrets.get(name)) if protocol == "sftp" else True,
+            "reload": reload_result,
         })
 
     def _modify_destination(self, name, action):
