@@ -75,7 +75,7 @@
       const d=await api("/api/forwarder/destinations"),body=document.getElementById("fw-destinations-body");body.innerHTML="";
       (d.destinations||[]).forEach(dest=>{
         const tr=document.createElement("tr");
-        tr.innerHTML=`<td><strong>${esc(dest.name)}</strong></td><td><span class="status-pill ${dest.enabled?"running":"stopped"}">${dest.enabled?"ENABLED":"DISABLED"}</span></td><td class="mono">${dest.protocol==="filesystem"?"FILE":"SSH "+esc(dest.host)+":"+esc(dest.port)}</td><td class="mono">${esc(dest.remote_path)}</td><td>${esc(dest.username)}</td><td>${dest.password_configured?"Configured":"Not configured"}</td><td><div class="btn-group"><button class="btn btn-secondary fw-edit" data-name="${esc(dest.name)}">Edit</button><button class="btn btn-secondary fw-test-row" data-name="${esc(dest.name)}">Test</button><button class="btn ${dest.enabled?"btn-danger":"btn-success"} fw-toggle" data-name="${esc(dest.name)}">${dest.enabled?"Disable":"Enable"}</button><button class="btn btn-danger fw-delete" data-name="${esc(dest.name)}">Delete</button></div></td>`;
+        tr.innerHTML=`<td><strong>${esc(dest.name)}</strong></td><td><span class="status-pill ${dest.enabled?"running":"stopped"}">${dest.enabled?"ENABLED":"DISABLED"}</span></td><td class="mono">${dest.protocol==="filesystem"?"FILE":"SSH "+esc(dest.host)+":"+esc(dest.port)}</td><td class="mono">${esc(dest.remote_path)}</td><td>${esc(dest.username)}</td><td>${dest.protocol==="filesystem"?"—":(dest.password_configured?"Configured":"Not configured")}</td><td><div class="btn-group"><button class="btn btn-secondary fw-edit" data-name="${esc(dest.name)}">Edit</button><button class="btn btn-secondary fw-test-row" data-name="${esc(dest.name)}">Test</button><button class="btn ${dest.enabled?"btn-danger":"btn-success"} fw-toggle" data-name="${esc(dest.name)}">${dest.enabled?"Disable":"Enable"}</button><button class="btn btn-danger fw-delete" data-name="${esc(dest.name)}">Delete</button></div></td>`;
         body.appendChild(tr);
       });
       body.querySelectorAll(".fw-edit").forEach(b=>b.onclick=()=>openModal((d.destinations||[]).find(x=>x.name===b.dataset.name)));
@@ -180,7 +180,7 @@
     }catch(e){err.textContent=(p.protocol==="sftp"?"SSH test failed: ":"Folder test failed: ")+e.message;err.style.display="block";err.style.color="var(--accent-rose)";}
   }
 
-  async function testDestination(name){try{const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name})});alert(d.message||"SSH test succeeded.");}catch(e){alert("SSH test failed: "+e.message);}}
+  async function testDestination(name){try{const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name})});alert(d.message||"Destination test succeeded.");}catch(e){alert("Destination test failed: "+e.message);}}
   async function toggleDestination(name,enable){try{await api(`/api/forwarder/destinations/${encodeURIComponent(name)}/${enable?"enable":"disable"}`,{method:"POST",body:"{}"});refresh();}catch(e){alert(e.message);}}
   async function deleteDestination(name){if(!confirm(`Delete Forward Destination '${name}'?`))return;try{await api(`/api/forwarder/destinations/${encodeURIComponent(name)}/delete`,{method:"POST",body:"{}"});refresh();}catch(e){alert(e.message);}}
 
