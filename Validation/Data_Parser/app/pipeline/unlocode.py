@@ -12,7 +12,7 @@ _CACHE: Optional[Dict[str, str]] = None
 
 
 def _default_path() -> Path:
-    root = Path(__file__).resolve().parents[3]
+    root = Path(__file__).resolve().parents[2]
     return root / "config" / "unlocode.json"
 
 
