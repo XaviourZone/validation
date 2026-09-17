@@ -1,2 +1,7 @@
 # Local Forwarder credentials — never commit
 Validation/Data_Forwarder/state/forwarder_secrets.json
+
+# Offline deployment artifacts (prepared outside Git)
+Validation/runtime/*.tar.gz
+Validation/offline_packages/*.whl
+Validation/.venv/
