@@ -10,6 +10,7 @@ import yaml
 
 from .config_manager import RouterConfigManager
 from .database_client import DatabaseClient
+from .forwarder_client import ForwarderClient
 from .forwarder_web import install_forwarder_web_extension
 from .parser_client import ParserClient
 from .router_client import RouterClient
@@ -83,13 +84,15 @@ def main():
 
     parser_cfg = config.get("parser", {})
     parser_client = ParserClient(api_url=parser_cfg.get("api_url", "http://127.0.0.1:8081"), logger=logger)
+    forwarder_cfg = config.get("forwarder", {})
+    forwarder_client = ForwarderClient(api_url=forwarder_cfg.get("api_url", "http://127.0.0.1:8082"), logger=logger)
 
     sc_cfg = config.get("service_control", {})
     ctrl_mode = sc_cfg.get("mode", "auto")
     service_controller = get_service_controller(mode=ctrl_mode, workspace_root=workspace_root)
     logger.info(f"Initialized ServiceController: {service_controller.__class__.__name__}")
 
-    system_status = SystemStatusEvaluator(router_client=router_client, parser_client=parser_client)
+    system_status = SystemStatusEvaluator(router_client=router_client, parser_client=parser_client, forwarder_client=forwarder_client)
     console_app_dir = Path(__file__).resolve().parent
     static_dir = console_app_dir / "static"
     template_path = console_app_dir / "templates" / "index.html"
