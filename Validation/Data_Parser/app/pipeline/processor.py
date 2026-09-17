@@ -3,14 +3,12 @@
 Raw Envelope -> Decoding -> AIS state merge -> Normalization -> Enrichment
 -> positional validation -> XML Generation -> Forwarder spool.
 """
-
 import hashlib
 import logging
 import os
 import re
 from pathlib import Path
 from typing import Any, List, Optional, Tuple
-
 from ..models.common import CommonVesselRecord, ParseResult, ParserEnvelope
 from .ais_state import AISStateDB
 from .downstream_parser import DownstreamXMLParser
@@ -24,10 +22,8 @@ from .xml_generator import XTrackXMLGenerator
 
 log = logging.getLogger("parser.processor")
 
-
 class PipelineProcessor:
     """Master processor running the end-to-end Data Parser pipeline."""
-
     def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None,
                  ais_state_db: Optional[AISStateDB] = None, xml_output_dir: Optional[Path] = None):
         self.ref_db = reference_db or ReferenceDB()
@@ -37,7 +33,6 @@ class PipelineProcessor:
         self.spoofing = PositionalSpoofingDetector()
         self.xml_generator = XTrackXMLGenerator()
         self.downstream_parser = DownstreamXMLParser()
-
         if xml_output_dir:
             configured = xml_output_dir
         elif os.environ.get("VALIDATION_FORWARDER_INPUT_DIR"):
@@ -49,19 +44,25 @@ class PipelineProcessor:
         self.xml_output_dir = Path(configured)
         self.xml_output_dir.mkdir(parents=True, exist_ok=True)
 
+    @staticmethod
+    def _spoofing_remark(anomaly: dict) -> str:
+        detail = (f"POSITIONAL SPOOFING FOUND | calculated speed: {anomaly['calculated_speed_knots']:.2f} kt"
+                  f" | distance: {anomaly['distance_nm']:.2f} NM"
+                  f" | delta-t: {anomaly['elapsed_seconds']:.1f} s"
+                  f" | threshold: {anomaly['threshold_knots']:.2f} kt")
+        if anomaly.get("reported_sog_knots") is not None:
+            detail += f" | reported SOG: {anomaly['reported_sog_knots']:.2f} kt"
+        return detail
+
     def process_envelope(self, envelope: ParserEnvelope, fallback_source_parser: Optional[Any] = None) -> Tuple[ParseResult, str]:
-        source = envelope.source
-        message_id = envelope.message_id
-        payload = envelope.payload or ""
+        source, message_id, payload = envelope.source, envelope.message_id, envelope.payload or ""
         errors: List[str] = []
         normalized_records: List[NormalizedRecord] = []
         trimmed = payload.strip()
         is_xml = trimmed.startswith("<?xml") or trimmed.startswith("<ns2:XTracks") or trimmed.startswith("<XTracks") or "<XTrack" in trimmed
-
         if is_xml:
             try:
-                decoded_tracks = decode_xml_payload(payload)
-                for trk in decoded_tracks:
+                for trk in decode_xml_payload(payload):
                     normalized_records.append(normalize_from_decoded_track(track=trk, source_name=source, message_id=message_id))
             except Exception as e:
                 errors.append(f"XML decoding error: {e}")
@@ -72,25 +73,23 @@ class PipelineProcessor:
                     res: ParseResult = parser.parse(envelope)
                     for rec in res.records:
                         try:
+                            anomaly = None
                             if rec.mmsi and rec.app_message_id is not None:
                                 previous_state = self.ais_state_db.get(rec.mmsi)
-                                incoming_lat = rec.latitude
-                                incoming_lon = rec.longitude
+                                incoming_lat, incoming_lon = rec.latitude, rec.longitude
                                 self.ais_state_db.merge_record(rec)
                                 state = self.ais_state_db.get(rec.mmsi)
                                 if state:
                                     rec.raw_attributes = dict(rec.raw_attributes or {})
                                     rec.raw_attributes["ais_state"] = state
-                                # Spoofing compares only a new transmitted position against
-                                # the previous transmitted position; static Type 5 messages
-                                # must not become the movement timestamp.
                                 if incoming_lat is not None and incoming_lon is not None:
                                     anomaly = self.spoofing.check(previous_state, rec)
-                                    if anomaly:
-                                        rec.raw_attributes["positional_spoofing"] = anomaly
+                            norm = normalize_from_common_record(rec)
+                            if anomaly and anomaly.get("flagged"):
+                                norm.vessel_remarks = self._spoofing_remark(anomaly)
+                            normalized_records.append(norm)
                         except Exception as state_exc:
                             errors.append(f"AIS state/position validation error for MMSI={rec.mmsi}: {state_exc}")
-                        normalized_records.append(normalize_from_common_record(rec))
                     errors.extend(res.errors)
                 except Exception as e:
                     errors.append(f"Source parser error: {e}")
@@ -102,37 +101,18 @@ class PipelineProcessor:
         for norm in normalized_records:
             try:
                 enr = self.enricher.enrich(norm)
-                anomaly = (norm.raw_attributes or {}).get("positional_spoofing")
-                if anomaly and anomaly.get("flagged"):
-                    detail = (
-                        f"POSITIONAL SPOOFING FOUND | calculated speed: {anomaly['calculated_speed_knots']:.2f} kt"
-                        f" | distance: {anomaly['distance_nm']:.2f} NM"
-                        f" | delta-t: {anomaly['elapsed_seconds']:.1f} s"
-                        f" | threshold: {anomaly['threshold_knots']:.2f} kt"
-                    )
-                    if anomaly.get("reported_sog_knots") is not None:
-                        detail += f" | reported SOG: {anomaly['reported_sog_knots']:.2f} kt"
-                    existing = [p.strip() for p in (enr.vessel_remarks or "").split("|") if p.strip()]
-                    if not any(p.startswith("POSITIONAL SPOOFING FOUND") for p in existing):
-                        existing.insert(0, detail)
-                    enr.vessel_remarks = " | ".join(existing)
                 enriched_records.append(enr)
                 common_records.append(CommonVesselRecord(
-                    source=source, message_id=message_id,
-                    record_id=f"{source}:{message_id}:{enr.id_mmsi or 'unknown'}",
+                    source=source, message_id=message_id, record_id=f"{source}:{message_id}:{enr.id_mmsi or 'unknown'}",
                     timestamp=str(enr.timestamp_source or ""), mmsi=enr.id_mmsi, imo=enr.id_imo,
-                    vessel_name=enr.vessel_name, callsign=enr.id_callsign,
-                    latitude=enr.kinematic_pos_lla_lat, longitude=enr.kinematic_pos_lla_lon,
-                    sog=enr.kinematic_speed, cog=enr.kinematic_course_true,
-                    true_heading=enr.kinematic_heading_true,
-                    nav_status=enr.ais_navStatus if isinstance(enr.ais_navStatus, int) else None,
-                    draught=enr.vessel_draft, vessel_type=str(enr.ais_typeAndCargo or ""),
-                    destination=enr.voyage_destination, eta=str(enr.voyage_eta or ""),
-                    length=enr.vessel_length, width=enr.vessel_beam,
+                    vessel_name=enr.vessel_name, callsign=enr.id_callsign, latitude=enr.kinematic_pos_lla_lat,
+                    longitude=enr.kinematic_pos_lla_lon, sog=enr.kinematic_speed, cog=enr.kinematic_course_true,
+                    true_heading=enr.kinematic_heading_true, nav_status=enr.ais_navStatus if isinstance(enr.ais_navStatus, int) else None,
+                    draught=enr.vessel_draft, vessel_type=str(enr.ais_typeAndCargo or ""), destination=enr.voyage_destination,
+                    eta=str(enr.voyage_eta or ""), length=enr.vessel_length, width=enr.vessel_beam,
                 ))
             except Exception as e:
                 errors.append(f"Enrichment error for record MMSI={norm.id_mmsi}: {e}")
-
         generated_xml = ""
         if enriched_records:
             try:
@@ -140,12 +120,8 @@ class PipelineProcessor:
                 self._spool_xml(source, message_id, generated_xml)
             except Exception as e:
                 errors.append(f"XML generation/spooling error: {e}")
-
         success = len(enriched_records) > 0 and not errors
-        result = ParseResult(message_id=message_id, source=source, success=success,
-                             records_parsed=len(enriched_records), records_rejected=len(errors),
-                             records=common_records, errors=errors)
-        return result, generated_xml
+        return ParseResult(message_id=message_id, source=source, success=success, records_parsed=len(enriched_records), records_rejected=len(errors), records=common_records, errors=errors), generated_xml
 
     def _spool_xml(self, source: str, message_id: str, xml: str) -> Path:
         safe_source = re.sub(r"[^A-Za-z0-9_.-]+", "_", source or "UNKNOWN")[:80]
