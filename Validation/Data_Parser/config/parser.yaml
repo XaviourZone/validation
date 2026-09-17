@@ -1,6 +1,4 @@
 # Validation Data Parser Service Configuration
-# Listens on designated ports for Router-forwarded NDJSON envelopes
-
 server:
   http_host: "127.0.0.1"
   http_port: 8081
@@ -26,6 +24,10 @@ endpoints:
     port: 10005
     sources: ["NAIS"]
     framing: "ndjson"
+
+# Finalized XML is written atomically here and consumed by Data Forwarder.
+output:
+  xml_spool_dir: "Validation/Data_Forwarder/spool/pending"
 
 logging:
   level: "INFO"
