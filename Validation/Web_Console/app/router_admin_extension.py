@@ -2,14 +2,30 @@
 
 import json
 import os
+import tempfile
 from http import HTTPStatus
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+import yaml
+
 from Validation.Data_Parser.app.pipeline.mapping_manager import ParserMappingManager, default_mapping_for
 
-
 ALLOWED_FILE_PATTERNS = ["*.csv", "*.xml", "*.json", "*.txt", "*.nmea", "*.log", "*"]
+
+
+def _atomic_yaml(path: Path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            yaml.safe_dump(data, fh, sort_keys=False, allow_unicode=True)
+        os.replace(tmp_name, path)
+    finally:
+        try:
+            os.unlink(tmp_name)
+        except FileNotFoundError:
+            pass
 
 
 def install_router_admin_extension(handler_class, workspace_root, config_manager, logger):
@@ -68,6 +84,8 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
         path = urlparse(self.path).path
         if path == "/api/parser/mapping/save":
             self._router_save_mapping(); return
+        if path == "/api/parser/mapping/create":
+            self._router_create_parser(); return
         return original_post(self)
 
     def serve_dashboard(self):
@@ -114,9 +132,49 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
         try:
             body = json.loads(self.rfile.read(length).decode("utf-8")) if length else {}
             name = str(body.get("parser") or "").strip()
-            mapping = body.get("mapping") or {}
-            saved = self.router_mapping_manager.save(name, mapping)
+            saved = self.router_mapping_manager.save(name, body.get("mapping") or {})
             self._json_response({"success": True, "parser": name, "mapping": saved})
+        except Exception as exc:
+            self._json_response({"success": False, "error": str(exc)}, status=HTTPStatus.UNPROCESSABLE_ENTITY)
+
+    def _router_create_parser(self):
+        length = int(self.headers.get("Content-Length", 0))
+        try:
+            body = json.loads(self.rfile.read(length).decode("utf-8")) if length else {}
+            name = str(body.get("parser") or "").strip()
+            port = int(body.get("port", 0))
+            if not name or not name.replace("_", "").replace("-", "").isalnum():
+                raise ValueError("Parser name must contain only letters, numbers, '_' or '-'")
+            if not 1 <= port <= 65535:
+                raise ValueError("Parser port must be between 1 and 65535")
+
+            parser_cfg_path = self.router_admin_workspace_root / "Validation" / "Data_Parser" / "config" / "parser.yaml"
+            parser_cfg = yaml.safe_load(parser_cfg_path.read_text(encoding="utf-8")) or {}
+            endpoints = parser_cfg.setdefault("endpoints", {})
+            if name in endpoints:
+                raise ValueError(f"Parser '{name}' already exists")
+            if any(int(v.get("port", 0)) == port for v in endpoints.values()):
+                raise ValueError(f"Parser port {port} is already configured")
+
+            router_raw = self.router_admin_config_manager.get_raw_config()
+            parser_destinations = router_raw.setdefault("parser_destinations", {})
+            if name in parser_destinations:
+                raise ValueError(f"Router parser destination '{name}' already exists")
+            if any(int(v.get("port", 0)) == port for v in parser_destinations.values()):
+                raise ValueError(f"Router parser destination port {port} is already configured")
+
+            endpoints[name] = {"port": port, "sources": [], "framing": "ndjson"}
+            parser_destinations[name] = {"host": "127.0.0.1", "port": port, "framing": "ndjson", "timeout_seconds": 5.0, "keep_alive": True}
+            _atomic_yaml(parser_cfg_path, parser_cfg)
+            with self.router_admin_config_manager._lock:
+                self.router_admin_config_manager._atomic_write_unlocked(router_raw)
+            self.router_mapping_manager.save(name, default_mapping_for(name))
+
+            try:
+                result = self.service_controller.restart_service("validation-parser.service")
+            except Exception as exc:
+                result = {"success": False, "message": f"Parser mapping created; parser restart pending: {exc}"}
+            self._json_response({"success": True, "parser": name, "port": port, "restart": result})
         except Exception as exc:
             self._json_response({"success": False, "error": str(exc)}, status=HTTPStatus.UNPROCESSABLE_ENTITY)
 
@@ -125,3 +183,4 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
     handler_class._serve_dashboard = serve_dashboard
     handler_class._router_browse = _router_browse
     handler_class._router_save_mapping = _router_save_mapping
+    handler_class._router_create_parser = _router_create_parser
