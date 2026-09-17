@@ -25,7 +25,7 @@
       <div class="panel">
         <div class="panel-header"><span class="panel-title">Destinations</span><button class="btn btn-primary" id="fw-add">+ Add Destination</button></div>
         <div class="panel-body" style="padding:0;overflow:auto;">
-          <table class="data-table"><thead><tr><th>Name</th><th>Status</th><th>SSH</th><th>Remote Folder</th><th>User</th><th>Password</th><th>Actions</th></tr></thead>
+          <table class="data-table"><thead><tr><th>Name</th><th>Status</th><th>Type</th><th>Folder</th><th>User</th><th>Credential</th><th>Actions</th></tr></thead>
           <tbody id="fw-destinations-body"></tbody></table>
         </div>
       </div>
@@ -53,7 +53,7 @@
             <div class="form-row"><div class="form-group"><label class="form-label">Connection Timeout</label><input id="fw-timeout" type="number" class="form-input" value="10" min="1"></div><div class="form-group" style="display:flex;align-items:center;padding-top:24px;"><label style="display:flex;align-items:center;gap:8px;font-size:13px;"><input type="checkbox" id="fw-enabled"> Enable</label></div></div>
             <div id="fw-form-error" style="display:none;margin-top:12px;"></div>
           </div>
-          <div class="modal-footer"><button class="btn btn-secondary" id="fw-cancel">Cancel</button><button class="btn btn-primary" id="fw-test">Test SSH</button><button class="btn btn-success" id="fw-save">Save</button></div>
+          <div class="modal-footer"><button class="btn btn-secondary" id="fw-cancel">Cancel</button><button class="btn btn-primary" id="fw-test">Test</button><button class="btn btn-success" id="fw-save">Save</button></div>
         </div>
       </div>`;
 
@@ -97,6 +97,7 @@
 
   function updateTypeFields(){
     const type=document.getElementById("fw-protocol").value;
+    const test=document.getElementById("fw-test");
     const sftp=document.getElementById("fw-sftp-fields");
     const label=document.getElementById("fw-path-label");
     const path=document.getElementById("fw-path");
@@ -112,6 +113,7 @@
     port.value=isFile?1:(Number(port.value)||22);
     user.disabled=isFile; pass.disabled=isFile; key.disabled=isFile;
     if(isFile) hint.textContent="XML files will be copied to this local folder.";
+    test.textContent=isFile?"Test Folder":"Test SSH";
   }
 
   function openModal(dest){
@@ -173,8 +175,9 @@
       const save=await api("/api/forwarder/destinations/save",{method:"POST",body:JSON.stringify(p)});
       if(save.password_required)throw new Error(save.error||"SSH password is required.");
       const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name:p.name})});
-      err.textContent=d.message||"SSH connection and remote folder test succeeded.";err.style.display="block";err.style.color="var(--accent-emerald)";refresh();
-    }catch(e){err.textContent="SSH test failed: "+e.message;err.style.display="block";err.style.color="var(--accent-rose)";}
+      err.textContent=d.message||(p.protocol==="sftp"?"SSH connection and remote folder test succeeded.":"Local folder test succeeded.");
+      err.style.display="block";err.style.color="var(--accent-emerald)";refresh();
+    }catch(e){err.textContent=(p.protocol==="sftp"?"SSH test failed: ":"Folder test failed: ")+e.message;err.style.display="block";err.style.color="var(--accent-rose)";}
   }
 
   async function testDestination(name){try{const d=await api("/api/forwarder/test",{method:"POST",body:JSON.stringify({name})});alert(d.message||"SSH test succeeded.");}catch(e){alert("SSH test failed: "+e.message);}}
