@@ -3,9 +3,7 @@
 import csv
 import io
 import json
-import re
 import xml.etree.ElementTree as ET
-from datetime import datetime, timezone
 from typing import Any, Dict, List
 
 from ..models.common import CommonVesselRecord, ParseResult, ParserEnvelope
@@ -30,18 +28,6 @@ def _text(value):
     return s or None
 
 
-LOGICAL_TO_COMMON = {
-    "id.mmsi": ("mmsi", True), "id.imo": ("imo", True), "id.callsign": ("callsign", False),
-    "vessel.name": ("vessel_name", False), "ais.typeAndCargo": ("vessel_type", False),
-    "vessel.length": ("length", False), "vessel.beam": ("width", False), "vessel.draft": ("draught", False),
-    "kinematic.pos.lla.lat": ("latitude", False), "kinematic.pos.lla.lon": ("longitude", False),
-    "kinematic.speed": ("sog", False), "kinematic.course.true": ("cog", False),
-    "kinematic.heading.true": ("true_heading", False), "ais.navStatus": ("nav_status", True),
-    "voyage.destination": ("destination", False), "voyage.eta": ("eta", False),
-    "app.message.id": ("message_type", True),
-}
-
-
 class MappedParser(BaseParser):
     """Parses CSV/JSON/XML/text input using operator-configured field mappings."""
 
@@ -57,15 +43,20 @@ class MappedParser(BaseParser):
         text = payload or ""
         if fmt == "auto":
             stripped = text.lstrip()
-            if stripped.startswith("{") or stripped.startswith("["): fmt = "json"
-            elif stripped.startswith("<"): fmt = "xml"
-            elif "," in text.splitlines()[0] if text.splitlines() else False: fmt = "csv"
-            else: fmt = "text"
+            if stripped.startswith("{") or stripped.startswith("["):
+                fmt = "json"
+            elif stripped.startswith("<"):
+                fmt = "xml"
+            elif text.splitlines() and "," in text.splitlines()[0]:
+                fmt = "csv"
+            else:
+                fmt = "text"
         if fmt == "csv":
             return [dict(row) for row in csv.DictReader(io.StringIO(text))]
         if fmt == "json":
             data = json.loads(text)
-            if isinstance(data, list): return [x if isinstance(x, dict) else {"value": x} for x in data]
+            if isinstance(data, list):
+                return [x if isinstance(x, dict) else {"value": x} for x in data]
             return [data if isinstance(data, dict) else {"value": data}]
         if fmt == "xml":
             root = ET.fromstring(text)
@@ -84,7 +75,6 @@ class MappedParser(BaseParser):
             if kind == "incoming":
                 if key in incoming and incoming[key] not in (None, ""):
                     return incoming[key]
-                # Case-insensitive column lookup.
                 low = key.lower()
                 for actual, value in incoming.items():
                     if str(actual).lower() == low and value not in (None, ""):
@@ -131,7 +121,7 @@ class MappedParser(BaseParser):
                     destination=_text(values.get("voyage.destination")),
                     eta=_text(values.get("voyage.eta")),
                     app_message_id=_number(values.get("app.message.id"), True),
-                    raw_payload=json.dumps(incoming, ensure_ascii=False) if isinstance(incoming, dict) else str(incoming),
+                    raw_payload=json.dumps(incoming, ensure_ascii=False),
                 )
                 record.raw_attributes = {"incoming": incoming}
                 records.append(record)
