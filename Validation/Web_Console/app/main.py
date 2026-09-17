@@ -11,6 +11,8 @@ import yaml
 
 from .config_manager import RouterConfigManager
 from .database_client import DatabaseClient
+from .database_admin_extension import install_database_admin_extension
+from .filesystem_admin_extension import install_filesystem_admin_extension
 from .forwarder_client import ForwarderClient
 from .forwarder_web import install_forwarder_web_extension
 from .router_admin_extension import install_router_admin_extension
@@ -104,6 +106,8 @@ def main():
     forwarder_service_name = sc_cfg.get("forwarder_service_name", "validation-forwarder.service")
     install_forwarder_web_extension(WebConsoleHandler, workspace_root, service_controller, forwarder_service_name, logger)
     install_router_admin_extension(WebConsoleHandler, workspace_root, config_manager, logger)
+    install_database_admin_extension(WebConsoleHandler, workspace_root, service_controller, logger)
+    install_filesystem_admin_extension(WebConsoleHandler, logger)
 
     server = WebConsoleServer(
         host=host,

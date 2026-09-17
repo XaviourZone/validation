@@ -1,0 +1,28 @@
+[Unit]
+Description=Validation PANS Live XML Importer
+After=network.target
+
+[Service]
+Type=simple
+User=validation
+Group=validation
+WorkingDirectory=/opt/validation
+Environment=PYTHONUNBUFFERED=1
+Environment=VALIDATION_HOME=/opt/validation
+ExecStart=/usr/bin/python3 /opt/validation/Validation/Database/PANS/importer/pans_importer.py --config /opt/validation/Validation/Database/config/database.yaml
+
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=15
+Restart=on-failure
+RestartSec=5s
+
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=true
+
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
