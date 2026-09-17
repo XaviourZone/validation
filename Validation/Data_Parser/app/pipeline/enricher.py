@@ -156,11 +156,13 @@ class VesselEnricher:
             "NSC": ("NSC", "WRS", "PANS"),
         }.get(ctx.primary_mmsi_source, ("WRS", "PANS", "NSC"))
 
-        def ref_value(field):
+        def ref_value(*fields):
             for source in ref_order:
-                value = getattr(ctx, f"{source.lower()}_{field}", None)
-                if value not in (None, ""):
-                    return value
+                prefix = source.lower()
+                for field in fields:
+                    value = getattr(ctx, f"{prefix}_{field}", None)
+                    if value not in (None, ""):
+                        return value
             return None
 
         resolved_name = None
@@ -200,11 +202,11 @@ class VesselEnricher:
         if rec.vessel_length is None:
             rec.vessel_length = ref_value("loa")
         if rec.vessel_beam is None:
-            rec.vessel_beam = ref_value("breadth")
+            rec.vessel_beam = ref_value("breadth", "beam")
         if rec.vessel_draft is None:
-            rec.vessel_draft = ref_value("draft" if ctx.primary_mmsi_source != "PANS" else "max_draft")
+            rec.vessel_draft = ref_value("draft", "max_draft")
         if rec.vessel_grosstonnage is None:
-            rec.vessel_grosstonnage = ref_value("gross" if ctx.primary_mmsi_source != "PANS" else "grt")
+            rec.vessel_grosstonnage = ref_value("gross", "grt")
 
         effective_vigilance = ctx.wrs_vigilance_score if ctx.wrs_vigilance_score is not None else rec.id_mmsi_destination
         if effective_vigilance is not None:
