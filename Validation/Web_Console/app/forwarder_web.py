@@ -3,6 +3,7 @@
 The browser manages destination metadata and a local credential. Actual
 transport remains inside the Forwarder service.
 """
+
 import json
 import os
 import re
@@ -31,7 +32,9 @@ def _json_request(url, method="GET", payload=None, timeout=2.5):
 
 def _atomic_write(path: Path, content: str, mode=None):
     path.parent.mkdir(parents=True, exist_ok=True)
-    fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
+    fd, tmp_name = tempfile.mkstemp(
+        prefix=path.name + ".", suffix=".tmp", dir=str(path.parent)
+    )
     try:
         if mode is not None and os.name != "nt":
             os.fchmod(fd, mode)
@@ -48,6 +51,7 @@ def _atomic_write(path: Path, content: str, mode=None):
 def install_forwarder_web_extension(handler_class, workspace_root, service_controller, service_name, logger):
     if getattr(handler_class, "_forwarder_extension_installed", False):
         return
+
     handler_class._forwarder_extension_installed = True
     handler_class.forwarder_workspace_root = Path(workspace_root)
     handler_class.forwarder_config_path = handler_class.forwarder_workspace_root / _CONFIG_FILE
@@ -63,20 +67,25 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
         from urllib.parse import urlparse
         path = urlparse(self.path).path
         if path == "/api/forwarder/status":
-            self._forwarder_status(); return
+            self._forwarder_status()
+            return
         if path == "/api/forwarder/metrics":
-            self._forwarder_proxy_get("/metrics"); return
+            self._forwarder_proxy_get("/metrics")
+            return
         if path == "/api/forwarder/destinations":
-            self._forwarder_destinations(); return
+            self._forwarder_destinations()
+            return
         if path == "/api/forwarder/deliveries":
-            self._forwarder_proxy_get("/deliveries"); return
+            self._forwarder_proxy_get("/deliveries")
+            return
         return original_get(self)
 
     def do_post(self):
         from urllib.parse import urlparse
         path = urlparse(self.path).path
         if path.startswith("/api/forwarder/"):
-            self._forwarder_post(path); return
+            self._forwarder_post(path)
+            return
         return original_post(self)
 
     def _forwarder_config(self):
@@ -156,21 +165,28 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             return
 
         if path == "/api/forwarder/start":
-            self._json_response(self.forwarder_service_controller.start_service(self.forwarder_service_name)); return
+            self._json_response(self.forwarder_service_controller.start_service(self.forwarder_service_name))
+            return
         if path == "/api/forwarder/stop":
-            self._json_response(self.forwarder_service_controller.stop_service(self.forwarder_service_name)); return
+            self._json_response(self.forwarder_service_controller.stop_service(self.forwarder_service_name))
+            return
         if path == "/api/forwarder/restart":
-            self._json_response(self.forwarder_service_controller.restart_service(self.forwarder_service_name)); return
+            self._json_response(self.forwarder_service_controller.restart_service(self.forwarder_service_name))
+            return
         if path == "/api/forwarder/reload":
-            self._proxy_post("/config/reload", {}); return
+            self._proxy_post("/config/reload", {})
+            return
         if path == "/api/forwarder/test":
-            self._proxy_post("/config/destinations/test", {"name": body.get("name","")}); return
+            self._proxy_post("/config/destinations/test", {"name": body.get("name","")})
+            return
         if path == "/api/forwarder/destinations/save":
-            self._save_destination(body); return
+            self._save_destination(body)
+            return
 
         match = re.match(r"^/api/forwarder/destinations/([^/]+)/(delete|enable|disable)$", path)
         if match:
-            self._modify_destination(match.group(1), match.group(2)); return
+            self._modify_destination(match.group(1), match.group(2))
+            return
 
         self._error_response(HTTPStatus.NOT_FOUND, "Forwarder endpoint not found")
 
@@ -227,8 +243,6 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
         if isinstance(password, str) and password:
             secrets[name] = password
 
-        # Data Diode uses SSH/SFTP. Do not save an unusable password-auth
-        # destination when neither a stored password nor a private key exists.
         if name not in secrets and not key_file:
             self._json_response({
                 "success":False,
@@ -248,6 +262,7 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             "connect_timeout_seconds":timeout,
             "verify_remote_size":True,
         }
+
         self._write_forwarder_files(cfg, secrets)
 
         try:
@@ -280,8 +295,8 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
 
         secrets = self._forwarder_secrets()
         if action == "delete":
-            destinations.pop(name,None)
-            secrets.pop(name,None)
+            destinations.pop(name, None)
+            secrets.pop(name, None)
         else:
             destinations[name]["enabled"] = action == "enable"
 
