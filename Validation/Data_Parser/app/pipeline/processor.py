@@ -2,8 +2,8 @@
 Validation Data Parser Pipeline Processor.
 
 Executes the complete processing lifecycle:
-Raw Envelope -> Decoding -> Normalization -> Enrichment -> Correlation/Track State
--> XML Generation -> downstream contract verification -> Forwarder spool.
+Raw Envelope -> Decoding -> AIS state merge -> Normalization -> Enrichment
+-> Correlation/Track State -> XML Generation -> Forwarder spool.
 """
 
 import hashlib
@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, List, Optional, Tuple
 
 from ..models.common import CommonVesselRecord, ParseResult, ParserEnvelope
+from .ais_state import AISStateDB
 from .downstream_parser import DownstreamXMLParser
 from .enricher import VesselEnricher
 from .normalizer import NormalizedRecord, normalize_from_common_record, normalize_from_decoded_track
@@ -28,15 +29,14 @@ log = logging.getLogger("parser.processor")
 class PipelineProcessor:
     """Master processor running the end-to-end Data Parser pipeline."""
 
-    def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None, xml_output_dir: Optional[Path] = None):
+    def __init__(self, reference_db: Optional[ReferenceDB] = None, track_state_db: Optional[TrackStateDB] = None, ais_state_db: Optional[AISStateDB] = None, xml_output_dir: Optional[Path] = None):
         self.ref_db = reference_db or ReferenceDB()
         self.state_db = track_state_db or TrackStateDB()
+        self.ais_state_db = ais_state_db or AISStateDB()
         self.enricher = VesselEnricher(reference_db=self.ref_db, track_state_db=self.state_db)
         self.xml_generator = XTrackXMLGenerator()
         self.downstream_parser = DownstreamXMLParser()
 
-        # Explicit Parser -> Forwarder hand-off directory. Environment/config
-        # override remains available for test or alternate deployment layouts.
         if xml_output_dir:
             configured = xml_output_dir
         elif os.environ.get("VALIDATION_FORWARDER_INPUT_DIR"):
@@ -56,6 +56,7 @@ class PipelineProcessor:
         normalized_records: List[NormalizedRecord] = []
         trimmed = payload.strip()
         is_xml = trimmed.startswith("<?xml") or trimmed.startswith("<ns2:XTracks") or trimmed.startswith("<XTracks") or "<XTrack" in trimmed
+
         if is_xml:
             try:
                 decoded_tracks = decode_xml_payload(payload)
@@ -69,6 +70,15 @@ class PipelineProcessor:
                 try:
                     res: ParseResult = parser.parse(envelope)
                     for rec in res.records:
+                        try:
+                            if rec.mmsi and rec.app_message_id is not None:
+                                self.ais_state_db.merge_record(rec)
+                                state = self.ais_state_db.get(rec.mmsi)
+                                if state:
+                                    rec.raw_attributes = dict(rec.raw_attributes or {})
+                                    rec.raw_attributes["ais_state"] = state
+                        except Exception as state_exc:
+                            errors.append(f"AIS state error for MMSI={rec.mmsi}: {state_exc}")
                         normalized_records.append(normalize_from_common_record(rec))
                     errors.extend(res.errors)
                 except Exception as e:
@@ -106,13 +116,8 @@ class PipelineProcessor:
             except Exception as e:
                 errors.append(f"XML generation/spooling error: {e}")
 
-        # Do not ACK a successfully parsed record if final XML hand-off failed;
-        # otherwise the Router could consider data delivered while the Forwarder
-        # never received the finalized output.
         success = len(enriched_records) > 0 and not errors
-        result = ParseResult(message_id=message_id, source=source, success=success,
-                             records_parsed=len(enriched_records), records_rejected=len(errors),
-                             records=common_records, errors=errors)
+        result = ParseResult(message_id=message_id, source=source, success=success, records_parsed=len(enriched_records), records_rejected=len(errors), records=common_records, errors=errors)
         return result, generated_xml
 
     def _spool_xml(self, source: str, message_id: str, xml: str) -> Path:
