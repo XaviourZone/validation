@@ -13,10 +13,15 @@ parser:
   api_url: "http://127.0.0.1:8081"
   enabled: false # Will become true once parser daemon is active
 
+forwarder:
+  api_url: "http://127.0.0.1:8082"
+  enabled: true
+
 service_control:
   mode: "auto" # "auto", "windows", or "systemd"
   router_service_name: "validation-router.service"
   parser_service_name: "validation-parser.service"
+  forwarder_service_name: "validation-forwarder.service"
   web_service_name: "validation-web.service"
 
 monitoring:

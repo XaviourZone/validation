@@ -16,6 +16,8 @@ from .parsers.msis import MSISParser
 from .parsers.nais import NAISParser
 from .parsers.sais import SAISParser
 from .parsers.vatms import VATMSParser
+from .parsers.mapped import MappedParser
+from .pipeline.mapping_manager import ParserMappingManager
 from .pipeline.processor import PipelineProcessor
 from .server.api_server import ParserAPIServer
 from .server.endpoint import ParserEndpointServer
@@ -71,7 +73,21 @@ def main():
         sys.exit(1)
 
     metrics_collector = ParserMetricsCollector()
-    parser_instances = {"SAIS": SAISParser(), "MSIS": MSISParser(), "LRIT": LRITParser(), "VATMS": VATMSParser(), "NAIS": NAISParser()}
+    mapping_manager = ParserMappingManager(workspace_root / "Validation" / "Data_Parser" / "config" / "parser_mappings.yaml")
+    parser_instances = {
+        "SAIS": SAISParser(),
+        "MSIS": MSISParser(),
+        "LRIT": LRITParser(),
+        "VATMS": VATMSParser(),
+        "NAIS": NAISParser(),
+    }
+
+    # Any endpoint added from the Web Console that does not have a built-in parser
+    # uses the mapping-driven generic parser. Built-in AIS/CSV parsers retain their
+    # specialized decoders and are not replaced by the generic engine.
+    for name in (config.get("endpoints", {}) or {}):
+        if name not in parser_instances:
+            parser_instances[name] = MappedParser(name, mapping_manager=mapping_manager)
 
     output_cfg = config.get("output", {}) or {}
     xml_output_dir = output_cfg.get("xml_spool_dir")

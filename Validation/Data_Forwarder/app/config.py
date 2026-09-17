@@ -15,6 +15,7 @@ class DestinationConfig:
     remote_path: str = ""
     username: str = ""
     private_key_file: str = ""
+    password_file: Path = Path("")
     connect_timeout_seconds: int = 10
     verify_remote_size: bool = True
 
@@ -33,6 +34,7 @@ class SpoolConfig:
     archive_dir: Path
     failed_dir: Path
     state_db: Path
+    secret_file: Path
     poll_interval_seconds: float = 1.0
     claim_timeout_seconds: int = 300
 
@@ -41,6 +43,7 @@ class SpoolConfig:
 class ForwarderConfig:
     http_host: str
     http_port: int
+    config_path: Path
     spool: SpoolConfig
     retry: RetryConfig
     destinations: Dict[str, DestinationConfig] = field(default_factory=dict)
@@ -59,12 +62,14 @@ def load_config(path: Path, root: Path) -> ForwarderConfig:
     server = raw.get("server", {})
     spool_raw = raw.get("spool", {})
     retry_raw = raw.get("retry", {})
+    secret_file = _path(root, spool_raw.get("secret_file", "Validation/Data_Forwarder/state/forwarder_secrets.json"))
 
     spool = SpoolConfig(
         input_dir=_path(root, spool_raw.get("input_dir", "spool/pending")),
         archive_dir=_path(root, spool_raw.get("archive_dir", "spool/delivered")),
         failed_dir=_path(root, spool_raw.get("failed_dir", "spool/failed")),
         state_db=_path(root, spool_raw.get("state_db", "state/forwarder.db")),
+        secret_file=secret_file,
         poll_interval_seconds=float(spool_raw.get("poll_interval_seconds", 1)),
         claim_timeout_seconds=int(spool_raw.get("claim_timeout_seconds", 300)),
     )
@@ -86,12 +91,14 @@ def load_config(path: Path, root: Path) -> ForwarderConfig:
             remote_path=str(value.get("remote_path", "")),
             username=str(value.get("username", "")),
             private_key_file=str(value.get("private_key_file", "")),
+            password_file=secret_file,
             connect_timeout_seconds=int(value.get("connect_timeout_seconds", 10)),
             verify_remote_size=bool(value.get("verify_remote_size", True)),
         )
     return ForwarderConfig(
         http_host=str(server.get("http_host", "127.0.0.1")),
         http_port=int(server.get("http_port", 8082)),
+        config_path=path,
         spool=spool,
         retry=retry,
         destinations=destinations,

@@ -10,9 +10,12 @@ import yaml
 
 from .config_manager import RouterConfigManager
 from .database_client import DatabaseClient
+from .forwarder_client import ForwarderClient
+from .forwarder_web import install_forwarder_web_extension
+from .router_admin_extension import install_router_admin_extension
 from .parser_client import ParserClient
 from .router_client import RouterClient
-from .server import WebConsoleServer
+from .server import WebConsoleServer, WebConsoleHandler
 from .service_control.factory import get_service_controller
 from .system_status import SystemStatusEvaluator
 
@@ -22,9 +25,7 @@ def setup_logger(log_level: str = "INFO") -> logging.Logger:
     logger.setLevel(getattr(logging, log_level.upper(), logging.INFO))
     if not logger.handlers:
         handler = logging.StreamHandler(sys.stdout)
-        handler.setFormatter(
-            logging.Formatter("[%(asctime)s] [%(levelname)s] [WEB_CONSOLE] %(message)s")
-        )
+        handler.setFormatter(logging.Formatter("[%(asctime)s] [%(levelname)s] [WEB_CONSOLE] %(message)s"))
         logger.addHandler(handler)
     return logger
 
@@ -37,11 +38,9 @@ def load_config(config_path: Path) -> dict:
 
 
 def resolve_project_root() -> Path:
-    """Determine root directory using VALIDATION_HOME env var or relative directory traversal."""
     val_home = os.environ.get("VALIDATION_HOME")
     if val_home:
         return Path(val_home).resolve()
-    # If not specified, walk up to workspace root containing 'Validation' folder or cwd
     current = Path(__file__).resolve().parent
     for parent in [current, *current.parents]:
         if (parent / "Validation").exists() or (parent.name == "Validation"):
@@ -59,8 +58,6 @@ def main():
 
     logger = setup_logger(args.log_level)
     workspace_root = resolve_project_root()
-
-    # Determine config path
     if args.config:
         cfg_path = Path(args.config)
         if not cfg_path.is_absolute():
@@ -74,11 +71,8 @@ def main():
         logger.error(f"Failed to load config from {cfg_path}: {e}")
         sys.exit(1)
 
-    # Server binding
     host = args.host or config.get("server", {}).get("host", "127.0.0.1")
     port = args.port or config.get("server", {}).get("port", 8088)
-
-    # Router client setup
     router_cfg = config.get("router", {})
     router_client = RouterClient(
         api_url=router_cfg.get("api_url", "http://127.0.0.1:8080"),
@@ -89,41 +83,26 @@ def main():
         logger=logger,
     )
 
-    # Parser client setup
     parser_cfg = config.get("parser", {})
-    parser_client = ParserClient(
-        api_url=parser_cfg.get("api_url", "http://127.0.0.1:8081"),
-        logger=logger,
-    )
+    parser_client = ParserClient(api_url=parser_cfg.get("api_url", "http://127.0.0.1:8081"), logger=logger)
+    forwarder_cfg = config.get("forwarder", {})
+    forwarder_client = ForwarderClient(api_url=forwarder_cfg.get("api_url", "http://127.0.0.1:8082"), logger=logger)
 
-    # Service controller setup
     sc_cfg = config.get("service_control", {})
     ctrl_mode = sc_cfg.get("mode", "auto")
     service_controller = get_service_controller(mode=ctrl_mode, workspace_root=workspace_root)
     logger.info(f"Initialized ServiceController: {service_controller.__class__.__name__}")
 
-
-    # System status aggregator
-    system_status = SystemStatusEvaluator(router_client=router_client, parser_client=parser_client)
-
-    # Asset paths
+    system_status = SystemStatusEvaluator(router_client=router_client, parser_client=parser_client, forwarder_client=forwarder_client)
     console_app_dir = Path(__file__).resolve().parent
     static_dir = console_app_dir / "static"
     template_path = console_app_dir / "templates" / "index.html"
+    config_manager = RouterConfigManager(config_path=router_client.config_path, workspace_root=workspace_root, logger=logger)
+    database_client = DatabaseClient(workspace_root=workspace_root, logger=logger, service_controller=service_controller, config_manager=config_manager)
 
-    config_manager = RouterConfigManager(
-        config_path=router_client.config_path,
-        workspace_root=workspace_root,
-        logger=logger,
-    )
-
-    # Database client setup
-    database_client = DatabaseClient(
-        workspace_root=workspace_root,
-        logger=logger,
-        service_controller=service_controller,
-        config_manager=config_manager
-    )
+    forwarder_service_name = sc_cfg.get("forwarder_service_name", "validation-forwarder.service")
+    install_forwarder_web_extension(WebConsoleHandler, workspace_root, service_controller, forwarder_service_name, logger)
+    install_router_admin_extension(WebConsoleHandler, workspace_root, config_manager, logger)
 
     server = WebConsoleServer(
         host=host,
@@ -141,7 +120,6 @@ def main():
         logger=logger,
     )
 
-    # Clean shutdown on SIGINT / SIGTERM
     def handle_signal(sig, frame):
         logger.info(f"Signal {sig} received, shutting down gracefully...")
         server.shutdown()
@@ -149,7 +127,6 @@ def main():
 
     signal.signal(signal.SIGINT, handle_signal)
     signal.signal(signal.SIGTERM, handle_signal)
-
     logger.info(f"Starting Validation Web Console on http://{host}:{port}")
     try:
         server.start()
