@@ -46,7 +46,14 @@ class SecretStore:
 
     def get(self, destination: str):
         with self._lock:
-            return self._read().get(destination)
+            data = self._read()
+            value = data.get(destination)
+            # Backward compatibility for the pre-Web-Console destination name.
+            # This lets an existing offline installation continue delivering after
+            # the operational destination was renamed to D-DIODE-01.
+            if not value and destination == "D-DIODE-01":
+                value = data.get("downstream")
+            return value
 
     def has(self, destination: str) -> bool:
         value = self.get(destination)
