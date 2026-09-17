@@ -120,7 +120,7 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             result.append({
                 "name": name,
                 "enabled": bool(value.get("enabled", False)),
-                "protocol": str(value.get("protocol", "sftp")),
+                "protocol": "sftp",
                 "host": str(value.get("host", "")),
                 "port": int(value.get("port", 22)),
                 "remote_path": str(value.get("remote_path", "")),
@@ -173,10 +173,27 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             self._json_response(self.forwarder_service_controller.restart_service(self.forwarder_service_name))
             return
         if path == "/api/forwarder/reload":
-            self._forwarder_service_api("/config/reload", {}, False)
+            try:
+                result = _json_request(f"{_API_URL}/config/reload", method="POST", payload={}, timeout=5)
+                self._json_response(result)
+            except Exception as exc:
+                self._json_response({
+                    "success": True,
+                    "reload_required": True,
+                    "message": f"Configuration saved; Forwarder reload pending ({exc})",
+                })
             return
         if path == "/api/forwarder/test":
-            self._forwarder_service_api("/config/destinations/test", {"name": body.get("name", "")}, True)
+            try:
+                result = _json_request(
+                    f"{_API_URL}/config/destinations/test",
+                    method="POST",
+                    payload={"name": body.get("name", "")},
+                    timeout=5,
+                )
+                self._json_response(result)
+            except Exception as exc:
+                self._json_response({"success": False, "error": str(exc)}, status=HTTPStatus.SERVICE_UNAVAILABLE)
             return
         if path == "/api/forwarder/destinations/save":
             self._save_destination(body)
@@ -186,6 +203,7 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
         if match:
             self._modify_destination(match.group(1), match.group(2))
             return
+
         self._error_response(HTTPStatus.NOT_FOUND, "Forwarder endpoint not found")
 
     def _save_destination(self, body):
@@ -212,10 +230,7 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             return
 
         if not host or not remote_path or not username:
-            self._error_response(
-                HTTPStatus.UNPROCESSABLE_ENTITY,
-                "Host, remote folder and SSH username are required",
-            )
+            self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "Host, remote folder and SSH username are required")
             return
         if not 1 <= port <= 65535:
             self._error_response(HTTPStatus.UNPROCESSABLE_ENTITY, "SSH port must be between 1 and 65535")
@@ -226,20 +241,16 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
 
         secrets = self._forwarder_secrets()
         password = body.get("password")
-        password_supplied = isinstance(password, str) and bool(password)
+        if isinstance(password, str) and password:
+            secrets[name] = password
 
-        # Password auth is the current Data Diode mode. A private key can be
-        # configured instead, but we never require both.
-        if not password_supplied and name not in secrets and not key_file:
+        if name not in secrets and not key_file:
             self._json_response({
                 "success": False,
                 "password_required": True,
                 "error": "SSH password is not configured. Enter the Data Diode password before saving.",
             }, status=HTTPStatus.UNPROCESSABLE_ENTITY)
             return
-
-        if password_supplied:
-            secrets[name] = password
 
         destinations[name] = {
             "enabled": enabled,
@@ -254,13 +265,17 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
         }
 
         self._write_forwarder_files(cfg, secrets)
-        reload_result = self._forwarder_service_api("/config/reload", {}, False)
+
+        try:
+            result = _json_request(f"{_API_URL}/config/reload", method="POST", payload={}, timeout=5)
+        except Exception as exc:
+            result = {"success": True, "reload_required": True, "message": f"Saved; reload pending ({exc})"}
 
         self._json_response({
             "success": True,
             "destination": name,
-            "password_configured": bool(secrets.get(name)),
-            "reload": reload_result,
+            "password_configured": bool(secrets.get(name)) or bool(key_file),
+            "reload": result,
         })
 
     def _modify_destination(self, name, action):
@@ -278,30 +293,11 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
             destinations[name]["enabled"] = action == "enable"
 
         self._write_forwarder_files(cfg, secrets)
-        self._forwarder_service_api("/config/reload", {}, False)
-
-    def _forwarder_service_api(self, endpoint, payload, strict):
         try:
-            result = _json_request(
-                f"{_API_URL}{endpoint}",
-                method="POST",
-                payload=payload,
-                timeout=5,
-            )
-            self._json_response(result)
-            return result
+            result = _json_request(f"{_API_URL}/config/reload", method="POST", payload={}, timeout=5)
         except Exception as exc:
-            if strict:
-                result = {"success": False, "error": str(exc)}
-                self._json_response(result, status=HTTPStatus.SERVICE_UNAVAILABLE)
-                return result
-            result = {
-                "success": True,
-                "reload_required": True,
-                "message": f"Configuration saved; Forwarder reload pending ({exc})",
-            }
-            self._json_response(result)
-            return result
+            result = {"success": True, "reload_required": True, "message": f"Saved; reload pending ({exc})"}
+        self._json_response(result)
 
     handler_class.do_GET = do_get
     handler_class.do_POST = do_post
@@ -314,4 +310,3 @@ def install_forwarder_web_extension(handler_class, workspace_root, service_contr
     handler_class._forwarder_post = _forwarder_post
     handler_class._save_destination = _save_destination
     handler_class._modify_destination = _modify_destination
-    handler_class._forwarder_service_api = _forwarder_service_api
