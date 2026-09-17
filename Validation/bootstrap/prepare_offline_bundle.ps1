@@ -31,10 +31,10 @@ if ($actualHash -ne $PythonSha256) {
 Write-Host "[OK] Python runtime checksum verified."
 
 Write-Host "[DOWNLOAD] Python wheels for Linux x86_64 / CPython 3.14..."
-$requirements = Join-Path $ProjectRoot "Validation\Data_Parser\requirements.txt"
-$forwarderReq = Join-Path $ProjectRoot "Validation\Data_Forwarder\requirements.txt"
-$routerReq = Join-Path $ProjectRoot "Validation\Data_Router\requirements.txt"
-$consoleReq = Join-Path $ProjectRoot "Validation\Web_Console\requirements.txt"
+$requirements = Join-Path $ProjectRoot "Data_Parser\requirements.txt"
+$forwarderReq = Join-Path $ProjectRoot "Data_Forwarder\requirements.txt"
+$routerReq = Join-Path $ProjectRoot "Data_Router\requirements.txt"
+$consoleReq = Join-Path $ProjectRoot "Web_Console\requirements.txt"
 
 python -m pip download --dest $PackageDir --platform manylinux_2_17_x86_64 --python-version 3.14 --implementation cp --only-binary=:all: -r $requirements -r $forwarderReq -r $routerReq -r $consoleReq
 if ($LASTEXITCODE -ne 0) { throw "Offline wheel download failed. No deployment bundle was produced." }
