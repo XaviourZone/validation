@@ -10,7 +10,9 @@ def make_service(tmp_path, enabled=True):
     )
     dest_dir = tmp_path / "remote"
     dest = DestinationConfig("test", enabled=enabled, protocol="filesystem", remote_path=str(dest_dir), password_file=spool.secret_file)
-    cfg = ForwarderConfig(tmp_path / "forwarder.yaml", "127.0.0.1", 0, tmp_path / "forwarder.yaml", spool, RetryConfig(max_attempts=2, initial_delay_seconds=0), {"test": dest})
+    config_path = tmp_path / "forwarder.yaml"
+    config_path.write_text("destinations: {}\n", encoding="utf-8")
+    cfg = ForwarderConfig("127.0.0.1", 0, config_path, spool, RetryConfig(max_attempts=2, initial_delay_seconds=0), {"test": dest})
     return ForwarderService(cfg)
 
 
@@ -47,7 +49,7 @@ def test_duplicate_delivery_is_not_repeated(tmp_path):
     assert service.state.counts()["DELIVERED"] == 1
 
 
-def test_secret_store_is_owner_only(tmp_path):
+def test_secret_store(tmp_path):
     store = SecretStore(tmp_path / "secrets.json")
     store.set("test", "secret-value")
     assert store.get("test") == "secret-value"
