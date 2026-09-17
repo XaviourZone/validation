@@ -20,9 +20,9 @@ retry:
   max_delay_seconds: 60
   multiplier: 2.0
 
-# Current operational downstream supplied for Validation.
+# Current operational downstream. Credentials remain local in the secret store.
 destinations:
-  downstream:
+  D-DIODE-01:
     enabled: true
     protocol: "sftp"
     host: "40.1.1.1"
