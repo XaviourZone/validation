@@ -34,10 +34,20 @@ class PipelineProcessor:
         self.enricher = VesselEnricher(reference_db=self.ref_db, track_state_db=self.state_db)
         self.xml_generator = XTrackXMLGenerator()
         self.downstream_parser = DownstreamXMLParser()
-        configured = xml_output_dir or os.environ.get("VALIDATION_FORWARDER_INPUT_DIR")
-        self.xml_output_dir = Path(configured) if configured else None
-        if self.xml_output_dir:
-            self.xml_output_dir.mkdir(parents=True, exist_ok=True)
+
+        # The Parser always has a concrete Forwarder hand-off directory in the
+        # deployed three-service architecture. An environment override remains
+        # available for testing/custom deployments.
+        if xml_output_dir:
+            configured = xml_output_dir
+        elif os.environ.get("VALIDATION_FORWARDER_INPUT_DIR"):
+            configured = Path(os.environ["VALIDATION_FORWARDER_INPUT_DIR"])
+        else:
+            validation_home = os.environ.get("VALIDATION_HOME")
+            root = Path(validation_home).resolve() if validation_home else Path(__file__).resolve().parents[3]
+            configured = root / "Validation" / "Data_Forwarder" / "spool" / "pending"
+        self.xml_output_dir = Path(configured)
+        self.xml_output_dir.mkdir(parents=True, exist_ok=True)
 
     def process_envelope(self, envelope: ParserEnvelope, fallback_source_parser: Optional[Any] = None) -> Tuple[ParseResult, str]:
         source = envelope.source
@@ -94,12 +104,10 @@ class PipelineProcessor:
         if enriched_records:
             try:
                 generated_xml = self.xml_generator.generate_batch_xml(enriched_records)
-                if self.xml_output_dir:
-                    self._spool_xml(source, message_id, generated_xml)
+                self._spool_xml(source, message_id, generated_xml)
             except Exception as e:
                 errors.append(f"XML generation/spooling error: {e}")
 
-        # Preserve the Parser's existing success semantics; spooling errors are reported in errors.
         success = len(enriched_records) > 0 or (len(errors) == 0)
         result = ParseResult(message_id=message_id, source=source, success=success,
                              records_parsed=len(enriched_records), records_rejected=len(errors),
