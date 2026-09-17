@@ -9,7 +9,7 @@ import yaml
 from .config import ForwarderConfig, load_config
 from .secrets import SecretStore
 from .state import DeliveryState
-from .transport import DeliveryError, transport_for
+from .transport import transport_for
 
 
 class ForwarderService:
@@ -43,7 +43,8 @@ class ForwarderService:
         self.log.info("Data Forwarder stopped")
 
     def reload_config(self):
-        new_config = load_config(self.config.config_path, self.config.config_path.parents[2])
+        root = self.config.config_path.parents[3]
+        new_config = load_config(self.config.config_path, root)
         with self._lock:
             old_state_path = self.config.spool.state_db
             self.config = new_config
@@ -94,7 +95,6 @@ class ForwarderService:
             return
         output_id = self._output_id(path, sha)
         all_delivered = True
-
         for dest in destinations:
             current = self.state.get(output_id, dest.name)
             if current and current["state"] == "DELIVERED" and current["sha256"] == sha:
@@ -102,7 +102,6 @@ class ForwarderService:
             self.state.ensure(output_id, dest.name, sha, path.name)
             ok = self._deliver_with_retry(path, output_id, dest)
             all_delivered = all_delivered and ok
-
         if all_delivered:
             archive_target = self.config.spool.archive_dir / path.name
             if archive_target.exists():
@@ -138,23 +137,20 @@ class ForwarderService:
         return False
 
     def destinations_view(self):
-        result = []
         secrets = SecretStore(self.config.spool.secret_file)
-        for dest in self.config.destinations.values():
-            result.append({
-                "name": dest.name,
-                "enabled": dest.enabled,
-                "protocol": dest.protocol,
-                "host": dest.host,
-                "port": dest.port,
-                "remote_path": dest.remote_path,
-                "username": dest.username,
-                "private_key_file": dest.private_key_file,
-                "password_configured": secrets.has(dest.name),
-                "connect_timeout_seconds": dest.connect_timeout_seconds,
-                "verify_remote_size": dest.verify_remote_size,
-            })
-        return result
+        return [{
+            "name": d.name,
+            "enabled": d.enabled,
+            "protocol": d.protocol,
+            "host": d.host,
+            "port": d.port,
+            "remote_path": d.remote_path,
+            "username": d.username,
+            "private_key_file": d.private_key_file,
+            "password_configured": secrets.has(d.name),
+            "connect_timeout_seconds": d.connect_timeout_seconds,
+            "verify_remote_size": d.verify_remote_size,
+        } for d in self.config.destinations.values()]
 
     def save_destination(self, payload):
         name = str(payload.get("name", "")).strip()
@@ -165,7 +161,7 @@ class ForwarderService:
             raise ValueError("Unsupported protocol")
         enabled = bool(payload.get("enabled", False))
         host = str(payload.get("host", "")).strip()
-        port = int(payload.get("port", 22 if protocol == "sftp" else 0))
+        port = int(payload.get("port", 22 if protocol == "sftp" else 1))
         remote_path = str(payload.get("remote_path", "")).strip()
         username = str(payload.get("username", "")).strip()
         private_key_file = str(payload.get("private_key_file", "")).strip()
@@ -173,7 +169,6 @@ class ForwarderService:
             raise ValueError("SFTP requires destination host, remote path and username")
         if port < 1 or port > 65535:
             raise ValueError("Port must be between 1 and 65535")
-
         with self._lock:
             raw = yaml.safe_load(self.config.config_path.read_text(encoding="utf-8")) or {}
             destinations = raw.setdefault("destinations", {})
@@ -192,7 +187,6 @@ class ForwarderService:
             tmp = self.config.config_path.with_suffix(self.config.config_path.suffix + ".tmp")
             tmp.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
             tmp.replace(self.config.config_path)
-
             password = payload.get("password")
             if password:
                 SecretStore(self.config.spool.secret_file).set(name, str(password))
@@ -204,8 +198,7 @@ class ForwarderService:
             if name not in self.config.destinations:
                 raise KeyError(f"Destination '{name}' not found")
             raw = yaml.safe_load(self.config.config_path.read_text(encoding="utf-8")) or {}
-            destinations = raw.get("destinations", {})
-            destinations.pop(name, None)
+            raw.setdefault("destinations", {}).pop(name, None)
             tmp = self.config.config_path.with_suffix(self.config.config_path.suffix + ".tmp")
             tmp.write_text(yaml.safe_dump(raw, sort_keys=False), encoding="utf-8")
             tmp.replace(self.config.config_path)
