@@ -93,9 +93,17 @@ def install_router_admin_extension(handler_class, workspace_root, config_manager
             return original_dashboard(self)
         try:
             content = self.template_path.read_text(encoding="utf-8")
-            script = '<script src="/static/js/router_admin.js"></script>'
-            if script not in content:
-                content = content.replace("</body>", f"{script}\n</body>")
+            # This extension is installed after the Forwarder extension. The
+            # last dashboard wrapper must therefore explicitly load BOTH UI
+            # extensions; otherwise the Router wrapper would hide forwarder.js.
+            scripts = (
+                '<script src="/static/js/forwarder.js?v=20260918"></script>\n'
+                '<script src="/static/js/router_admin.js?v=20260918"></script>'
+            )
+            if "/static/js/forwarder.js" not in content:
+                content = content.replace("</body>", f"{scripts}\n</body>")
+            elif "/static/js/router_admin.js" not in content:
+                content = content.replace("</body>", f'<script src="/static/js/router_admin.js?v=20260918"></script>\n</body>')
             body = content.encode("utf-8")
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-Type", "text/html; charset=utf-8")
