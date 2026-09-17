@@ -104,6 +104,9 @@ class VesselContext:
     nsc_callsign:     Optional[str]   = None
     nsc_type:         Optional[str]   = None
 
+    # Reference DB that directly matched the transmitted MMSI.
+    primary_mmsi_source: Optional[str] = None
+
     def record_provenance(self, field_name: str, value: Any, source: str, match_method: str):
         if value is not None:
             self.provenance[field_name] = Provenance(value=value, source=source, match_method=match_method)
@@ -175,6 +178,17 @@ class ReferenceDB:
             self._resolve_wrs(ctx, mmsi, imo, callsign, vessel_name)
             self._resolve_pans(ctx, mmsi, imo, callsign, vessel_name)
             self._resolve_nsc(ctx, mmsi, imo, callsign, vessel_name)
+
+            # If the transmitted MMSI directly matched a reference DB,
+            # that DB becomes the primary enrichment source. WRS remains
+            # available for independent correlation/spoofing checks.
+            if mmsi is not None:
+                if ctx.wrs_matched and ctx.wrs_match_method == "MMSI":
+                    ctx.primary_mmsi_source = "WRS"
+                elif ctx.pans_matched and ctx.pans_match_method == "MMSI":
+                    ctx.primary_mmsi_source = "PANS"
+                elif ctx.nsc_matched and ctx.nsc_match_method == "MMSI":
+                    ctx.primary_mmsi_source = "NSC"
         return ctx
 
     # ── WRS ──────────────────────────────────────────────────────────────────
