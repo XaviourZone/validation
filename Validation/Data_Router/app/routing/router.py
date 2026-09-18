@@ -205,7 +205,7 @@ class RoutingEngine:
                 self.state_store.update_status(msg_id, FileState.PROCESSED)
 
             if self.metrics_collector:
-                self.metrics_collector.record_acknowledged(source)
+                self.metrics_collector.record_acknowledged(source, is_file=(item.envelope.input_type == "FILE"))
 
             log_event(
                 self.logger,
@@ -249,7 +249,7 @@ class RoutingEngine:
                     self.state_store.update_status(msg_id, FileState.FAILED, error=ack_result.error)
 
                 if self.metrics_collector:
-                    self.metrics_collector.record_failed(source)
+                    self.metrics_collector.record_failed(source, is_file=(item.envelope.input_type == "FILE"), error=ack_result.error)
 
                 log_event(
                     self.logger,
