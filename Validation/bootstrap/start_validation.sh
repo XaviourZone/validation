@@ -24,7 +24,7 @@ PYTHON="$VALIDATION_ROOT/.venv/bin/python"
 mkdir -p "$VALIDATION_ROOT/Data_Router/logs" "$VALIDATION_ROOT/Data_Parser/logs" "$VALIDATION_ROOT/Data_Forwarder/logs" "$VALIDATION_ROOT/Web_Console/logs"
 
 log "Validating Data Router configuration..."
-"$PYTHON" -m Validation.Data_Router.app.main --validate-config"
+"$PYTHON" -m Validation.Data_Router.app.main --validate-config
 
 log "Starting Data Router..."
 "$PYTHON" -m Validation.Data_Router.app.main > "$VALIDATION_ROOT/Data_Router/logs/router-console.log" 2>&1 &
