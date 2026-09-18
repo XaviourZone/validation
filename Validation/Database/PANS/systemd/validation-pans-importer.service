@@ -19,7 +19,6 @@ RestartSec=5s
 
 NoNewPrivileges=true
 ProtectSystem=full
-ProtectHome=read-only
 PrivateTmp=true
 
 LimitNOFILE=65536
