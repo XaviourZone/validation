@@ -120,7 +120,7 @@ class PipelineProcessor:
                 self._spool_xml(source, message_id, generated_xml)
             except Exception as e:
                 errors.append(f"XML generation/spooling error: {e}")
-        success = len(enriched_records) > 0 and not errors
+        success = len(enriched_records) > 0
         return ParseResult(message_id=message_id, source=source, success=success, records_parsed=len(enriched_records), records_rejected=len(errors), records=common_records, errors=errors), generated_xml
 
     def _spool_xml(self, source: str, message_id: str, xml: str) -> Path:
