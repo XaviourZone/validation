@@ -5,31 +5,31 @@ parser_destinations:
     host: 127.0.0.1
     port: 10001
     framing: ndjson
-    timeout_seconds: 5.0
+    timeout_seconds: 300.0
     keep_alive: true
   MSIS:
     host: 127.0.0.1
     port: 10002
     framing: ndjson
-    timeout_seconds: 5.0
+    timeout_seconds: 300.0
     keep_alive: true
   LRIT:
     host: 127.0.0.1
     port: 10003
     framing: ndjson
-    timeout_seconds: 5.0
+    timeout_seconds: 300.0
     keep_alive: true
   VATMS:
     host: 127.0.0.1
     port: 10004
     framing: ndjson
-    timeout_seconds: 5.0
+    timeout_seconds: 300.0
     keep_alive: true
   NAIS:
     host: 127.0.0.1
     port: 10005
     framing: ndjson
-    timeout_seconds: 5.0
+    timeout_seconds: 300.0
     keep_alive: true
 sources:
   SAIS_IOR:
